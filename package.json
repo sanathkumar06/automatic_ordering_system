@@ -1,0 +1,22 @@
+{
+  "name": "automatic_ordering_system",
+  "version": "1.0.0",
+  "description": "Automatic Ordering sytem",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sanathkumar06/automatic_ordering_system.git"
+  },
+  "author": "Sanath Kumar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sanathkumar06/automatic_ordering_system/issues"
+  },
+  "homepage": "https://github.com/sanathkumar06/automatic_ordering_system#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
