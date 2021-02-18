@@ -28,6 +28,8 @@ def index():
             
             try:
                 auth.sign_in_with_email_and_password(email, password)
+                #print(email)
+                #print(email[::5])
                 return render_template('home.html')
             except:
                 unsuccessful = 'Please check your credentials'
