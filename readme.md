@@ -2,5 +2,5 @@
 <p>Toolkit:</p>
 <ul>
     <li>pyrebase (pip3)</li>
-    <li>flask<\li>
+    <li>flask</li>
 </ul>
