@@ -45,7 +45,6 @@ def create_account():
             return render_template('index.html')
     return render_template('create_account.html')
 
-"""
 @app.route('/forgot_password', methods=['GET', 'POST'])
 def forgot_password():
     if (request.method == 'POST'):
@@ -53,7 +52,7 @@ def forgot_password():
             auth.send_password_reset_email(email)
             return render_template('index.html')
     return render_template('forgot_password.html')
-"""
+
 
 @app.route('/home', methods=['GET', 'POST'])
 def home():
