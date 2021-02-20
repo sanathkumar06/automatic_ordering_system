@@ -18,19 +18,24 @@ config = {
 
 firebase = pyrebase.initialize_app(config)
 auth = firebase.auth()
+cred = []
+invalid = True
 
 @app.route('/')
 @app.route('/index', methods=['GET', 'POST'])
 def index():
+    global invalid
     if (request.method == 'POST'):
             email = request.form['name']
             password = request.form['password']
-            
+            global cred
             try:
                 auth.sign_in_with_email_and_password(email, password)
                 #print(email)
                 #print(email[::5])
-                return render_template('home.html')
+                cred[0] = email
+                cred[1] = password
+                return render_template('home.html', data = cred, invalid = False)
             except:
                 unsuccessful = 'Please check your credentials'
                 return render_template('index.html', umessage=unsuccessful)
@@ -56,8 +61,12 @@ def forgot_password():
 
 @app.route('/home', methods=['GET', 'POST'])
 def home():
-    return render_template('home.html')
+    if(invalid == False):
+        return render_template('home.html')
+    else:
+        return render_template("error.html")
 
 
 if __name__ == '__main__':
+    app.secret_key = "yourppisveryverysmall"
     app.run()
