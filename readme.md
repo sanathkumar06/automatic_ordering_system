@@ -6,3 +6,7 @@
     <li>flask</li>
     <br>
 </ul>
+<div>
+    <p>currently authentication process is done using firebase</p>
+    <p>Run:<strong>python3 main.py</strong></p>
+</div>
