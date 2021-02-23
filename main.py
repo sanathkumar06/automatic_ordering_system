@@ -33,9 +33,9 @@ def index():
                 auth.sign_in_with_email_and_password(email, password)
                 #print(email)
                 #print(email[::5])
-                cred[0] = email
-                cred[1] = password
-                return render_template('home.html', data = cred, invalid = False)
+                #cred[0] = email
+                #cred[1] = password
+                return render_template('home.html')
             except:
                 unsuccessful = 'Please check your credentials'
                 return render_template('index.html', umessage=unsuccessful)
@@ -69,4 +69,4 @@ def home():
 
 if __name__ == '__main__':
     app.secret_key = "yourppisveryverysmall"
-    app.run()
+    app.run(debug=True)

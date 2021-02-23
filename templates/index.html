@@ -5,11 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User | index</title>
+    <link href="/templates/index.css" rel="stylesheet">
 </head>
 <body>
     <header>
         <h1>Automatic Ordering System</h1>
-        <h1>Hello, Noob</h1>
+        <!-- <h1>Create Account</h1> -->
         {% if smessage %}
             <div>
                 {{smessage}}
@@ -22,23 +23,42 @@
         {% endif %}
     </header>
     <main>
+        <div class="container">
+            <h1> Login</h2>
         <form action="/index" method = "post">
-            <label for="email">Email:
-                <input type="email" name="name" id="email" placeholder="email">
+            <label for="email">Email
+                <br>
+                <input type="email" name="name" id="email" placeholder="Enter your Email">
             </label>
-            <label for="password">password:
+            <br>
+            <br>
+            <label for="password">Password
                 <input type="password" name="password" id="password" placeholder="Password">
             </label>
-            <button type="submit" name="submit">Submit</button>
+            <label for="Login">
+                <button type="submit" id="submit" name = "Create Account">Login</button>
+            </label>
         </form>
+        <br>
+        
+        <br>
+        <br>
+                    <a id="for" href="/forgot_password" style="text-decoration:none;">Forgot Password</a>
+                    <br>
+            <br>
+        <a id="new" href="/create_account" style="text-decoration:none;"><b>New Registration</b></a>
+        
+    </div>
+    
     </main>
-    <footer>
+    <!-- <footer>
         <div class="footer">
             <a href="/forgot_password">Forgot Password</a>
         </div>
         <div class ="footer">
-            <a href="/create_account">Create Account</a>
+            <a href="/create_account.html">Create Account</a>
         </div>
-    </footer>
+    </footer> -->
+
 </body>
 </html>
