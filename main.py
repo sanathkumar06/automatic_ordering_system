@@ -20,11 +20,13 @@ firebase = pyrebase.initialize_app(config)
 auth = firebase.auth()
 cred = []
 invalid = True
+loginFlag = False
 
 @app.route('/')
 @app.route('/index', methods=['GET', 'POST'])
 def index():
-    global invalid
+    global invalid, loginFlag
+
     if (request.method == 'POST'):
             email = request.form['name']
             password = request.form['password']
@@ -35,10 +37,13 @@ def index():
                 #print(email[::5])
                 #cred[0] = email
                 #cred[1] = password
-                return render_template('home.html')
+                loginFlag = True
+                return redirect('/home')
+
             except:
                 unsuccessful = 'Please check your credentials'
                 return render_template('index.html', umessage=unsuccessful)
+
     return render_template('index.html')
 
 @app.route('/create_account', methods=['GET', 'POST'])
@@ -47,7 +52,7 @@ def create_account():
             email = request.form['name']
             password = request.form['password']
             auth.create_user_with_email_and_password(email, password)
-            return render_template('index.html')
+            return redirect('/')
     return render_template('create_account.html')
 
 @app.route('/forgot_password', methods=['GET', 'POST'])
@@ -55,16 +60,17 @@ def forgot_password():
     if (request.method == 'POST'):
             email = request.form['name']
             auth.send_password_reset_email(email)
-            return render_template('index.html')
+            return redirect('/')
     return render_template('forgot_password.html')
 
 
 @app.route('/home', methods=['GET', 'POST'])
 def home():
-    if(invalid == False):
+    global loginFlag
+    if(loginFlag):
         return render_template('home.html')
     else:
-        return render_template("error.html")
+        return redirect('/')
 
 
 if __name__ == '__main__':
