@@ -46,6 +46,10 @@ def index():
 
     return render_template('index.html')
 
+@app.route('/temp')
+def temp():
+    return render_template('temp.html')
+
 @app.route('/create_account', methods=['GET', 'POST'])
 def create_account():
     if (request.method == 'POST'):
