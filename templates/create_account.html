@@ -5,78 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>User | Create Account</title>
     <link
-      href="create_account.css"
+      href="/templates/create_account.css"
       rel="stylesheet"
       type="text/css"
     />
-    <style>
-      body {
-  margin: 0;
-  padding: 0;
-  background-color: rgb(255, 255, 255);
-  font-family: sans-serif;
-}
-.container {
-  align-self: center;
-  width: 382px;
-  overflow: hidden;
-  margin: auto;
-  margin: 10 0 0 450px;
-  padding: 60px;
-  background: #98b3ac;
-  border-radius: 15px;
-}
-#wel {
-  text-align: start;
-  color: #000000;
-  padding: 0px;
-}
-#for {
-  color: #000;
-  font-size: small;
-  text-align: right;
-  padding-right: 75px;
-  padding-top: 5px;
-  padding-bottom: 15px;
-}
-label {
-  color: #ffffff;
-  font-size: 17px;
-}
-#email {
-  width: 300px;
-  height: 30px;
-  border: none;
-  border-radius: 3px;
-  padding-left: 8px;
-}
-#password {
-  width: 300px;
-  height: 30px;
-  border: none;
-  border-radius: 3px;
-  padding-left: 8px;
-}
-#submit {
-  width: 250px;
-  height: 30px;
-  border: #98b3ac;
-  border-radius: 19px;
-  /* padding-left: 7px;
-    padding-right: 10px; */
-  color: #000000;
-}
-span {
-  color: rgb(212, 212, 212);
-  font-size: 17px;
-}
-a {
-  float: right;
-  background-color: #98b3ac;
-}
-
-    </style>
-    <script src="create_account.js"></script>
   </head>
 
   <body>
@@ -84,7 +16,7 @@ a {
       <h1>ADMIN ACCESS ONLY</h1>
       <h3>LOGIN FOR THE PORTAL</h3>
       {% if smessage %}
-      <div>{{smessage}}</div>
+      <div id="umessage">{{smessage}}</div>
       {% endif %} {% if umessage %}
       <div>{{umessage}}</div>
       {% endif %}
@@ -92,9 +24,10 @@ a {
     <main>
       <div class="container">
         <h1 id="wel">Welcome</h1>
+        <br>
         <form action="/create_account" method="post">
           <label for="email"
-            >Email
+            >
             <br />
             <input
               type="email"
@@ -104,9 +37,8 @@ a {
             />
           </label>
           <br />
-          <br />
           <label for="password"
-            >Password
+            >
 
             <input
               type="password"
@@ -117,11 +49,12 @@ a {
           </label>
           <br />
           <a id="for" href="/forgot_password" style="text-decoration: none"
-            >Forgot Password</a
+            >Forgot Password ?</a
           >
           <br />
+          <br>
           <label for="Create Account">
-            <button type="submit" id="submit" name="Create Account">
+            <button type="submit" class="effect" id="submit" name="Create Account">
               Create Account
             </button>
           </label>
