@@ -102,15 +102,15 @@ def stock_details():
     if(request.method == 'GET'):
         item = request.args.get("Search")
         # print(item)
+        if(item == ""):
+            return redirect("/home")
         with sqlite3.connect("data.db") as con:
             cur = con.cursor()
             tot_sales = cur.execute("select * from table3 where stockID = :id;", {"id" : item}).fetchall()
-            
-            if tot_sales is None:
-                return render_template("popup_alert.html")
         return render_template("searched_item.html", dat = item, details = tot_sales)
     else:
-        return redirect('/')
+        return redirect('/home')
+    
    
     #with sqlite3.connect("data.db") as conn:
      #   cur = conn.cursor()
