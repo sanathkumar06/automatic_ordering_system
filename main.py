@@ -94,14 +94,13 @@ def home():
 #     return render_template('home.html' , headings = headings , data = data ,headings1 = headings1 , data1 = data1)
 #     Idh nin bojjava
 
-
 # edit the code below here 
 @app.route('/item/<int:itemID>', methods =  ['GET', 'POST'])
 def stock_details(itemID):
     global isLoggedIn
     if(isLoggedIn):
         print(itemID)
-        return render_template("graph.html")
+        return render_template("home.html")
     else:
         return redirect('/')
    
