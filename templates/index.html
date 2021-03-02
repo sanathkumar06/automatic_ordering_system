@@ -5,8 +5,99 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User | index</title>
-    <link href="/templates/index.css" rel="stylesheet">
+    <!-- <link href="/templates/index.css" rel="stylesheet"> -->
 </head>
+
+<style>
+    body {
+  margin: 0;
+  padding: 0;
+  background-color: #99ffff;
+  font-family: sans-serif;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 382px;
+  overflow: hidden;
+  margin: auto;
+  padding: 60px;
+  background: #00c3ff;
+  border-radius: 15px;
+
+}
+
+.container-items {
+
+}
+
+#new {
+  color: #000;
+  margin: 100px;
+  text-decoration: none;
+}
+/* #cre {
+  text-align: left;
+  color: #000000;
+  padding-left: 50px;
+} */
+/* #wel {
+  text-align: start;
+  color: #000000;
+  padding: 0px;
+} */
+#forget {
+  color: #000;
+  font-size: small;
+  margin: 20px auto auto 169px;
+}
+label {
+  color: #ffffff;
+  font-size: 17px;
+}
+#email {
+  width: 250px;
+  height: 30px;
+  border: none;
+  border-radius: 3px;
+  padding-left: 8px;
+  margin: 10px;
+}
+#password {
+  width: 250px;
+  height: 30px;
+  border: none;
+  border-radius: 3px;
+  padding-left: 8px;
+  margin: 10px;
+}
+
+.login {
+    display: flex;
+}
+
+#submit {
+  width: 150px;
+  height: 30px;
+  border: #98b3ac;
+  border-radius: 19px;
+  margin: 20px auto 15px 65px;
+  color: #000000;
+}
+span {
+  color: #00c3ff;
+  font-size: 17px;
+}
+a {
+  /* float: right; */
+  background-color:#00c3ff;
+}
+
+</style>
+
+
 <body>
     <header>
         <h1>Automatic Ordering System</h1>
@@ -24,32 +115,31 @@
     </header>
     <main>
         <div class="container">
-            <h1> Login</h2>
-        <form action="/index" method = "post">
-            <label for="email">Email
-                <br>
-                <input type="email" name="name" id="email" placeholder="Enter your Email">
-            </label>
-            <br>
-            <br>
-            <label for="password">Password
-                <input type="password" name="password" id="password" placeholder="Password">
-            </label>
-            <label for="Login">
-                <button type="submit" id="submit" name = "Create Account">Login</button>
-            </label>
-        </form>
-        <br>
-        
-        <br>
-        <br>
-                    <a id="for" href="/forgot_password" style="text-decoration:none;">Forgot Password</a>
-                    <br>
-            <br>
-        <a id="new" href="/create_account" style="text-decoration:none;"><b>New Registration</b></a>
-        
-    </div>
-    
+            <div class= "container-items">
+                <h1> Login </h2>
+            </div>
+            <div class="container-items">
+                <form action="/index" method = "post">
+                    <div class="email">
+                        <input type="email" name="name" id="email" placeholder="Enter your Email">
+                    </div>
+
+                    <div class="container-items">
+                        <input type="password" name="password" id="password" placeholder="Password">
+                        
+                    </div>
+                    <div class="container-items">
+                        <a id="forget" href="/forgot_password">Forgot Password</a>
+                    </div>
+                    <div class="container-items">
+                        <button type="submit" id="submit" name = "Create Account">Login</button>
+                    </div>
+                </form>
+            </div>    
+            <div class="container-items">
+                <a id="new" href="/create_account">New Registration?</a>
+            </div>
+        </div>    
     </main>
     <!-- <footer>
         <div class="footer">

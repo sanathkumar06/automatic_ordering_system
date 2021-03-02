@@ -1,4 +1,4 @@
-body {
+/* body {
   margin: 0;
   padding: 0;
   background-color: rgb(255, 255, 255);
@@ -21,8 +21,8 @@ body {
   padding-right: 215px;
   padding-top: 5px;
   /* padding-bottom: 15px; */
-}
-#cre {
+
+/*#cre {
   text-align: left;
   color: #000000;
   padding-left: 50px;
@@ -65,7 +65,7 @@ label {
   border-radius: 19px;
   /* padding-left: 7px;
     padding-right: 10px; */
-  color: #000000;
+  /* color: #000000;
 }
 span {
   color: rgb(212, 212, 212);
@@ -74,4 +74,4 @@ span {
 a {
   float: right;
   background-color: #98b3ac;
-}
+} */ */

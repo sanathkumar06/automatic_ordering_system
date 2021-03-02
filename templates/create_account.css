@@ -1,4 +1,4 @@
-body {
+/* body {
   margin: 0;
   padding: 0;
   background-image: linear-gradient(to right, rgb(255, 255, 255) , rgb(251, 251, 251));
@@ -32,7 +32,7 @@ p.solid{border: solid blue;}
   /* padding-right: 60px; */
   /* padding-top: px; */
   /* padding-bottom: 15px; */
-}
+/*}
 label {
   display: flex;
   justify-content: center;
@@ -45,7 +45,7 @@ label {
   height: 30px;
   border: none;
   border-radius: 13px;
-  /* border-radius: 3px; */
+  border-radius: 3px;
   padding-left: 8px;
 }
 #password {
@@ -61,9 +61,9 @@ label {
   height: 30px;
   border: solid rgb(29, 46, 77);
   border-radius: 20px;
-  /* border-radius: 19px; */
-  /* padding-left: 7px;
-    padding-right: 10px; */
+  border-radius: 19px;
+  /padding-left: 7px;
+    padding-right: 10px;
   color: #ffffff;
   cursor: pointer;
 }
@@ -80,4 +80,4 @@ a {
 #umessage {
   width: 100px;
   height: 100px;
-}
+} */
