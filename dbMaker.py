@@ -141,6 +141,12 @@ for i in range(1,rows):
 
 
 db.commit()
+<<<<<<< HEAD
 table 4:
 lo
 '''
+=======
+'''
+'''
+Table : 
+>>>>>>> b23173279eab3ce2ee4a22c0812a34da96180679
