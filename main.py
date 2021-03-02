@@ -105,6 +105,7 @@ def stock_details():
         with sqlite3.connect("data.db") as con:
             cur = con.cursor()
             tot_sales = cur.execute("select * from table3 where stockID = :id;", {"id" : item}).fetchall()
+            
             if tot_sales is None:
                 return render_template("popup_alert.html")
         return render_template("searched_item.html", dat = item, details = tot_sales)
