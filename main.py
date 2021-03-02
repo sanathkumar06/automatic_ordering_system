@@ -22,32 +22,23 @@ auth = firebase.auth()
 #db = sqlite3.connect("data.db")
 #cur = db.cursor()
 
-invalid = True
+isLoggedIn = False
 
 @app.route('/')
 @app.route('/index', methods=['GET', 'POST'])
 def index():
-    global invalid
+    global isLoggedIn
     if (request.method == 'POST'):
-            email = request.form['name']
-            password = request.form['password']
-            global cred
-            try:
-                auth.sign_in_with_email_and_password(email, password)
-<<<<<<< HEAD
-                loginFlag = True
-                return redirect('/home')
+        email = request.form['name']
+        password = request.form['password']
+        try:
+            auth.sign_in_with_email_and_password(email, password)
+            isLoggedIn = True
+            return redirect('/home')
+        except:
+            unsuccessful = 'Please check your credentials'
+            return render_template('index.html', umessage=unsuccessful)
 
-=======
-                #print(email)
-                #print(email[::5])
-                #cred[0] = email
-                #cred[1] = password
-                return render_template('home.html')
->>>>>>> b23173279eab3ce2ee4a22c0812a34da96180679
-            except:
-                unsuccessful = 'Please check your credentials'
-                return render_template('index.html', umessage=unsuccessful)
     return render_template('index.html')
 
 @app.route('/create_account', methods=['GET', 'POST'])
@@ -56,7 +47,8 @@ def create_account():
             email = request.form['name']
             password = request.form['password']
             auth.create_user_with_email_and_password(email, password)
-            return render_template('index.html')
+            return redirect("/index")
+            
     return render_template('create_account.html')
 
 @app.route('/forgot_password', methods=['GET', 'POST'])
@@ -64,7 +56,8 @@ def forgot_password():
     if (request.method == 'POST'):
             email = request.form['name']
             auth.send_password_reset_email(email)
-            return render_template('index.html')
+            return redirect("/index")
+
     return render_template('forgot_password.html')
 
 
@@ -90,21 +83,32 @@ data1 = (
 )
 
 @app.route('/home', methods=['GET', 'POST'])
-def table():
-    return render_template('home.html' , headings = headings , data = data ,headings1 = headings1 , data1 = data1)
-
 def home():
-    if(invalid != False):
+    global isLoggedIn
+    if(isLoggedIn):
         return render_template('home.html')
     else:
         return redirect('/')
+
+# def table():
+#     return render_template('home.html' , headings = headings , data = data ,headings1 = headings1 , data1 = data1)
+#     Idh nin bojjava
+
+
 # edit the code below here 
-@app.route('/home/<stockID>', methods =  ['GET'])
-def stock_details(stockID):
-    print(stockID)
+@app.route('/item/<int:itemID>', methods =  ['GET', 'POST'])
+def stock_details(itemID):
+    global isLoggedIn
+    if(isLoggedIn):
+        print(itemID)
+        return render_template("graph.html")
+    else:
+        return redirect('/')
+   
     #with sqlite3.connect("data.db") as conn:
      #   cur = conn.cursor()
         #stockDetails = cur.execute("select * from table4 where stcokID = " + ' + str(stockID) 
+        
 @app.route('/searched_item', methods=['GET', 'POST'])
 def searched_item():
     return render_template('searched_item.html', headings = headings, data = data)
