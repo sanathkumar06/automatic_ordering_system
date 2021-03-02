@@ -1,4 +1,5 @@
 import pyrebase
+import sqlite3
 from flask import Flask, render_template, request, redirect, session
 import os
 
@@ -18,7 +19,9 @@ config = {
 
 firebase = pyrebase.initialize_app(config)
 auth = firebase.auth()
-cred = []
+#db = sqlite3.connect("data.db")
+#cur = db.cursor()
+
 invalid = True
 loginFlag = False
 
@@ -33,10 +36,6 @@ def index():
             global cred
             try:
                 auth.sign_in_with_email_and_password(email, password)
-                #print(email)
-                #print(email[::5])
-                #cred[0] = email
-                #cred[1] = password
                 loginFlag = True
                 return redirect('/home')
 
@@ -75,7 +74,13 @@ def home():
         return render_template('home.html')
     else:
         return redirect('/')
-
+# edit the code below here 
+@app.route('/home/<stockID>', methods =  ['GET'])
+def stock_details(stockID):
+    print(stockID)
+    #with sqlite3.connect("data.db") as conn:
+     #   cur = conn.cursor()
+        #stockDetails = cur.execute("select * from table4 where stcokID = " + ' + str(stockID) + ') 
 
 if __name__ == '__main__':
     app.secret_key = "yourppisveryverysmall"

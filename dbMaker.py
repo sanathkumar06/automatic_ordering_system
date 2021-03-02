@@ -2,7 +2,11 @@ import xlrd
 import sqlite3
 from datetime import datetime, date 
 
+sel = "select * from table4 where stockID =" + '" + 90179B + "'+ ";"
+all_items = [cur.execute(sel)]
 
+
+"""
 def dateConvert(d):
     sec = (d-25569)*86400
     day = str(datetime.utcfromtimestamp(sec).date())
@@ -15,10 +19,7 @@ def dateConvert(d):
             lis.append(i)
     return ''.join(lis)
 
-
-        
-
-loc = 'table_data/Table2.xlsx'
+loc = 'table_data/datenum.xlsx'
 db = sqlite3.connect('data.db')
 
 cur = db.cursor()
@@ -26,8 +27,27 @@ cur = db.cursor()
 xl = xlrd.open_workbook(loc)
 s = xl.sheet_by_index(0)
 num = s.nrows
+create = "CREATE TABLE IF NOT EXISTS table4(invoice_date date);"
+insert = "INSERT INTO table4(invoice_date) values "
+cur.execute(create)
+db.commit()
+
+for i in range(1, num):
+    data = s.row_values(i)
+    sec = (data[1]-25569)*86400
+    priceDate = str(datetime.utcfromtimestamp(sec).date())
+    val = "('"+ priceDate + "');"
+    q =insert + val
+    print(q)
+    try:
+        cur.execute(q)
+    except:
+        print(val)
+db.commit()
+
 
 '''
+
 #Table 1
 create = "CREATE TABLE IF NOT EXISTS table1(stockID text PRIMARY KEY, quantity int);"
 insert = "INSERT INTO table1(stockID, quantity) values "
@@ -50,7 +70,6 @@ for i in range(1, num):
     except:
         print(val)
 db.commit()
-'''
 #Table - 2
 create = "CREATE TABLE IF NOT EXISTS table2(Price_Date Date, Price float, stockID text, FOREIGN KEY(stockID) REFERENCES table1(stockID));"
 insert = "INSERT INTO table2(Price_Date, Price, stockID) values "
@@ -82,7 +101,6 @@ for i in range(1, num):
 db.commit()
 print(cnt)
 
-'''
 #Table 3
 loc2 = 'table_data/table3.xlsx'
 xl = xlrd.open_workbook(loc2)
@@ -123,4 +141,6 @@ for i in range(1,rows):
 
 
 db.commit()
+table 4:
+lo
 '''
