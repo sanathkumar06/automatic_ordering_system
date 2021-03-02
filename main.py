@@ -95,12 +95,19 @@ def home():
 #     Idh nin bojjava
 
 # edit the code below here 
-@app.route('/item/<int:itemID>', methods =  ['GET', 'POST'])
-def stock_details(itemID):
-    global isLoggedIn
-    if(isLoggedIn):
-        print(itemID)
-        return render_template("home.html")
+@app.route('/searched_item', methods =  ['GET', 'POST'])
+def stock_details():
+    #global isLoggedIn
+    #if(isLoggedIn):
+    if(request.method == 'GET'):
+        item = request.args.get("Search")
+        # print(item)
+        with sqlite3.connect("data.db") as con:
+            cur = con.cursor()
+            tot_sales = cur.execute("select * from table3 where stockID = :id;", {"id" : item}).fetchall()
+            if tot_sales is None:
+                return render_template("popup_alert.html")
+        return render_template("searched_item.html", dat = item, details = tot_sales)
     else:
         return redirect('/')
    
