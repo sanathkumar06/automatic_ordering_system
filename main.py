@@ -34,7 +34,7 @@ def index():
         try:
             auth.sign_in_with_email_and_password(email, password)
             isLoggedIn = True
-            return redirect('/item/5')
+            return redirect('/home')
         except:
             unsuccessful = 'Please check your credentials'
             return render_template('index.html', umessage=unsuccessful)
