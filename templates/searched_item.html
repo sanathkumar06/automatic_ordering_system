@@ -176,7 +176,7 @@ left: 0;
     </div>
     <br>
     <div class="dates_sort">
-            <form class="sorting" >
+            <form class="sorting" action = "{{url_for('item', id = dat)}}">
                 <input id="from" type="date" name="From">
                 <input id="to" type="date" name="To">
                 <button id="Go" type="submit"><i class="fas fa-search"></i></button>

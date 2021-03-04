@@ -74,6 +74,7 @@ label {
 
 .login {
     display: flex;
+    
 }
 
 #submit {
@@ -83,7 +84,13 @@ label {
   border-radius: 19px;
   margin: 20px auto 15px 65px;
   color: #000000;
+  outline: none;
 }
+
+.login-btn:hover{
+  cursor: pointer;
+}
+
 span {
   color: #00c3ff;
   font-size: 17px;
@@ -130,7 +137,7 @@ a {
                         <a id="forget" href="/forgot_password">Forgot Password</a>
                     </div>
                     <div class="container-items">
-                        <button type="submit" id="submit" name = "Create Account">Login</button>
+                        <button class="login-btn" type="submit" id="submit" name = "Create Account">Login</button>
                     </div>
                 </form>
             </div>    
@@ -139,14 +146,5 @@ a {
             </div>
         </div>    
     </main>
-    <!-- <footer>
-        <div class="footer">
-            <a href="/forgot_password">Forgot Password</a>
-        </div>
-        <div class ="footer">
-            <a href="/create_account.html">Create Account</a>
-        </div>
-    </footer> -->
-
 </body>
 </html>

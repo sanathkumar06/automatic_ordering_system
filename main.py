@@ -5,7 +5,6 @@ import os
 
 app = Flask(__name__)
 
-#firebase credentials
 config = {
     "apiKey" : "AIzaSyCrigjfRyiP75zMOko_WV2ZaPWfREaDtCw",
     "authDomain" : "automatic-ordering-system.firebaseapp.com",
@@ -19,8 +18,6 @@ config = {
 
 firebase = pyrebase.initialize_app(config)
 auth = firebase.auth()
-#db = sqlite3.connect("data.db")
-#cur = db.cursor()
 
 isLoggedIn = False
 
@@ -90,13 +87,8 @@ def home():
     else:
         return redirect('/')
 
-# def table():
-#     return render_template('home.html' , headings = headings , data = data ,headings1 = headings1 , data1 = data1)
-#     Idh nin bojjava
-
-# edit the code below here 
 @app.route('/searched_item', methods =  ['GET', 'POST'])
-def stock_details():
+def searched_item():
     #global isLoggedIn
     #if(isLoggedIn):
     if(request.method == 'GET'):
@@ -110,16 +102,13 @@ def stock_details():
         return render_template("searched_item.html", dat = item, details = tot_sales)
     else:
         return redirect('/home')
-    
-   
-    #with sqlite3.connect("data.db") as conn:
-     #   cur = conn.cursor()
-        #stockDetails = cur.execute("select * from table4 where stcokID = " + ' + str(stockID) 
-        
-@app.route('/searched_item', methods=['GET', 'POST'])
-def searched_item():
-    return render_template('searched_item.html', headings = headings, data = data)
 
+@app.route('/item/<string:id>', methods = ['POST', 'GET'])
+def item(id):
+    if(request.method == 'GET'):
+        f = request.args.get("From")
+        t = request.args.get("To")        
+        return render_template("popup_alert.html", path = id, f = f, t = t)
 
 if __name__ == '__main__':
     app.secret_key = "yourppisveryverysmall"
