@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+</head>
+<style>
+    .table1{
+  border-collapse: separate;
+  border-spacing: 1 1em;
+  border: 2px solid rgb(0, 0, 0);
+  margin: 2%;
+  background-color: white;
+  width: 345.5px;
+  text-align: left;
+  word-spacing: 10px;
+  box-sizing: border-box;
+  margin-left: 2%;
+  border-radius: 6px;
+}
+.table1__row:nth-child(even) {
+  
+  background-color: rgb(173, 173, 173);
+}
+.table1__row:nth-child(odd) {
+  background-color: rgb(226, 226, 226);
+}
+
+.table1__header {
+  font-size: large;
+}
+
+.table1__cell {
+  background-color: rgb(255, 255, 255);
+  padding: 50pxpx;
+}
+
+.heading {
+  font-family: sans-serif;
+  background-color: #0c3346;
+  font-size: larger;
+  color: white;
+}
+
+.tablerow1 {
+  display: flex;
+  flex-direction: row;
+}
+
+</style>
+<body>  
+    <h1 id="heading">Sales Portal</h1>
+    <div class="search">
+        <form action="{{url_for('searched_item')}}">      
+            <input id="searchbar" type="text" placeholder="Search for item" name="Search">
+            <input id="quantity" type="number" name="quantity">
+            <button id="searchbutton" type="submit"><i class="fas fa-search"></i></button>
+        </form>
+    </div>
+
+<!-- dynamic table -->
+<div class="tablerow1">
+    <table class="table1">
+      <tr class="heading">
+        <th colspan="3">Item Sales</th>
+      </tr>
+      <tr class="table1__header">
+
+        {% for header in headings %}
+        <th class="table1__cell" >{{ header }}</th>
+        {% endfor %}
+      </tr>
+      {% for row in data%}
+      <tr class="table1__row">
+        {% for cell in row %}
+        <td class="table__cell" > {{ cell }}</td>
+        {% endfor %}
+      </tr>
+      {% endfor %} 
+    </table>
+</div>
+
+</body>
+</html>
