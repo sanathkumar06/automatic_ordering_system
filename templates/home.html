@@ -23,26 +23,41 @@
   box-sizing: border-box;
 }
 
+* {
+  padding: 0;
+  margin: 0;
+}
+
 body{
-background-color: #99ffff;
-top: 0;
-bottom: 0;
-right: 0;
-left: 0;
+  background-color: #99ffff;
 }
 
 
-.navabar {
+.header {
   font-family: sans-serif;
-  text-align: center;
   color: white;
-  margin-left: 2%;
-  margin-right: 2%;
+  margin: 0px;
   font-size: x-large;
-  width: 95.5%;
   background-color: #0c3346;
+  padding: 40px;
 }
 
+.project-title {
+  display: inline;
+  padding: 20px;
+  margin: 40px 0px;
+}
+
+#logout {
+  color: black;
+  border-radius: 30px;
+  width: 100px;
+  height: 40px;
+  border-color: #0c3346;
+  background-color: white;
+  outline:none;
+  transition: transform 0.8s;
+}
 
 .search {
   display: flex;
@@ -77,41 +92,6 @@ left: 0;
   transform: scale(.9);
 }
 
-#Alerts {
-  color: white;
-  border-radius: 30px;
-  /* margin-left: 780px; */
-  width: 100px;
-  height: 40px;
-  border-color: #0c3346;
-  background-color: #0c3346;
-  outline:none;
-  transition: transform 0.8s;
-}
-
-#Alerts:hover {
-  transform: scale(.9);
-}
-#logout:hover {
-  transform: scale(.9);
-}
-#Salesreport:hover {
-  transform: scale(.9);
-}
-#Transactions:hover {
-  transform: scale(.9);
-}
-
-#logout {
-  color: white;
-  border-radius: 30px;
-  width: 100px;
-  height: 40px;
-  border-color: #0c3346;
-  background-color: #0c3346;
-  outline:none;
-  transition: transform 0.8s;
-}
 #Salesreport {
   color: white;
   border-radius: 30px;
@@ -141,10 +121,8 @@ left: 0;
 }
 
 .graph{
-  /* width: 50%; */
   overflow:hidden;
   width: 75%;
-  /* max-width: 1500px; */
   height: 50%;
   margin-left: 2%;
   margin-right: 2%;
@@ -237,8 +215,9 @@ left: 0;
 <body>
 <div class="bgimage">
 
-  <div class="navabar" id="dest">
-      <h2> - - - - - AUTOMATIC ORDERING SYSTEM - - - - - </h2>
+  <div class="navabar header" id="dest">
+      <h2 class="project-title">AUTOMATIC ORDERING SYSTEM</h2>
+      <button id="logout" type ="submit">logout</button>
   </div>
   <br>
   <div class="search">
@@ -247,10 +226,6 @@ left: 0;
       <button id="searchbutton" type="submit"><i class="fas fa-search"></i></button>
     </form>
       <div class="buttons">
-        <button id="Alerts" type ="submit">Alerts</button>
-        <button id="logout" type ="submit">logout</button>
-        <button id="Salesreport" type ="submit">Sales Report</button>
-        <button id="Transactions" type ="submit">Transactions</button>
       </div>
   </div>
 

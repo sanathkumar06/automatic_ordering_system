@@ -9,12 +9,30 @@
 </head>
 
 <style>
-    body {
+body {
   margin: 0;
   padding: 0;
-  background-color: #99ffff;
+  background-color: #9CF6F6;
   font-family: sans-serif;
 }
+
+.title {
+  font-size: 23px;
+  color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 10px;
+  padding-bottom: 30px;
+  margin: 10px;
+}
+
+.title h1 {
+  padding: 5px 10px;
+  border: solid #028090;
+  border-width: 5px 0px;
+}
+
 .container {
   display: flex;
   flex-direction: column;
@@ -24,127 +42,132 @@
   overflow: hidden;
   margin: auto;
   padding: 60px;
-  background: #00c3ff;
-  border-radius: 15px;
+  background: #028090;
+  border-radius: 17px;
+}
+
+.container h1 {
+  color: #1B2CC1;
+  /* -webkit-text-stroke-width: 1px; */
+  /* -webkit-text-stroke-color: black; */
+  /* text-decoration: underline; */
 
 }
 
-
-
-#new {
-  color: #000;
-  margin: 100px;
-  text-decoration: none;
-}
-/* #cre {
-  text-align: left;
-  color: #000000;
-  padding-left: 50px;
-} */
-/* #wel {
-  text-align: start;
-  color: #000000;
-  padding: 0px;
-} */
-#forget {
-  color: #000;
-  font-size: small;
-  margin: 20px auto auto 169px;
-}
 label {
   color: #ffffff;
   font-size: 17px;
 }
-#email {
+#email, #password {
   width: 250px;
   height: 30px;
-  border: none;
-  border-radius: 3px;
-  padding-left: 8px;
-  margin: 10px;
-}
-#password {
-  width: 250px;
-  height: 30px;
-  border: none;
-  border-radius: 3px;
+  border: 1px solid black;
+  border-radius: 15px;
   padding-left: 8px;
   margin: 10px;
 }
 
-.login {
-    display: flex;
-    
+#email:focus, #password:focus {
+  outline-width: 0;
+}
+
+.error-message {
+  color: #DE3C4B;
+  font-size: 15px;
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  margin: 0px;
 }
 
 #submit {
   width: 150px;
   height: 30px;
-  border: #98b3ac;
+  border: 2px solid black;
   border-radius: 19px;
   margin: 20px auto 15px 65px;
   color: #000000;
   outline: none;
+  background-color: #9CF6F6;
 }
 
-.login-btn:hover{
+#submit:hover{
   cursor: pointer;
+  transform: scale(1.1);
 }
 
-span {
-  color: #00c3ff;
-  font-size: 17px;
+.links-box {
+  display: block;
+  flex-direction: row;
+  /* width: 100%; */
+  /* height: 40px; */
+  /* justify-items: center; */
 }
-a {
-  /* float: right; */
-  background-color:#00c3ff;
+
+.links-box a {
+  display: inline;
+  width: 50%;
+  color: #000;
+  text-decoration: none;
 }
+
+.links-box a:hover {
+  color: #9CF6F6;
+}
+
+ 
+#new {
+  padding-left: 25px;
+}
+
+#forget {
+  padding-right: 25px;
+} 
 
 </style>
 
 
 <body>
-    <header>
+  <header>
+      <div class = "title">
         <h1>Automatic Ordering System</h1>
+      </div>
         <!-- <h1>Create Account</h1> -->
-        {% if smessage %}
-            <div>
-                {{smessage}}
-            </div>
-        {% endif %}
-        {% if umessage %}
-            <div>
-                {{umessage}}
-            </div>
-        {% endif %}
-    </header>
-    <main>
+      </header>
+      <main>
         <div class="container">
-            <div class= "container-items">
-                <h1> Login </h2>
+          <div class= "container-items">
+            <h1> Administrator Login </h1>
             </div>
             <div class="container-items">
-                <form action="/index" method = "post">
-                    <div class="email">
-                        <input type="email" name="name" id="email" placeholder="Enter your Email">
-                    </div>
+              <form action="/index" method = "post">
+                <div class="email">
+                  <input type="email" name="name" id="email" placeholder="   Email">
+                </div>
+                
+                <div class="container-items">
+                  <input type="password" name="password" id="password" placeholder="   Password">
+                </div>
 
-                    <div class="container-items">
-                        <input type="password" name="password" id="password" placeholder="Password">
-                        
-                    </div>
-                    <div class="container-items">
-                        <a id="forget" href="/forgot_password">Forgot Password</a>
-                    </div>
-                    <div class="container-items">
-                        <button class="login-btn" type="submit" id="submit" name = "Create Account">Login</button>
-                    </div>
-                </form>
+                {% if umessage %}
+                <div class = "error-message">
+                 <p> {{umessage}} </p>
+                </div>
+                {% endif %}
+                
+                <div class="container-items">
+                  <button type="submit" id="submit" name = "Create Account">Login</button>
+                </div>
+              </form>
             </div>    
+            
             <div class="container-items">
-                <a id="new" href="/create_account">New Registration?</a>
+              <div class="links-box">
+                <a id="forget" href="/forgot_password">Forgot Password</a>
+                <a id="new" href="/create_account"> New Registration?</a>
+              </div>
             </div>
         </div>    
-    </main>
-</body>
+      </main>
+    </body>
 </html>
