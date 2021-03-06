@@ -7,56 +7,14 @@
     <title></title>
 </head>
 <style>
-    .table1{
-  border-collapse: separate;
-  border-spacing: 1 1em;
-  border: 2px solid rgb(0, 0, 0);
-  margin: 2%;
-  background-color: white;
-  width: 345.5px;
-  text-align: left;
-  word-spacing: 10px;
-  box-sizing: border-box;
-  margin-left: 2%;
-  border-radius: 6px;
-}
-.table1__row:nth-child(even) {
-  
-  background-color: rgb(173, 173, 173);
-}
-.table1__row:nth-child(odd) {
-  background-color: rgb(226, 226, 226);
-}
-
-.table1__header {
-  font-size: large;
-}
-
-.table1__cell {
-  background-color: rgb(255, 255, 255);
-  padding: 50pxpx;
-}
-
-.heading {
-  font-family: sans-serif;
-  background-color: #0c3346;
-  font-size: larger;
-  color: white;
-}
-
-.tablerow1 {
-  display: flex;
-  flex-direction: row;
-}
-
 </style>
 <body>  
     <h1 id="heading">Sales Portal</h1>
     <div class="search">
-        <form action="{{url_for('searched_item')}}">      
+        <form action="{{url_for('sales')}}">      
             <input id="searchbar" type="text" placeholder="Search for item" name="Search">
             <input id="quantity" type="number" name="quantity">
-            <button id="searchbutton" type="submit"><i class="fas fa-search"></i></button>
+            <button id="searchbutton" type="submit">ADD</button>
         </form>
     </div>
 
