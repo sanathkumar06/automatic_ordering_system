@@ -79,6 +79,10 @@ data1 = (
     ("A" , "4" , "2","4")
 )
 
+@app.route('/sales_portal')
+def sales_portal():
+    return render_template('sales_portal.html')
+
 @app.route('/home', methods=['GET', 'POST'])
 def home():
     global isLoggedIn
