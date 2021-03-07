@@ -79,15 +79,33 @@ data1 = (
     ("A" , "4" , "2","4")
 )
 
-@app.route('/sales_portal')
-def sales_portal():
-    return render_template('sales_portal.html')
-
 @app.route('/home', methods=['GET', 'POST'])
 def home():
     global isLoggedIn
     if(isLoggedIn):
-        return render_template('home.html')
+        with sqlite3.connect("data.db") as con:
+            cur = con.cursor()
+            #getting last 7 dates from table for which only contain dates
+            val = cur.execute("select invoice_date from table4 order by invoice_date DESC LIMIT 7;").fetchall()
+            #sorting to 7 dates, in ascending order
+            val.sort()
+            #getting all stockID
+            stocks = cur.execute("select stockID from table1;").fetchall()
+            final_sales = []
+            for i in range(0, len(val)):
+                sales = []
+                s = str(val[i])
+                requiredDate = s[2:12]
+                requiredDate = requiredDate.replace('-', '_')
+                requiredDate = '"' + requiredDate + '"'
+                #getting sales for all id for 7 dates
+                for j in range(0, len(stocks)):
+                    #for each date getting sales for each stockID
+                    final_sales.append(stocks[2:-4])
+                    #sale = cur.execute("select "+ requiredDate +" from table3 where stockID = :id ;", { "id" : stock_id[2:-4]).fetchone()
+                    #sales.append(sale)
+                #final_sales.append(sales)
+            return render_template('home.html', data = final_sales)
     else:
         return redirect('/')
 
@@ -114,6 +132,17 @@ def item(id):
         t = request.args.get("To")        
         return render_template("popup_alert.html", path = id, f = f, t = t)
 
+@app.route('/sales', methods = ['POST', 'GET'])
+def sales():
+    if(request.method == "GET"):
+        item = request.args.get("Search")
+        quan = request.args.get("quantity")
+        with sqlite3.connect("data.db") as con:
+            cur = con.cursor()
+            cur.execute("insert into table5(:item, :quan);",{"item":item, "quan": quan})
+            con.commit()
+        return render_template("sales_portal.html")
+        
 if __name__ == '__main__':
     app.secret_key = "yourppisveryverysmall"
     app.run(debug=True)

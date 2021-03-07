@@ -1,6 +1,7 @@
 import sqlite3
-from flask import Flask, request, redirect
-def query(f, t, stockID):
+from datetime import datetime
+
+def query(f, t = datetime.now().strftime("%Y-%m-%d"), stockID):
     #formatedDates = []
     with sqlite3.connect("data.db") as conn:
         cur = conn.cursor()
@@ -24,4 +25,4 @@ def query(f, t, stockID):
             j = str(sales[i])
             final_sales.append(float(j[1:-2]))    
     return final_sales
-print(query("2010-12-01", "2010-12-02", "10002"))
+#print(query("2010-12-01", "2010-12-02", "10002"))

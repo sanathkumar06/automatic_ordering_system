@@ -2,9 +2,29 @@ import xlrd
 import sqlite3
 from datetime import datetime, date 
 
+
+db = sqlite3.connect('data.db')
+cur = db.cursor()
+
+# this is for dates sorting
+
+val = cur.execute("select invoice_date from table4 order by invoice_date DESC;").fetchall()
+print()
+
+
+
+'''
+This is for sales portal table creation
+create = "CREATE TABLE IF NOT EXISTS table5(stockID text, sold int, FOREIGN KEY(stockID) REFERENCES table1(stockID));"
+
+cur.execute(create)
+db.commit()
+'''
+
+'''
 sel = "select * from table4 where stockID =" + '" + 90179B + "'+ ";"
 all_items = [cur.execute(sel)]
-
+'''
 
 """
 def dateConvert(d):
