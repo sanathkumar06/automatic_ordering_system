@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,13 +13,13 @@
 body {
   margin: 0;
   padding: 0;
-  background-color: #9CF6F6;
+  background-color: #24305e;
   font-family: sans-serif;
 }
 
 .title {
   font-size: 23px;
-  color: black;
+  color: #f16524;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -29,7 +30,7 @@ body {
 
 .title h1 {
   padding: 5px 10px;
-  border: solid #028090;
+  border: solid #ffffff;
   border-width: 5px 0px;
 }
 
@@ -42,12 +43,12 @@ body {
   overflow: hidden;
   margin: auto;
   padding: 60px;
-  background: #028090;
+  background: #f16524;
   border-radius: 17px;
 }
 
 .container h1 {
-  color: #1B2CC1;
+  color: #24305e;
   /* -webkit-text-stroke-width: 1px; */
   /* -webkit-text-stroke-color: black; */
   /* text-decoration: underline; */
@@ -72,23 +73,23 @@ label {
 }
 
 .error-message {
-  color: #DE3C4B;
+  color: #ffffff;
   font-size: 15px;
   display: flex;
   justify-items: center;
   align-items: center;
-  margin: 0px;
+  margin: 0px 0px 0px 45px;
 }
 
 #submit {
   width: 150px;
   height: 30px;
-  border: 2px solid black;
+  border: 2px solid #24305e;
   border-radius: 19px;
   margin: 20px auto 15px 65px;
-  color: #000000;
+  color: #ffffff;
   outline: none;
-  background-color: #9CF6F6;
+  background-color: #24305e;
 }
 
 #submit:hover{
@@ -142,16 +143,16 @@ label {
             <div class="container-items">
               <form action="/index" method = "post">
                 <div class="email">
-                  <input type="email" name="name" id="email" placeholder="   Email">
+                  <input type="email" name="name" id="email" placeholder="Email">
                 </div>
                 
                 <div class="container-items">
-                  <input type="password" name="password" id="password" placeholder="   Password">
+                  <input type="password" name="password" id="password" placeholder="Password">
                 </div>
 
                 {% if umessage %}
                 <div class = "error-message">
-                 <p> {{umessage}} </p>
+                 <p> <u> {{umessage}} </u> </p>
                 </div>
                 {% endif %}
                 
