@@ -71,25 +71,19 @@ headings = ("StockID")
 def home():
     global isLoggedIn
     dates_desc = []
-    sales = []
     if(isLoggedIn):
         with sqlite3.connect("data.db") as con:
             cur = con.cursor()
             #getting last 7 dates from table for which only contain dates
             dates_desc = cur.execute("select invoice_date from table4 order by invoice_date DESC LIMIT 7;").fetchall()
-            dates_asc = cur.execute("select invoice_date from table4 order by invoice_date ASC LIMIT 7;").fetchall()            
-            # print(dates)
             dates_list_desc = []
-            dates_list_asc = []
+            
             for i in dates_desc:
                 t = str(i).replace("('","").replace("',)","")
                 dates_list_desc.append(t)
-            #sorting to 7 dates, in ascending order
-            for j in dates_asc:
-                t = str(j).replace("('","").replace("',)","")
-                dates_list_asc.append(t)
-            high_sales = Query.highOnDemand(dates_list_desc, con, cur)
-            low_sales = Query.highOnDemand(dates_list_asc, con, cur)
+
+            high_sales = Query.highOnDemand(dates_list_desc, con, cur, True)
+            low_sales = Query.highOnDemand(dates_list_desc, con, cur, False)
 
         return render_template('home.html', high_on_demand = high_sales, low_on_demand = low_sales, headings = headings)
     else:
