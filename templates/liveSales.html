@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1 | Transactions</title>
+</head>
+<style>
+
+.tablerow1 {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+}
+
+.refresh {
+    margin: 0px 10px;
+}
+
+</style>
+
+<body>
+    <div class="tablerow1">
+        <table class="table1">
+          <tr class="heading">
+            <th colspan="3">High on Demand</th>
+          </tr>
+          <tr class="table1__header">
+            {% for header in headings %}
+            <th class="table1__cell" >{{ header }}</th>
+            {% endfor %}
+            </tr>
+            {% for row in data%}
+            <tr class="table1__row">
+            {% for cell in row %}
+            <td class="table__cell"> {{ cell }}</td>
+            {% endfor %}
+          </tr>
+          {% endfor %} 
+        </table> 
+        <!-- <div class="refresh" >
+        <h1>Hello</h1>
+    </div> -->
+</div>
+</body>
+
+</html>
