@@ -57,7 +57,11 @@ def forgot_password():
 
     return render_template('forgot_password.html')
 
-
+@app.route('/logout')
+def logout():
+    global isLoggedIn
+    isLoggedIn = False
+    return redirect('/')
 # sample data for table 1
 headings = ("StockID" , "Quantity" , "Date")
 data = (
@@ -83,29 +87,7 @@ data1 = (
 def home():
     global isLoggedIn
     if(isLoggedIn):
-        with sqlite3.connect("data.db") as con:
-            cur = con.cursor()
-            #getting last 7 dates from table for which only contain dates
-            val = cur.execute("select invoice_date from table4 order by invoice_date DESC LIMIT 7;").fetchall()
-            #sorting to 7 dates, in ascending order
-            val.sort()
-            #getting all stockID
-            stocks = cur.execute("select stockID from table1;").fetchall()
-            final_sales = []
-            for i in range(0, len(val)):
-                sales = []
-                s = str(val[i])
-                requiredDate = s[2:12]
-                requiredDate = requiredDate.replace('-', '_')
-                requiredDate = '"' + requiredDate + '"'
-                #getting sales for all id for 7 dates
-                for j in range(0, len(stocks)):
-                    #for each date getting sales for each stockID
-                    final_sales.append(stocks[2:-4])
-                    #sale = cur.execute("select "+ requiredDate +" from table3 where stockID = :id ;", { "id" : stock_id[2:-4]).fetchone()
-                    #sales.append(sale)
-                #final_sales.append(sales)
-            return render_template('home.html', data = final_sales)
+        return render_template('home.html')
     else:
         return redirect('/')
 
