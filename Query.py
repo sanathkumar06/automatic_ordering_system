@@ -30,21 +30,24 @@ def query(f , t = datetime.now().strftime("%Y-%m-%d"), stockID):
 #print(query("2010-12-01", "2010-12-02", "10002"))
 '''
 #function to get both highest and lowest sold items in last 7 days
-def highOnDemand(dates_list):
-    with sqlite3.connect("data.db") as conn:
-        cur = conn.cursor()
-        total_sales_of_stockID = ""
-        for i in range(0, len(dates_list)):
-            if(i != (len(dates_list) - 1)):
-                total_sales_of_stockID += (" " + dates_list[i] + " + ")
-            else:
-                total_sales_of_stockID += (" " + dates_list[i])
-        #print(total_sales_of_stockID) -> it give the string which represents the sum of all days in the date_list
-        q = "select stockID, total from( select stockID,(" + total_sales_of_stockID + ") as total from table3) order by total desc limit 7;"
-        #print(q) -> query string
-        sales = cur.execute(q).fetchall()
-        #print(sales) -> will give the list of tuples which contains the (stockID, total) 
-        return sales
+def highOnDemand(dates_list, conn, cur):
+    total_sales_of_stockID = ""
+    for i in range(0, len(dates_list)):
+        if(i != (len(dates_list) - 1)):
+            total_sales_of_stockID += (" " + dates_list[i] + " + ")
+        else:
+            total_sales_of_stockID += (" " + dates_list[i])
+    #print(total_sales_of_stockID) -> it give the string which represents the sum of all days in the date_list
+    q = "select stockID from( select stockID,(" + total_sales_of_stockID + ") as total from table3) order by total desc limit 7;"
+    #print(q) -> query string
+    sales = cur.execute(q).fetchall()
+    sales_list = []
+    for i in sales:
+        t = str(i).replace("('","").replace("',)","").replace("(","").replace(")","")
+        sales_list.append(t)
+    #print(sales) -> will give the list of tuples which contains the (stockID, total) 
+    #print(sales_list)
+    return sales_list
 
 #print(highOnDemand(['"2011_11_22"', '"2011_11_23"']))
 #print(highOnDemand(['"2011_11_23"', '"2011_11_22"']))

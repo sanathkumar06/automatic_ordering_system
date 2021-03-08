@@ -274,16 +274,11 @@ body{
       <th colspan="3">High on Demand</th>
     </tr>
     <tr class="table1__header">
-
-      {% for header in headings %}
-      <th class="table1__cell" >{{ header }}</th>
-      {% endfor %}
+      <th class="table1__cell" >{{ headings }}</th>
     </tr>
-    {% for row in data%}
+    {% for i in range(0, 7) %}
     <tr class="table1__row">
-      {% for cell in row %}
-      <td class="table__cell" > {{ cell }}</td>
-      {% endfor %}
+      <td class="table__cell" > {{ high_on_demand[i] }}</td>
     </tr>
     {% endfor %} 
   </table>
@@ -293,15 +288,11 @@ body{
       <th colspan="3">Low on Demand</th>
     </tr>
     <tr class="table1__header">
-      {% for header in headings %}
-      <th class="table1__cell" >{{ header }}</th>
-      {% endfor %}
+      <th class="table1__cell" >{{ headings }}</th>
     </tr>
-    {% for row in data%}
+    {% for i in range(0, 7) %}
     <tr class="table1__row">
-      {% for cell in row %}
-      <td class="table__cell" > {{ cell }}</td>
-      {% endfor %}
+      <td class="table__cell" > {{ low_on_demand[i] }}</td>
     </tr>
     {% endfor %} 
   </table>  
