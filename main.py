@@ -72,18 +72,10 @@ def home():
     global isLoggedIn
     dates_desc = []
     if(isLoggedIn):
-        with sqlite3.connect("data.db") as con:
-            cur = con.cursor()
-            #getting last 7 dates from table for which only contain dates
-            dates_desc = cur.execute("select invoice_date from table4 order by invoice_date DESC LIMIT 7;").fetchall()
-            dates_list_desc = []
-            
-            for i in dates_desc:
-                t = str(i).replace("('","").replace("',)","")
-                dates_list_desc.append(t)
+        dates = Query.getLast7dates()
 
-            high_sales = Query.highOnDemand(dates_list_desc, con, cur, True)
-            low_sales = Query.highOnDemand(dates_list_desc, con, cur, False)
+        high_sales = Query.highOnDemand(dates, True, 7)
+        low_sales = Query.highOnDemand(dates, False, 7)
 
         return render_template('home.html', high_on_demand = high_sales, low_on_demand = low_sales, headings = headings)
     else:

@@ -30,29 +30,41 @@ def query(f , t = datetime.now().strftime("%Y-%m-%d"), stockID):
 #print(query("2010-12-01", "2010-12-02", "10002"))
 '''
 #function to get both highest and lowest sold items in last 7 days
-def highOnDemand(dates_list, conn, cur, flag):
+def highOnDemand(dates_list, flag, limit):
     total_sales_of_stockID = ""
-    for i in range(0, len(dates_list)):
-        if(i != (len(dates_list) - 1)):
-            d = dates_list[i].replace("-", "_")
-            total_sales_of_stockID += (" " + '"' + d + '"' + " + ")
-        else:
-            total_sales_of_stockID += (" " + '" ' + d + '"')
-    # print(total_sales_of_stockID) #-> it give the string which represents the sum of all days in the date_list
-    if(flag): 
-        q = "select stockID from( select stockID,(" + total_sales_of_stockID + ") as total from table3) order by total desc limit 7;"
-    else:
-        q = "select stockID from( select stockID,(" + total_sales_of_stockID + ") as total from table3) order by total asc limit 7;"
-    
-    # print(q) #-> query string
-    sales = cur.execute(q).fetchall()
-    sales_list = []
-    for i in sales:
-        t = str(i).replace("('","").replace("',)","").replace("(","").replace(")","")
-        sales_list.append(t)
-    #print(sales) -> will give the list of tuples which contains the (stockID, total) 
-    #print(sales_list)
-    return sales_list
+    with sqlite3.connect("data.db") as con:
+        cur = con.cursor()
+        for i in range(0, len(dates_list)):
+            if(i != (len(dates_list) - 1)):
+                d = dates_list[i].replace("-", "_")
+                total_sales_of_stockID += (' "' + d + '"+')
+            else:
+                total_sales_of_stockID += (' "' + d + '"')
 
-#print(highOnDemand(['"2011_11_22"', '"2011_11_23"']))
-#print(highOnDemand(['"2011_11_23"', '"2011_11_22"']))
+        # print(total_sales_of_stockID) #-> it give the string which represents the sum of all days in the date_list
+        if(flag): 
+            q = "select stockID from( select stockID,(" + total_sales_of_stockID + ") as total from table3) order by total desc limit " +  str(limit) +";"
+        else:
+            q = "select stockID from( select stockID,(" + total_sales_of_stockID + ") as total from table3) order by total asc limit " +  str(limit) +";"
+        
+        sales = cur.execute(q).fetchall()
+        sales_list = []
+        for i in sales:
+            t = str(i).replace("('","").replace("',)","").replace("(","").replace(")","")
+            sales_list.append(t)
+        #print(sales) -> will give the list of tuples which contains the (stockID, total) 
+        return sales_list
+
+
+def getLast7dates():
+    with sqlite3.connect("data.db") as con:
+            cur = con.cursor()
+            #getting last 7 dates from table for which only contain dates
+            dates_desc = cur.execute("select invoice_date from table4 order by invoice_date DESC LIMIT 7;").fetchall()
+            dates_list_desc = []
+            
+            for i in dates_desc:
+                t = str(i).replace("('","").replace("',)","")
+                dates_list_desc.append(t)
+    
+    return dates_list_desc
