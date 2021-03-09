@@ -70,14 +70,24 @@ headings = ("StockID")
 @app.route('/home', methods=['GET', 'POST'])
 def home():
     global isLoggedIn
-    dates_desc = []
     if(isLoggedIn):
-        dates = Query.getLast7dates()
+        if(request.method == "GET"):
+            dates = Query.getLast7dates()
 
-        high_sales = Query.highOnDemand(dates, True, 7)
-        low_sales = Query.highOnDemand(dates, False, 7)
+            high_sales = Query.highOnDemand(dates, True, 7)
+            low_sales = Query.highOnDemand(dates, False, 7)
+            return render_template('home.html', high_on_demand = high_sales, low_on_demand = low_sales, headings = headings)
+        else:
+            item = request.form['Search']
+            with sqlite3.connect("data.db") as con:
+                cur = con.cursor()
+                tot_sales = cur.execute("select * from table3 where stockID = :id;", {"id" : item}).fetchall()
+                if(tot_sales):
+                    return render_template("searched_item.html", dat = item, details = tot_sales)
+                else:
+                    pass
+                
 
-        return render_template('home.html', high_on_demand = high_sales, low_on_demand = low_sales, headings = headings)
     else:
         return redirect('/')
 
