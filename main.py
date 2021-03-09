@@ -114,6 +114,11 @@ def sales():
             cur.execute("insert into table5(:item, :quan);",{"item":item, "quan": quan})
             con.commit()
         return render_template("sales_portal.html")
+
+
+@app.route('/liveSales')
+def liveSale():
+    render_template('liveSales.html')
         
 if __name__ == '__main__':
     app.secret_key = "yourppisveryverysmall"
