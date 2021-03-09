@@ -166,13 +166,43 @@ left: 0;
   flex-direction: row;
 }
 
+.items {
+  /* margin-left: 2%; */
+  background-color: rgb(255, 255, 255);
+  width: 400px;
+  height: 200px;
+  overflow: scroll;
+}
+
+.boxitems {
+  margin: 50px 0px 0px 2%;
+}
+
+.id {
+  background-color: #f76c6c;
+  height: 50px;
+  width: 400px;
+  font-family: sans-serif;
+  text-align: center;
+  font-size: larger;
+}
+
+
+.graph-block {
+  display: flex;
+  flex-direction: row;
+  /* justify-content: center; */
+  align-items: center;
+  margin: 20px;
+}
+
 </style>
 
 
 <body>
     <div class="navabar" id="dest">
         <h2> - - - - - AUTOMATIC ORDERING SYSTEM - - - - - </h2>
-        <h1>{{dat}}</h1>
+        <!-- <h1>{{dat}}</h1> -->
     </div>
     <br>
     <div class="dates_sort">
@@ -188,11 +218,21 @@ left: 0;
             <button id="Transactions" type ="submit">Transactions</button>
         </div>
     </div>
+      <div class="graph-block">
+        <div class="graph">
+          <canvas id="myChart"></canvas>
+        </div>
+    <div class="boxitems">
     {% for i in details %}
-      <div>
+    <div class="id">
+      <p class="id">{{i[0]}}</p>
+    </div>
+      <div class="items">
         <p>{{i}}</p>
       </div>
     {% endfor %}
+  </div>
+</div>
     <div class="tablerow1">
         <table class="table1">
           <tr class="heading">
@@ -232,4 +272,35 @@ left: 0;
           </table>
     </div>
 </body>
+
+<script>
+  var ctx = document.getElementById('myChart').getContext('2d');
+  var myChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+          labels: ["06/01", "13/01", "20/01", "27/01", "06/02", "13/02", "20/02", "27/02"],
+          datasets: [{
+              label: 'No. of items sold',
+              fill: true,
+              lineTension: 0,
+              data: [12, 19, 3, 5, 20, 3, 7, 4], 
+              
+              borderColor: "rgba(0, 0, 0, 1)",
+              // hoverBorderColor: "rgba(0, 255, 0, 1)",
+              borderWidth: 1,
+  
+              pointBackgroudColor: "rgba(255, 0, 0, 1)"
+          }]
+      },
+      options: {
+          scales: {
+              yAxes: [{
+                  ticks: {
+                      beginAtZero: true
+                  }
+              }]
+          }
+      }
+  });
+  </script>
 </html>
