@@ -69,46 +69,39 @@ headings = ("StockID")
 
 @app.route('/home', methods=['GET', 'POST'])
 def home():
-    global isLoggedIn
-    if(isLoggedIn):
-        if(request.method == "GET"):
-            dates = Query.getLast7dates()
-
-            high_sales = Query.highOnDemand(dates, True, 7)
-            low_sales = Query.highOnDemand(dates, False, 7)
-            return render_template('home.html', high_on_demand = high_sales, low_on_demand = low_sales, headings = headings)
-        else:
-            item = request.form['Search']
-            with sqlite3.connect("data.db") as con:
-                cur = con.cursor()
-                tot_sales = cur.execute("select * from table3 where stockID = :id;", {"id" : item}).fetchall()
-                if(tot_sales):
-                    return render_template("searched_item.html", dat = item, details = tot_sales)
-                else:
-                    pass
-                
-
-    else:
+    if(not isLoggedIn):
         return redirect('/')
 
-@app.route('/searched_item', methods =  ['GET', 'POST'])
-def searched_item():
-    #global isLoggedIn
-    #if(isLoggedIn):
-    if(request.method == 'GET'):
-        item = request.args.get("Search")
-        # print(item)
-        if(item == ""):
-            return redirect("/home")
-        with sqlite3.connect("data.db") as con:
-            cur = con.cursor()
-            tot_sales = cur.execute("select * from table3 where stockID = :id;", {"id" : item}).fetchall()
-        return render_template("searched_item.html", dat = item, details = tot_sales)
+    if(request.method == "GET"):
+        dates = Query.getLast7dates()
+        high_sales = Query.highOnDemand(dates, True, 7)
+        low_sales = Query.highOnDemand(dates, False, 7)
+        return render_template('home.html', high_on_demand = high_sales, low_on_demand = low_sales, headings = headings)
     else:
-        return redirect('/home')
+        item = request.form['Search']
+        response = Query.lookForItem(item)
+        if(response == "null"):
+            redirectLink = "/search/" + item.replace(" ", "_")
+            return redirect(redirectLink)
+        else:
+            redirectLink = "/item/" + response
+            return redirect(redirectLink)
+
+
+@app.route('/search/<string:item>', methods =  ['GET', 'POST'])
+def searched_item(item):
+    if(not isLoggedIn):
+        return redirect('/')
+
+    similar = Query.getSimilar(item.replace("_", " "))
+    return render_template("searchResult.html", data= similar)
+
 
 @app.route('/item/<string:id>', methods = ['POST', 'GET'])
 def item(id):
+    if(not isLoggedIn):
+        return redirect('/')
+
     if(request.method == 'GET'):
         f = request.args.get("From")
         t = request.args.get("To")        

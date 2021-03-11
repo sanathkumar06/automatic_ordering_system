@@ -1,5 +1,15 @@
 import sqlite3
 from datetime import datetime
+import json
+from difflib import get_close_matches
+
+productDataPath = "/home/nikith/proj/automatic_ordering_system/productData.json"
+with open(productDataPath) as f:
+    productDataJson = json.load(f)
+
+nameIDMapJsonPath = "/home/nikith/proj/automatic_ordering_system/nameIDMap.json"
+with open(nameIDMapJsonPath) as f:
+    nameIDMapJson = json.load(f)
 
 #default parameter error in this function
 '''
@@ -29,6 +39,7 @@ def query(f , t = datetime.now().strftime("%Y-%m-%d"), stockID):
     return final_sales
 #print(query("2010-12-01", "2010-12-02", "10002"))
 '''
+
 #function to get both highest and lowest sold items in last 7 days
 def highOnDemand(dates_list, flag, limit):
     total_sales_of_stockID = ""
@@ -41,7 +52,6 @@ def highOnDemand(dates_list, flag, limit):
             else:
                 total_sales_of_stockID += (' "' + d + '"')
 
-        # print(total_sales_of_stockID) #-> it give the string which represents the sum of all days in the date_list
         if(flag): 
             q = "select stockID from( select stockID,(" + total_sales_of_stockID + ") as total from table3) order by total desc limit " +  str(limit) +";"
         else:
@@ -68,3 +78,25 @@ def getLast7dates():
                 dates_list_desc.append(t)
     
     return dates_list_desc
+
+
+def lookForItem(item):
+    try:
+        productDataJson[item]
+        return item
+    except:
+        try:
+            id = nameIDMapJson[item]
+            return id
+        except:
+            return "null"
+
+def getSimilar(item):
+    items = get_close_matches(item, nameIDMapJson.keys(), n=10, cutoff=0.3)
+    IDs = []
+    for item in items:
+        IDs.append(nameIDMapJson[item])
+    
+    IDandName = {"ID": IDs, "names":items}
+    print(IDandName)
+    return IDandName
