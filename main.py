@@ -73,10 +73,12 @@ def home():
         return redirect('/')
 
     if(request.method == "GET"):
-        dates = Query.getLast7dates()
+        # dates = Query.getLast7dates()
         high_sales = Query.highOnDemand(dates, True, 7)
         low_sales = Query.highOnDemand(dates, False, 7)
-        return render_template('home.html', high_on_demand = high_sales, low_on_demand = low_sales, headings = headings)
+        payload = Query.prepareHomePayload();
+        # return render_template('home.html', high_on_demand = high_sales, low_on_demand = low_sales, headings = headings)
+        return render_template('home.html', data = payload)
     else:
         item = request.form['Search']
         response = Query.lookForItem(item)
@@ -95,7 +97,6 @@ def searched_item(item):
 
     similar = Query.getSimilar(item.replace("_", " "))
     return render_template("searchResult.html", data= similar)
-
 
 @app.route('/item/<string:id>', methods = ['POST', 'GET'])
 def item(id):

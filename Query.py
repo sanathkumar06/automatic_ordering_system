@@ -11,6 +11,23 @@ nameIDMapJsonPath = "/home/nikith/proj/automatic_ordering_system/nameIDMap.json"
 with open(nameIDMapJsonPath) as f:
     nameIDMapJson = json.load(f)
 
+def getLast7dates():
+    with sqlite3.connect("data.db") as con:
+            cur = con.cursor()
+            #getting last 7 dates from table for which only contain dates
+            dates_desc = cur.execute("select invoice_date from table4 order by invoice_date DESC LIMIT 7;").fetchall()
+            dates_list_desc = []
+            
+            for i in dates_desc:
+                t = str(i).replace("('","").replace("',)","")
+                dates_list_desc.append(t)
+    
+    return dates_list_desc
+
+
+dates = getLast7dates()
+
+
 #default parameter error in this function
 '''
 def query(f , t = datetime.now().strftime("%Y-%m-%d"), stockID):
@@ -53,31 +70,25 @@ def highOnDemand(dates_list, flag, limit):
                 total_sales_of_stockID += (' "' + d + '"')
 
         if(flag): 
-            q = "select stockID from( select stockID,(" + total_sales_of_stockID + ") as total from table3) order by total desc limit " +  str(limit) +";"
+            q = "select stockID, total from( select stockID,(" + total_sales_of_stockID + ") as total from table3) order by total desc limit " +  str(limit) +";"
         else:
-            q = "select stockID from( select stockID,(" + total_sales_of_stockID + ") as total from table3) order by total asc limit " +  str(limit) +";"
+            q = "select stockID, total from( select stockID,(" + total_sales_of_stockID + ") as total from table3) order by total asc limit " +  str(limit) +";"
         
         sales = cur.execute(q).fetchall()
-        sales_list = []
+        items = []
+        quantity = []
         for i in sales:
-            t = str(i).replace("('","").replace("',)","").replace("(","").replace(")","")
-            sales_list.append(t)
-        #print(sales) -> will give the list of tuples which contains the (stockID, total) 
-        return sales_list
+            # print(i[0], i[1])
+            items.append(productDataJson[i[0]]["name"])
+            quantity.append(i[1])
 
+        return {"items": items, "quantity": quantity}
 
-def getLast7dates():
-    with sqlite3.connect("data.db") as con:
-            cur = con.cursor()
-            #getting last 7 dates from table for which only contain dates
-            dates_desc = cur.execute("select invoice_date from table4 order by invoice_date DESC LIMIT 7;").fetchall()
-            dates_list_desc = []
-            
-            for i in dates_desc:
-                t = str(i).replace("('","").replace("',)","")
-                dates_list_desc.append(t)
-    
-    return dates_list_desc
+        # sales_list = []
+        # for i in sales:
+        #     t = str(i).replace("('","").replace("',)","").replace("(","").replace(")","")
+        #     sales_list.append(t)
+        # return sales_list
 
 
 def lookForItem(item):
@@ -92,7 +103,7 @@ def lookForItem(item):
             return "null"
 
 def getSimilar(item):
-    items = get_close_matches(item, nameIDMapJson.keys(), n=10, cutoff=0.3)
+    items = get_close_matches(item, nameIDMapJson.keys(), n=10, cutoff=0.4)
     IDs = []
     for item in items:
         IDs.append(nameIDMapJson[item])
@@ -100,3 +111,23 @@ def getSimilar(item):
     IDandName = {"ID": IDs, "names":items}
     print(IDandName)
     return IDandName
+
+
+def getSalesCount():
+    salesList = []
+    # TODO:
+    # Total sales on last 7 days
+    #append to salesList
+    return {"xaxis":dates, "yaxis":salesList}
+
+def prepareHomePayload():
+    payload = {}
+    payload["highOnDemand"] = highOnDemand(dates, True, 10)
+    payload["lowOnDemand"] = highOnDemand(dates, False, 10)
+    payload["salesData"] = getSalesCount()
+    # TODO: data for highest earning and lowest earning
+    # Add as dictioanry item
+    print(payload)
+    return payload
+
+prepareHomePayload()
