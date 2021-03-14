@@ -29,23 +29,25 @@
 }
 
 body{
-  background-color: #99ffff;
+  background-color: #a8d0e6;
 }
 
 
 .header {
   font-family: sans-serif;
-  color: white;
+  color: #f76c6c;
   margin: 0px;
   font-size: x-large;
-  background-color: #0c3346;
+  background-color: #24305e;
   padding: 40px;
 }
 
 .project-title {
   display: inline;
-  padding: 20px;
   margin: 40px 0px;
+  padding: 5px 10px;
+  border: solid #ffffff;
+  border-width: 5px 0px;
 }
 
 #logout {
@@ -73,10 +75,10 @@ body{
   border-radius: 30px;
   width: 760px;
   height: 40px;
-  border-color: #0c3346;
+  border-color: #24305e;
   outline: none;
   padding-left: 20px;
-  /* background-color: #0c3346; */
+  /* background-color: #24305e; */
 }
 
 #searchbutton {
@@ -86,8 +88,8 @@ body{
   padding: 5px;
   /* width: 50px; */
   /* height: 40px; */
-  border-color: #0c3346;
-  background-color: #0c3346;
+  border-color: #24305e;
+  background-color: #24305e;
   outline:none;
   transition: transform 0.8s;
 }
@@ -99,13 +101,13 @@ body{
 .home-row {
   display: flex;
   flex-direction: row;
-  align-items: center;
+  /* align-items: center; */
   margin: 20px;
-  justify-content: space-evenly;
+  /* justify-content: space-evenly; */
 }
 
 .graph{
-  width: 50%;
+  width: 51%;
   padding: 10px;
 }
 
@@ -125,8 +127,8 @@ iframe {
   border-radius: 30px;
   width: 100px;
   height: 40px;
-  border-color: #0c3346;
-  background-color: #0c3346;
+  border-color: #24305e;
+  background-color: #24305e;
   outline:none;
   transition: transform 0.8s;
 }
@@ -135,8 +137,8 @@ iframe {
   border-radius: 30px;
   width: 100px;
   height: 40px;
-  border-color: #0c3346;
-  background-color: #0c3346;
+  border-color: #24305e;
+  background-color: #24305e;
   outline:none;
   transition: transform 0.8s;
 }
@@ -150,15 +152,16 @@ iframe {
   margin-left: 2%;
 }
 .data-table{
-  border-collapse: separate;
+  /* border-collapse; */
   border-spacing: 1 1em;
   border: 2px solid rgb(0, 0, 0);
   background-color: white;
-  width: 25%;
+  width: 28%;
   text-align: left;
   word-spacing: 10px;
   box-sizing: border-box;
   border-radius: 6px;
+  margin: .4%;
 }
 .table-row:nth-child(even) {
   background-color: rgb(173, 173, 173);
@@ -179,7 +182,7 @@ iframe {
 
 .table-title {
   font-family: sans-serif;
-  background-color: #0c3346;
+  background-color: #24305e;
   font-size: larger;
   color: white;
 }
@@ -210,7 +213,7 @@ iframe {
   color: white;
   text-align: center;
   border-radius: 5px;
-  background-color: #0c3346;
+  background-color: #24305e;
   width: 140px;
   height: 30px;
 
@@ -218,6 +221,31 @@ iframe {
 
 .backto {
   margin-left: 45.5%;
+}
+
+.box {
+  display: flex;
+  flex-direction: column;
+  width: 100px;
+  height: 100px;
+  color: black;
+}
+
+.box1 {
+  display: flex;
+  flex-direction: column;
+  width: 100px;
+  height: 100px;
+  color: black;
+  margin-left: 19%;
+}
+
+.boxList {
+  width: 380px;
+  height: 400px;
+  border: 2px solid rgb(0, 0, 0);
+  margin: 1%;
+  padding: 52px;
 }
 
 </style>
@@ -245,6 +273,16 @@ iframe {
 <div class="home-row">
   <div class="graph">
     <canvas id="myChart"></canvas>
+  </div>
+  <div class="box">
+    <div class="boxList">Total Items Sold From start</div>
+    <div class="boxList">Total stocks left overall</div>
+    <div class="boxList">Total stocks sold overall</div>
+  </div>
+  <div class="box1">
+    <div class="boxList">NA</div>
+    <div class="boxList">NA</div>
+    <div class="boxList">NA</div>
   </div>
 </div>
 
