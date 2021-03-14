@@ -3,11 +3,11 @@ from datetime import datetime
 import json
 from difflib import get_close_matches
 
-productDataPath = "/home/nikith/proj/automatic_ordering_system/productData.json"
+productDataPath = "C:\\Users\\vamshi\\Desktop\\automatic_ordering_system\\productData.json"
 with open(productDataPath) as f:
     productDataJson = json.load(f)
 
-nameIDMapJsonPath = "/home/nikith/proj/automatic_ordering_system/nameIDMap.json"
+nameIDMapJsonPath = "C:\\Users\\vamshi\\Desktop\\automatic_ordering_system\\nameIDMap.json"
 with open(nameIDMapJsonPath) as f:
     nameIDMapJson = json.load(f)
 
@@ -109,6 +109,12 @@ def getSimilar(item):
         IDs.append(nameIDMapJson[item])
     
     IDandName = {"ID": IDs, "names":items}
+    
+    #changes
+    itemId = IDandName.get("ID")
+    itemName = IDandName.get("names")
+
+
     print(IDandName)
     return IDandName
 

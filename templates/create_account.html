@@ -12,143 +12,184 @@
   </head>
 
   <style>
+
   body 
   {
   margin: 0;
   padding: 0;
-  /* background-image: linear-gradient(to right, rgb(22, 116, 160) , rgb(20, 35, 77)); */
   font-family: sans-serif;
-  background-color: #99ffff;
+  background-color: #24305e;
 }
-p.solid{border: solid blue;}
+
+.title {
+  font-size: 23px;
+  color: #f76c6c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 10px;
+  padding-bottom: 30px;
+  margin: 10px;
+}
+
+.title h1 {
+  padding: 5px 10px;
+  border: solid #ffffff;
+  border-width: 5px 0px;
+}
+
 .container {
-  border: solid 2px;
-  align-self: center;
-  width: 310px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 382px;
   overflow: hidden;
   margin: auto;
-  margin: 10 0 0 450px;
-  padding: 35px;
-  background: #00c3ff;
+  padding: 60px;
+  background: #f76c6c;
+  border-radius: 17px;
 }
+
+.header {
+  font-family: sans-serif;
+  color: white;
+  margin: 0px;
+  font-size: x-large;
+  background-color: #24305e;
+  padding: 40px;
+}
+
+.project-title {
+  display: inline;
+  padding: 20px;
+  margin: 40px 0px;
+}
+
+#logout {
+  border-radius: 30px;
+  width: 100px;
+  height: 40px;
+  outline: none;
+  transition: transform 0.8s;
+  float: right;
+}
+
+#logout:hover {
+  transform: scale(.9);
+}
+
+
 #wel {
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: start;
-  color: #000000;
+  color: #24305e;
   padding: 0px;
 }
-#for {
-  color: #000;
-  font-size: small;
-  margin:0px 33px;
-  padding: 0;
-  /* text-align: right; */
-  /* padding-right: 60px; */
-  /* padding-top: px; */
-  /* padding-bottom: 15px; */
-}
+
 label {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #233144;
-  font-size: 17px;
-}
-#email {
-  width: 240px;
-  height: 30px;
-  border: none;
-  border-radius: 13px;
-  /* border-radius: 3px; */
-  padding-left: 8px;
-}
-#password {
-  width: 240px;
-  height: 30px;
-  border: none;
-  border-radius: 13px;
-  padding-left: 8px;
-}
-#submit {
-  background-color: #233144;
-  width: 140px;
-  height: 30px;
-  border: solid rgb(29, 46, 77);
-  border-radius: 20px;
-  /* border-radius: 19px; */
-  /* padding-left: 7px;
-    padding-right: 10px; */
   color: #ffffff;
-  cursor: pointer;
-}
-span {
-  color: rgb(212, 212, 212);
   font-size: 17px;
 }
-a {
-  float:right;
-  background-color: #00c3ff;
+#email, #password {
+  width: 250px;
+  height: 30px;
+  border: 1px solid black;
+  border-radius: 15px;
+  padding-left: 8px;
+  margin: 10px;
+}
+
+#email:focus, #password:focus {
+  outline-width: 0;
 }
 
 #umessage {
-  width: 100px;
-  height: 100px;
+  color: #ffffff;
+  font-size: 18px;
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  margin: 0px 0px 0px 60px;
 }
 
+#submit {
+  width: 150px;
+  height: 30px;
+  border: 2px solid #24305e;
+  border-radius: 19px;
+  margin: 20px auto 15px 65px;
+  color: #ffffff;
+  outline: none;
+  background-color: #24305e;
+}
+
+#submit:hover{
+  cursor: pointer;
+  transform: scale(1.1);
+}
+
+#click {
+  font-family: sans-serif;
+  font-size: 15px;
+  color: #ffffff;
+  align-items: center;
+  margin-top: 0%;
+}
+
+.a {
+  text-decoration: none;
+  color: #24305e;
+  cursor: pointer;
+}
+
+.a:hover {
+  transform: scale(1.1);
+}
 
   </style>
 
   <body>
     <header>
-      <h1>ADMIN ACCESS ONLY</h1>
-      <h3>LOGIN FOR THE PORTAL</h3>
-      {% if smessage %}
+      <div class = "title">
+        <h1>Automatic Ordering System</h1>
+      </div>
+      </header>
+  <main>
+      <div class="container">
+        <h2 id="wel">Welcome, Please Sign-Up</h2>
+        <form action="/create_account" method="post">
+          <div class="email">
+            <input type="email" name="name" id="email" placeholder="Email">
+          </div>
+          
+          <div class="container-items">
+            <input type="password" name="password" id="password" placeholder="Password">
+          </div>
+
+          <!-- {% if smessage %}
+          <div id="umessage">{{smessage}}</div>
+          {% endif %}  -->
+          {% if umessage %}
+          <div id="umessage">{{umessage}}</div>
+          {% endif %}
+          
+          <div class="container-items">
+            <button type="submit" id="submit" name = "Create Account">Sign Up</button>
+            <h4 id="click" > Already have a acouunt? <a class="a" href="index.html">Click Here</a> </h4>
+          </div>
+          </form>
+      </div> 
+    </main>   
+  </body>
+</html>
+
+
+
+  <!-- {% if smessage %}
       <div id="umessage">{{smessage}}</div>
       {% endif %} {% if umessage %}
       <div>{{umessage}}</div>
-      {% endif %}
-    </header>
-    <main>
-      <div class="container">
-        <h1 id="wel">Welcome</h1>
-        <br>
-        <form action="/create_account" method="post">
-          <label for="email"
-            >
-            <br />
-            <input
-              type="email"
-              name="name"
-              id="email"
-              placeholder="Enter your email"
-            />
-          </label>
-          <br />
-          <label for="password"
-            >
-
-            <input
-              type="password"
-              name="password"
-              id="password"
-              placeholder="Password"
-            />
-          </label>
-          <br />
-          <a id="for" href="/forgot_password" style="text-decoration: none"
-            >Forgot Password ?</a
-          >
-          <br />
-          <br>
-          <label for="Create Account">
-            <button type="submit" class="effect" id="submit" name="Create Account">
-              Create Account
-            </button>
-          </label>
-        </form>
-      </div>
-    </main>
-  </body>
-</html>
+      {% endif %} -->

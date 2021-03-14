@@ -44,18 +44,24 @@ def create_account():
     if (request.method == 'POST'):
             email = request.form['name']
             password = request.form['password']
-            auth.create_user_with_email_and_password(email, password)
-            return redirect("/index")
-            
+            try:
+                auth.create_user_with_email_and_password(email, password)
+                return redirect("/index")
+            except:
+                unsuccessful = 'Email already exicts'
+                return render_template('create_account.html', umessage = unsuccessful)
     return render_template('create_account.html')
 
 @app.route('/forgot_password', methods=['GET', 'POST'])
 def forgot_password():
     if (request.method == 'POST'):
             email = request.form['name']
-            auth.send_password_reset_email(email)
-            return redirect("/index")
-
+            try:
+                auth.send_password_reset_email(email)
+                return redirect("/index")
+            except:
+                unsuccessful = 'Email invalid'
+                return render_template('forgot_password.html', umessage = unsuccessful)
     return render_template('forgot_password.html')
 
 @app.route('/logout')
