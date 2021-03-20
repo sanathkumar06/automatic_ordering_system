@@ -272,7 +272,7 @@ iframe {
 
 <div class="home-row">
   <div class="graph">
-    <canvas id="myChart"></canvas>
+    <canvas id="salesChart"></canvas>
   </div>
   <div class="box">
     <div class="boxList">Total Items Sold From start</div>
@@ -356,39 +356,8 @@ iframe {
 
 </body>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   <script>
-    var ctx = document.getElementById('myChart').getContext('2d');
+    var ctx = document.getElementById('salesChart').getContext('2d');
     var myChart = new Chart(ctx, {
         type: 'line',
         data: {
@@ -417,32 +386,5 @@ iframe {
         }
     });
 
-  // Define selector for selecting 
-  // anchor links with the hash 
-let anchorSelector = 'a[href^="#"]'; 
-
-// Collect all such anchor links 
-let anchorList = document.querySelectorAll(anchorSelector); 
-
-// Iterate through each of the links 
-    anchorList.forEach(link => { 
-      link.onclick = function (e) { 
-
-        // Prevent scrolling if the 
-        // hash value is blank 
-        e.preventDefault(); 
-
-        // Get the destination to scroll to 
-        // using the hash property 
-        let destination = 
-          document.querySelector(this.hash); 
-
-        // Scroll to the destination using 
-        // scrollIntoView method 
-        destination.scrollIntoView({ 
-          behavior: 'smooth' 
-        }); 
-      } 
-    }); 
   </script>
 </html>

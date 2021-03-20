@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{data["name"]}}</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <div class="item-info-block">
+        <h1 class="item-name-block">Item Name: <span class="item-name">{{data["name"]}}</span></h1>
+        <div class="item-id-block">Item ID: <span class="item-id">{{data["ID"]}}</span></div>
+        <div class="item-price-block">Price: <span class="item-price">{{data["price"]}}</span></div>
+        <div class="predicted-block">Price: <span class="predicted-sale">{{data["prediction"]}}</span></div>
+    </div>
+
+
+    <div class="graph-block" style="border: 5px solid black">
+        <div class="date-block">
+            <input class="date-selector" type="date" id="from-date">
+            <input class="date-selector" type="date" id="to-date">
+            <button class="date-button" onclick="setRange()">Set range</button>
+            <div class="date-error">Invalid date range selected</div>
+        </div>
+        <div class="graph">
+            <canvas id="salesChart"></canvas>
+        </div>
+    </div>
+</body>
+  <script src="itemGraphScript.js">
+  </script>
+</html>

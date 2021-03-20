@@ -153,5 +153,6 @@ def prepareItemDataPayload(itemId):
     payload["price"] = itemInfo["price"]
     # payload["dates"] = TODO: All dates of sales as array
     # payload["sales"] = TODO: Daily sales data as array
+    # payload["prediction"] = TODO:Predicted sales for the item
 
     return payload
