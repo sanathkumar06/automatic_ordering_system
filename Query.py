@@ -20,8 +20,7 @@ def getLast7dates():
         dates_list_desc = []
 
         for i in dates_desc:
-            t = str(i).replace("('", "").replace("',)", "")
-            dates_list_desc.append(t)
+            dates_list_desc.append(i[0])
 
     return dates_list_desc
 
@@ -56,7 +55,8 @@ def query(f , t = datetime.now().strftime("%Y-%m-%d"), stockID):
     return final_sales
 #print(query("2010-12-01", "2010-12-02", "10002"))
 '''
-
+def formated_date(d):
+    return d.replace("-", "_")
 
 # function to get both highest and lowest sold items in last 7 days
 def highOnDemand(dates_list, flag, limit):
@@ -65,7 +65,7 @@ def highOnDemand(dates_list, flag, limit):
         cur = con.cursor()
         for i in range(0, len(dates_list)):
             if (i != (len(dates_list) - 1)):
-                d = dates_list[i].replace("-", "_")
+                d = formated_date(dates_list[i])
                 total_sales_of_stockID += (' "' + d + '"+')
             else:
                 total_sales_of_stockID += (' "' + d + '"')
@@ -81,7 +81,7 @@ def highOnDemand(dates_list, flag, limit):
         items = []
         quantity = []
         for i in sales:
-            # print(i[0], i[1])
+            #print(i[0], i[1])
             items.append(productDataJson[i[0]]["name"])
             quantity.append(i[1])
 
@@ -129,15 +129,48 @@ def getSalesCount():
     salesList = []
     # TODO: Total sales for last 7 days
     # append to salesList
+    with sqlite3.connect("data.db") as con:
+        cur = con.cursor()
+        for i in range(0, len(dates)):
+            d = formated_date(dates[i])
+            query_date = '"' + d + '"'  
+            q = "select "+ query_date +" from table3 where " +  query_date  + " = " +  query_date  + " ;"
+            sales_count = cur.execute(q).fetchall()
+            tot = 0
+            for j in sales_count:
+                tot += (j[0]);
+            salesList.append(tot)
+    # return salesList
     return {"xaxis": dates, "yaxis": salesList}
 
+def highestEarning(flag):
+    highDemands = []
+    with sqlite3.connect("data.db") as con:
+        cur = con.cursor()
+        for i in range(0, len(dates)):
+            d = formated_date(dates[i])
+            query_date = '"' + d + '"'
+            if flag:
+                # innerjoin to get highest earing for last 7 days
+                q = "select a.stockID, max(a.Price * b."+ str(query_date) +") as highEarning from table2 a, table3 b where a.stockID == b.stockID order by highEarning;"
+                highEarning = cur.execute(q).fetchone()
+            else:
+                q = "select a.stockID, min(a.Price * b."+ str(query_date) +") as highEarning from table2 a, table3 b where a.stockID == b.stockID order by highEarning;"
+                highEarning = cur.execute(q).fetchone()
+            for j in highEarning:
+                highDemands.append(j)
+        # highDemands.sort()
+    return highDemands
+            
 
 def prepareHomePayload():
     payload = {}
-    payload["highOnDemand"] = highOnDemand(dates, True, 3)
-    payload["lowOnDemand"] = highOnDemand(dates, False, 3)
+    payload["highOnDemand"] = highOnDemand(dates, True, 10)
+    payload["lowOnDemand"] = highOnDemand(dates, False, 10)
     payload["salesData"] = getSalesCount()
     # TODO: data for highest earning and lowest earning
+    payload["highestEarning"] = highestEarning(True)
+    payload["lowestEarning"] = highestEarning(False)
     # Add as dictioanry item
     return payload
 
@@ -151,8 +184,12 @@ def prepareItemDataPayload(itemId):
     payload["ID"] = itemId
     payload["name"] = itemInfo["name"]
     payload["price"] = itemInfo["price"]
-    # payload["dates"] = TODO: All dates of sales as array
+    #payload["dates"] = TODO: All dates of sales as array
     # payload["sales"] = TODO: Daily sales data as array
     # payload["prediction"] = TODO:Predicted sales for the item
 
     return payload
+
+# print(getLast7dates())
+# print(getSalesCount())
+# print(highestEarning(True))

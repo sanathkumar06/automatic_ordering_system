@@ -85,8 +85,8 @@ def home():
 
     if (request.method == "GET"):
         # dates = Query.getLast7dates()
-        high_sales = Query.highOnDemand(dates, True, 7)
-        low_sales = Query.highOnDemand(dates, False, 7)
+        # high_sales = Query.highOnDemand(dates, True, 7)
+        # low_sales = Query.highOnDemand(dates, False, 7)
         payload = Query.prepareHomePayload();
         # return render_template('home.html', high_on_demand = high_sales, low_on_demand = low_sales, headings = headings)
         return render_template('home.html', data=payload)
