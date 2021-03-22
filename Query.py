@@ -24,6 +24,17 @@ def getLast7dates():
 
     return dates_list_desc
 
+def getAllTheDates():
+    overall_dates = []
+    with sqlite3.connect("data.db") as conn:
+        cur = conn.cursor()
+        q = "select * from table4;"
+        dates = cur.execute(q).fetchall()
+        for i in dates:
+            overall_dates.append(i[0])
+    return overall_dates
+
+# print(getAllTheDates())
 
 dates = getLast7dates()
 
