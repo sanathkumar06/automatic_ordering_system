@@ -138,7 +138,7 @@ def prepareHomePayload():
     payload["lowOnDemand"] = highOnDemand(dates, False, 3)
     payload["salesData"] = getSalesCount()
     # TODO: data for highest earning and lowest earning
-    # Add as dictioanry item
+    # Add as dictionary item
     return payload
 
 
@@ -156,3 +156,4 @@ def prepareItemDataPayload(itemId):
     # payload["prediction"] = TODO:Predicted sales for the item
 
     return payload
+
