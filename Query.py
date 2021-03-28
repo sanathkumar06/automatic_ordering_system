@@ -69,6 +69,15 @@ def query(f , t = datetime.now().strftime("%Y-%m-%d"), stockID):
 def formated_date(d):
     return d.replace("-", "_")
 
+# fucntion to get the live sales
+def live_sales(): 
+    with sqlite3.connect("data.db") as con:
+        cur = con.cursor()
+        q = "select * from table6;"
+        target = cur.execute(q).fetchall()
+        return target
+
+
 # function to get both highest and lowest sold items in last 7 days
 def highOnDemand(dates_list, flag, limit):
     total_sales_of_stockID = ""
@@ -196,9 +205,8 @@ def prepareItemDataPayload(itemId):
     payload["name"] = itemInfo["name"]
     payload["price"] = itemInfo["price"]
     #payload["dates"] = TODO: All dates of sales as array
-    # payload["sales"] = TODO: Daily sales data as array
-    # payload["prediction"] = TODO:Predicted sales for the item
-
+    #payload["sales"] = TODO: Daily sales data as array
+    #payload["prediction"] = TODO:Predicted sales for the item
     return payload
 
 # print(getLast7dates())

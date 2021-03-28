@@ -22,7 +22,6 @@ auth = firebase.auth()
 
 isLoggedIn = False
 
-
 @app.route('/')
 @app.route('/index', methods=['GET', 'POST'])
 def index():
@@ -50,7 +49,7 @@ def create_account():
             auth.create_user_with_email_and_password(email, password)
             return redirect("/index")
         except:
-            unsuccessful = 'Email already exicts'
+            unsuccessful = 'Email already exists'
             return render_template('create_account.html', umessage=unsuccessful)
     return render_template('create_account.html')
 
@@ -74,21 +73,13 @@ def logout():
     isLoggedIn = False
     return redirect('/')
 
-
-headings = ("StockID")
-
-
 @app.route('/home', methods=['GET', 'POST'])
 def home():
     if (not isLoggedIn):
         return redirect('/')
 
     if (request.method == "GET"):
-        # dates = Query.getLast7dates()
-        # high_sales = Query.highOnDemand(dates, True, 7)
-        # low_sales = Query.highOnDemand(dates, False, 7)
         payload = Query.prepareHomePayload();
-        # return render_template('home.html', high_on_demand = high_sales, low_on_demand = low_sales, headings = headings)
         return render_template('home.html', data=payload)
     else:
         item = request.form['Search']
@@ -135,7 +126,6 @@ def sales():
 
 @app.route('/liveSales')
 def liveSale():
-
     return render_template('liveSales.html')
 
 
