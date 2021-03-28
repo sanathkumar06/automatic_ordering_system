@@ -139,6 +139,12 @@ def liveSale():
     return render_template('liveSales.html')
 
 
+@app.route('/liveOrders')
+def liveOrders():
+
+    return render_template('liveOrders.html')
+
+
 if __name__ == '__main__':
     app.secret_key = "yourppisveryverysmall"
     app.run(debug=True)

@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> {{names}} | Result</title>
+    <title>Sales-Portal-For-Ordering</title>
+
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
@@ -15,13 +16,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
 </head>
 
 <style>
-
-body{
-  background-color: #a8d0e6;
-}
 
 *{
   box-sizing: border-box;
@@ -32,9 +30,14 @@ body{
   margin: 0;
 }
 
+body{
+  background-color: #a8d0e6;
+}
+
+
 .header {
   font-family: sans-serif;
-  color: white;
+  color: #f76c6c;
   margin: 0px;
   font-size: x-large;
   background-color: #24305e;
@@ -43,8 +46,10 @@ body{
 
 .project-title {
   display: inline;
-  padding: 20px;
   margin: 40px 0px;
+  padding: 5px 10px;
+  border: solid #ffffff;
+  border-width: 5px 0px;
 }
 
 #logout {
@@ -83,8 +88,6 @@ body{
   color: white;
   font-size: 20px;
   padding: 5px;
-  /* width: 50px; */
-  /* height: 40px; */
   border-color: #24305e;
   background-color: #24305e;
   outline:none;
@@ -95,90 +98,109 @@ body{
   transform: scale(.9);
 }
 
-.data-table{
-  /* border-collapse; */
-  border-spacing: 1 1em;
-  border: 2px solid rgb(0, 0, 0);
-  background-color: white;
-  width: 40%;
-  text-align: left;
-  word-spacing: 10px;
-  box-sizing: border-box;
-  border-radius: 6px;
-  margin-left: 27%;
-}
-/* .table-row:nth-child(even) {
-  background-color: rgb(173, 173, 173);
+.home-row {
+  display: flex;
+  flex-direction: row;
+  margin: 20px;
 }
 
-.table-row:nth-child(odd) {
-  background-color: rgb(226, 226, 226);
-} */
-
-.table-heading {
-  font-size: large;
-  text-align: center;
-}
-
-.table-cell {
-  background-color: rgb(255, 255, 255);
-  padding: 50pxpx;
-  text-align: center;
-}
-
-.table1-cell {
-  background-color: rgb(255, 255, 255);
-  padding: 50pxpx;
-  text-align: center;
-}
-
-.table-title {
+.order {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
   font-family: sans-serif;
-  background-color: #24305e;
-  font-size: larger;
-  color: white;
+  margin: 20px;
+  outline:none;
 }
 
+#Quantity {
+  border-radius: 30px;
+  width: 250px;
+  height: 40px;
+  border-color: #24305e;
+  padding-left: 10px;
+}
+
+#itemName {
+  border-radius: 30px;
+  width: 250px;
+  height: 40px;
+  border-color: #24305e;
+  padding-left: 10px;
+}
+
+#buy {
+  border-radius: 30px;
+  margin-left: 15px;
+  width: 100px;
+  height: 40px;
+  border-color: #24305e;
+}
+
+.orderName {
+  color: #24305e;
+  font-family: sans-serif;
+  font-size: 35px;
+  border: solid #ffffff;
+  border-width: 5px 0px;
+  text-align: center;
+}
+
+.home-row {
+  display: flex;
+  flex-direction: row;
+  margin: 20px;
+  justify-content: space-evenly;
+}
+
+.live-sales, .live-orders{
+  width: 40%;
+  height: 100%;
+  padding: 7px;
+}
+
+iframe {
+  border: solid black 2px;
+  height: 500px;
+}
 
 </style>
 
 <body>
     <div class="navabar header" id="dest">
-        <h2 class="project-title">AUTOMATIC ORDERING SYSTEM</h2>
-        <a href="/logout">
-          <button id="logout" > Logout</button>
-        </a>
-    </div>
-  
-    <div class="search">
-      <form action="/home" method="POST">      
-        <input id="searchbar" type="text" placeholder="Search for item" name="Search" required>
-        <button id="searchbutton" type="submit"><i class="fas fa-search"></i>  Search</button>
-      </form>
-    </div>
+      <h2 class="project-title">AUTOMATIC ORDERING SYSTEM</h2>
+      <a href="/logout">
+        <button id="logout" > Logout</button>
+      </a>
+  </div>
 
-<div class="table">
-    <table class="data-table">
-        <tr class="table-title">
-            <th colspan="2">  Searched Items</th>
-        </tr>
-        <tr class="table-heading">
-            <th class="table1-cell">ID</th>
-            <th class="table1-cell">Names</th>
-        </tr>
-        {% for i in data['ID'] %}
-            {% set outer_loop = loop %}
-            {% for j in data['names'] %}
-            {% if outer_loop.index0 == loop.index0  %}
-        <tr class="table-row">
-            <td class="table-cell"> <a href="#">{{ i }}</a></td>
-            <td class="table-cell"> <a href="#">{{ j }} </a> </td>
-        </tr>
-        {% endif %}
-        {% endfor %}
-        {% endfor %}
-        
-    </table>
+  <div class="search">
+    <form action="/home" method="POST">      
+      <input id="searchbar" type="text" placeholder="Search for item" name="Search" required>
+      <button id="searchbutton" type="submit"><i class="fas fa-search"></i>  Search</button>
+    </form>
+  </div>
+
+<div>
+  <h4 class="orderName"> ORDER YOUR ITEMS HERE </h4>
+    <div class="order">
+        <form action="/salesOrdering" method="POST">
+          <input id="Quantity" type="text"  placeholder="Item ID" name="ItemId">
+          <input id="Quantity" type="text"  placeholder="Quantity" name="Quantity">
+          <button id="buy" type="submit"><i class="fas fa-shopping-cart" aria-hidden="true"></i> BUY</button>
+        </form>
+    </div>
 </div>
+
+<div class="home-row">
+  <div class="live-sales">
+    <iframe class="frames" height=320px width=100% src="/topSales" frameborder="0"></iframe>
+  </div>
+
+  <div class="live-orders">
+    <iframe class="frames" height=320px width=100% src="/soldItems" frameborder="0"></iframe>
+  </div>
+</div>
+
 </body>
 </html>

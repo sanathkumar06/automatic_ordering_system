@@ -204,3 +204,4 @@ def prepareItemDataPayload(itemId):
 # print(getLast7dates())
 # print(getSalesCount())
 # print(highestEarning(True))
+# print(getSimilar("pizza"))

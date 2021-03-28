@@ -8,6 +8,10 @@
 </head>
 <style>
 
+.table-heading {
+  font-size: large;
+}
+
 .tablerow1 {
     margin-top: 10px;
     display: flex;
@@ -24,7 +28,7 @@
     <div class="tablerow1">
         <table class="table1">
           <tr class="heading">
-            <th colspan="3">High on Demand</th>
+            <th colspan="3">Live Orders</th>
           </tr>
           <tr class="table1__header">
             {% for header in headings %}
@@ -39,9 +43,6 @@
           </tr>
           {% endfor %} 
         </table> 
-        <!-- <div class="refresh" >
-        <h1>Hello</h1>
-    </div> -->
 </div>
 </body>
 
