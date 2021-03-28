@@ -1,4 +1,5 @@
 node_modules
 .vscode/settings.json
 Utils/.~lock.online_retail.xlsx#
-.idea/*
+.idea*
+__pycache__
