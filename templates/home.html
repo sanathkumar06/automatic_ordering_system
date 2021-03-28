@@ -304,9 +304,9 @@ iframe {
     <tr class="table-heading">
       <th class="table-cell" >{{ headings }}</th>
     </tr>
-    {% for i in range(0, 7) %}
+    {% for i in range(0, 10) %}
     <tr class="table-row">
-      <td class="table-cell" > {{ high_on_demand[i] }}</td>
+      <td class="table-cell" > {{ data["highOnDemand"][i] }}</td>
     </tr>
     {% endfor %} 
   </table>
@@ -318,9 +318,9 @@ iframe {
     <tr class="table-heading">
       <th class="table-cell" >{{ headings }}</th>
     </tr>
-    {% for i in range(0, 7) %}
+    {% for i in range(0, 10) %}
     <tr class="table-row">
-      <td class="table-cell" > {{ low_on_demand[i] }}</td>
+      <td class="table-cell" > {{ data["highOnDemand"][i]}}</td>
     </tr>
     {% endfor %} 
   </table>  
@@ -334,7 +334,7 @@ iframe {
     </tr>
     {% for i in range(0, 7) %}
     <tr class="table-row">
-      <td class="table-cell" > {{ high_on_demand[i] }}</td>
+      <td class="table-cell" > {{data["highOnDemand"][i]}}</td>
     </tr>
     {% endfor %} 
   </table>
@@ -348,7 +348,7 @@ iframe {
     </tr>
     {% for i in range(0, 7) %}
     <tr class="table-row">
-      <td class="table-cell" > {{ low_on_demand[i] }}</td>
+      <td class="table-cell" > {{data["lowOnDemand"][i]}}</td>
     </tr>
     {% endfor %} 
   </table>  
