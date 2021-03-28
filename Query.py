@@ -182,33 +182,60 @@ def highestEarning(flag):
         # highDemands.sort()
     return highDemands
             
-
 def prepareHomePayload():
     payload = {}
     payload["highOnDemand"] = highOnDemand(dates, True, 10)
     payload["lowOnDemand"] = highOnDemand(dates, False, 10)
     payload["salesData"] = getSalesCount()
-    # TODO: data for highest earning and lowest earning
     payload["highestEarning"] = highestEarning(True)
     payload["lowestEarning"] = highestEarning(False)
-    # Add as dictioanry item
     return payload
 
+def get_all_items():
+    stocks_list = []
+    with sqlite3.connect("data.db") as con:
+        cur = con.cursor()
+        q = "select stockID from table3;"
+        stocks = cur.execute(q).fetchall()
+        for i in stocks:
+            stocks_list.append(i[0])
+    return stocks_list
 
-#Expected return format:
-    #prepareItemDataPayload("22142")
-    #{'ID': '22142', 'name': 'Christmas craft white fairy ', 'price': 1.45, 'dates': ['2011-12-09', '2011-12-08', '2011-12-07',... All dates], 'sales': [['123', '133', '345',....]}
+def get_all_dates():
+    dates_list = []
+    with sqlite3.connect("data.db") as con:
+        cur = con.cursor()
+        q = "select invoice_date from table4;"
+        dates = cur.execute(q).fetchall()
+        for i in dates:
+            dates_list.append(i[0])
+    return dates_list 
+
+def each_item_sold_count():
+    sold_count = []
+    with sqlite3.connect("data.db") as con:
+        cur = con.cursor()
+        stocks = get_all_items()
+        for i in stocks:
+            q = "select * from table3 where stockID = '"+ i +"';"
+            dates = cur.execute(q).fetchall()
+            sold_count.append(dates)
+    return sold_count
+
 def prepareItemDataPayload(itemId):
     itemInfo = getItemInfo(itemId)
     payload = {}
     payload["ID"] = itemId
     payload["name"] = itemInfo["name"]
     payload["price"] = itemInfo["price"]
-    #payload["dates"] = TODO: All dates of sales as array
-    #payload["sales"] = TODO: Daily sales data as array
+    payload["dates"] = get_all_dates()
+    payload["sales"] = each_item_sold_count()
     #payload["prediction"] = TODO:Predicted sales for the item
     return payload
 
 # print(getLast7dates())
 # print(getSalesCount())
 # print(highestEarning(True))
+# print(get_all_dates())
+# print(get_all_items())
+# print(each_item_sold_count())

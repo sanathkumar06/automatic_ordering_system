@@ -7,18 +7,20 @@ db = sqlite3.connect('../data.db')
 cur = db.cursor()
 
 # this is for dates sorting
-
 # val = cur.execute("select invoice_date from table4 order by invoice_date DESC;").fetchall()
 # print()
-#prediction table
-create = "CREATE TABLE IF NOT EXISTS table6(stockID text, target int, FOREIGN KEY(stockID) REFERENCES table1(stockID));"
+# prediction table
+# create = "CREATE TABLE IF NOT EXISTS table7(stockID text, quantity int, FOREIGN KEY(stockID) REFERENCES table1(stockID));"
+# cur.execute(create)
+# db.commit()
+
+create = "CREATE TABLE IF NOT EXISTS table7(stockID text, sold int, FOREIGN KEY(stockID) REFERENCES table1(stockID));"
 cur.execute(create)
 db.commit()
 
 '''
 This is for sales portal table creation
 create = "CREATE TABLE IF NOT EXISTS table5(stockID text, sold int, FOREIGN KEY(stockID) REFERENCES table1(stockID));"
-
 cur.execute(create)
 db.commit()
 '''
