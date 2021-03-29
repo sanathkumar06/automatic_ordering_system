@@ -1,24 +1,29 @@
 import sqlite3
+import json
 
 conn = sqlite3.connect("data.db")
 cur = conn.cursor()
 
+distributors = json.load("distributors.")
+
 def getCurrentSales(itemID):
     cur_sales = []
-    q = "select target from table6 where stockID = '"+ itemID +"';"
+    q = "select sold from table6 where stockID = '"+ itemID +"';"
     item_sales = cur.execute(q).fetchall()
     for i in item_sales:
         cur_sales.append(i[0])
     print(cur_sales)
 
-def getPrediction(itemID):
-    #TODO
-    pass
+
+def getDistributorInfo(itemID):
+    # TODO
+
 
 def placeOrder(itemID):
-    #TODO
-    pass
+    distrubutor = getDistributorInfo(itemId)
+    # TODO order
 
-# def checkAvailablity(itemID):
-#     if(getCurrentSales(itemID) >= getPrediction(itemID)):
-#         placeOrder(itemID)
+def checkAvailablity(itemID):
+    predictionData = json.load('prediction.json')
+    if(getCurrentSales(itemID) >= predictionData[itemID]):
+        placeOrder(itemID)
