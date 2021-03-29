@@ -73,6 +73,9 @@ def logout():
     isLoggedIn = False
     return redirect('/')
 
+headings = ["Item Name", "Quantity"]
+headings2 = ["Item ID", "Total"]
+
 @app.route('/home', methods=['GET', 'POST'])
 def home():
     if (not isLoggedIn):
@@ -80,7 +83,8 @@ def home():
 
     if (request.method == "GET"):
         payload = Query.prepareHomePayload();
-        return render_template('home.html', data=payload)
+        # print(payload)
+        return render_template('home.html', data=payload, headings = headings, headings2 = headings2)
     else:
         item = request.form['Search']
         response = Query.lookForItem(item)

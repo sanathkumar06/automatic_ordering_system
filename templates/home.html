@@ -308,7 +308,9 @@ iframe {
 
 <div class="home-row">
   <div class="live-sales">
-    <iframe class="frames" height=320px width=100% src="/liveSales" frameborder="0"></iframe>
+    <iframe class="frames" height=320px width=100% src="/liveSales" frameborder="0">
+      
+    </iframe>
   </div>
 
   <div class="live-orders">
@@ -321,12 +323,17 @@ iframe {
     <tr class="table-title">
       <th colspan="3">High on Demand</th>
     </tr>
+    
     <tr class="table-heading">
-      <th class="table-cell" >{{ headings }}</th>
+      {% for k in headings %}
+      <th class="table-cell" >{{ k }}</th>
+      {% endfor %}
     </tr>
+    
     {% for i in range(0, 10) %}
     <tr class="table-row">
-      <td class="table-cell" > {{ data["highOnDemand"][i] }}</td>
+      <td class="table-cell" > {{ data["highOnDemand"]['items'][i]}}</td>
+      <td class="table-cell" > {{ data["highOnDemand"]['quantity'][i]}}</td>
     </tr>
     {% endfor %} 
   </table>
@@ -336,39 +343,48 @@ iframe {
       <th colspan="3">Low on Demand</th>
     </tr>
     <tr class="table-heading">
-      <th class="table-cell" >{{ headings }}</th>
+      {% for k in headings %}
+      <th class="table-cell" >{{ k }}</th>
+      {% endfor %}
     </tr>
     {% for i in range(0, 10) %}
     <tr class="table-row">
-      <td class="table-cell" > {{ data["highOnDemand"][i]}}</td>
+      <td class="table-cell" > {{ data["lowOnDemand"]['items'][i]}}</td>
+      <td class="table-cell" > {{ data["lowOnDemand"]['quantity'][i]}}</td>
     </tr>
     {% endfor %} 
   </table>  
 
   <table class="data-table">
     <tr class="table-title">
-      <th colspan="3">High on Demand</th>
+      <th colspan="3">Highest Earning</th>
     </tr>
     <tr class="table-heading">
-      <th class="table-cell" >{{ headings }}</th>
+      {% for l in headings2 %}
+      <th class="table-cell" >{{ l }}</th>
+      {% endfor %}
     </tr>
-    {% for i in range(0, 7) %}
+    {% for i in range(0, 14, 2) %}
     <tr class="table-row">
-      <td class="table-cell" > {{data["highOnDemand"][i]}}</td>
+      <td class="table-cell" > {{data["highestEarning"][i]}}</td>
+      <td class="table-cell" > {{data["highestEarning"][i + 1]}}</td>
     </tr>
     {% endfor %} 
   </table>
 
   <table class="data-table">
     <tr class="table-title">
-      <th colspan="3">Low on Demand</th>
+      <th colspan="3">Lowest Earning</th>
     </tr>
     <tr class="table-heading">
-      <th class="table-cell" >{{ headings }}</th>
+      {% for l in headings2 %}
+      <th class="table-cell" >{{ l }}</th>
+      {% endfor %}
     </tr>
-    {% for i in range(0, 7) %}
+    {% for i in range(0, 14, 2) %}
     <tr class="table-row">
-      <td class="table-cell" > {{data["lowOnDemand"][i]}}</td>
+      <td class="table-cell" > {{data["lowestEarning"][i]}}</td>
+      <td class="table-cell" > {{data["lowestEarning"][i + 1]}}</td>
     </tr>
     {% endfor %} 
   </table>  

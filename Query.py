@@ -177,15 +177,20 @@ def highestEarning(flag):
             else:
                 q = "select a.stockID, min(a.Price * b."+ str(query_date) +") as highEarning from table2 a, table3 b where a.stockID == b.stockID order by highEarning;"
                 highEarning = cur.execute(q).fetchone()
+            cnt = 1
             for j in highEarning:
+                if cnt % 2 == 0:
+                    j = round(j, 2)
                 highDemands.append(j)
+                cnt += 1
+                # highDemands.append(j[1])
         # highDemands.sort()
     return highDemands
 
 def prepareHomePayload():
     payload = {}
-    payload["highOnDemand"] = highOnDemand(dates, True, 10)
-    payload["lowOnDemand"] = highOnDemand(dates, False, 10)
+    payload["highOnDemand"] = highOnDemand(dates, True, 7)
+    payload["lowOnDemand"] = highOnDemand(dates, False, 7)
     payload["salesData"] = getSalesCount()
     payload["highestEarning"] = highestEarning(True)
     payload["lowestEarning"] = highestEarning(False)
