@@ -16,10 +16,10 @@ def getLast7dates():
     with sqlite3.connect("data.db") as con:
         cur = con.cursor()
         # getting last 7 dates from table for which only contain dates
-        dates_desc = cur.execute("select daily_date from daily_sales order by daily_date DESC LIMIT 7;").fetchall()
+        dates_desc = cur.execute("select rowid, daily_date from daily_sales order by rowid DESC LIMIT 7;").fetchall()
         dates_list_desc = []
         for i in dates_desc:
-            dates_list_desc.append(i[0])
+            dates_list_desc.append(i[1])
     return dates_list_desc
 
 def getAllTheDates():
@@ -75,42 +75,44 @@ def live_sales():
         target = cur.execute(q).fetchall()
         return target
 
+print(dates)
 
 # function to get both highest and lowest sold items in last 7 days
-def highOnDemand(flag, limit):
-    total_sales_of_stockID = ""
+def highOnDemand(flag):
     with sqlite3.connect("data.db") as con:
         cur = con.cursor()
-        for i in range(0, len(dates)):
-            if (i != (len(dates) - 1)):
-                d = formated_date(dates[i])
-                total_sales_of_stockID += (' "' + d + '"+')
-            else:
-                total_sales_of_stockID += (' "' + d + '"')
-
-        if (flag):
-            q = "select stockID, total from( select stockID,(" + total_sales_of_stockID + ") as total from table3) order by total desc limit " + str(
-                limit) + ";"
-        else:
-            q = "select stockID, total from( select stockID,(" + total_sales_of_stockID + ") as total from table3) order by total asc limit " + str(
-                limit) + ";"
-
-        sales = cur.execute(q).fetchall()
+        q = "select * from daily_sales order by rowid desc limit 7";
+        val = cur.execute(q).fetchall()
+        sumOfSales = []
+        dic = {}
+        for i in range(1, 51):
+            sum = 0
+            for j in range(0, 7):
+                sum += val[j][i]
+            dic[i] = sum
+            sumOfSales.append(sum)
+        dict = {}
         items = []
         quantity = []
-        for i in sales:
-            #print(i[0], i[1])
-            items.append(productDataJson[i[0]]["name"])
-            quantity.append(i[1])
-
-        return {"items": items, "quantity": quantity}
-
-        # sales_list = []
-        # for i in sales:
-        #     t = str(i).replace("('","").replace("',)","").replace("(","").replace(")","")
-        #     sales_list.append(t)
-        # return sales_list
-
+        if flag:
+            sorted_keys = sorted(dic, key = dic.get, reverse = True)
+            cnt = 0
+            for w in sorted_keys:
+                if cnt == 7:
+                    break
+                cnt += 1    
+                items.append(w)
+                quantity.append(dic[w])
+        else:
+            sorted_keys = sorted(dic, key = dic.get, reverse = False)
+            cnt = 0
+            for w in sorted_keys:
+                if cnt == 7:
+                    break
+                cnt += 1    
+                items.append(w)
+                quantity.append(dic[w])
+    return {"items": items, "quantity": quantity}
 
 def getItemInfo(itemId):
     return productDataJson[itemId]
@@ -161,22 +163,25 @@ def highestEarning(flag):
     highDemands = []
     with sqlite3.connect("data.db") as con:
         cur = con.cursor()
-        for i in range(0, len(dates)):
-            d = formated_date(dates[i])
-            query_date = '"' + d + '"'
-            if flag:
-                # innerjoin to get highest earing for last 7 days
-                q = "select a.stockID, max(a.Price * b."+ str(query_date) +") as highEarning from table2 a, table3 b where a.stockID == b.stockID order by highEarning;"
-                highEarning = cur.execute(q).fetchone()
-            else:
-                q = "select a.stockID, min(a.Price * b."+ str(query_date) +") as highEarning from table2 a, table3 b where a.stockID == b.stockID order by highEarning;"
-                highEarning = cur.execute(q).fetchone()
-            cnt = 1
-            for j in highEarning:
-                if cnt % 2 == 0:
-                    j = round(j, 2)
-                highDemands.append(j)
-                cnt += 1
+        total = ""
+        for i in dates:
+            total += (i + "+") 
+
+            # query_date = '"' + d + '"'
+            # if flag:
+            #     # innerjoin to get highest earing for last 7 days
+            #     # sum of all sales for one particular date
+            #     q = "select a.stockID, max(a.Price * b."+ str(query_date) +") as highEarning from table2 a, table3 b where a.stockID == b.stockID order by highEarning;"
+            #     highEarning = cur.execute(q).fetchone()
+            # else:
+            #     q = "select a.stockID, min(a.Price * b."+ str(query_date) +") as highEarning from table2 a, table3 b where a.stockID == b.stockID order by highEarning;"
+            #     highEarning = cur.execute(q).fetchone()
+            # cnt = 1
+            # for j in highEarning:
+            #     if cnt % 2 == 0:
+            #         j = round(j, 2)
+            #     highDemands.append(j)
+            #     cnt += 1
     return highDemands
 
 #Moved
@@ -199,6 +204,16 @@ def get_all_items():
             stocks_list.append(i[0])
     return stocks_list
 
+def get_all_dates():
+    dates_list = []
+    with sqlite3.connect("data.db") as con:
+        cur = con.cursor()
+        q = "select invoice_date from table4;"
+        dates = cur.execute(q).fetchall()
+        for i in dates:
+            dates_list.append(i[0])
+    return dates_list
+
 def each_item_sold_count():
     sold_count = []
     with sqlite3.connect("data.db") as con:
@@ -220,3 +235,5 @@ def updateSalesDb(item, quantity):
 def getDistributorInfo(itemID):
     # TODO: Prasad
     pass
+
+print(highOnDemand())
