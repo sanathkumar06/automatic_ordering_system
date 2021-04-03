@@ -24,12 +24,10 @@ def getLast7dates():
     with sqlite3.connect("data.db") as con:
         cur = con.cursor()
         # getting last 7 dates from table for which only contain dates
-        dates_desc = cur.execute("select invoice_date from table4 order by invoice_date DESC LIMIT 7;").fetchall()
+        dates_desc = cur.execute("select daily_date from daily_sales order by daily_date DESC LIMIT 7;").fetchall()
         dates_list_desc = []
-
         for i in dates_desc:
             dates_list_desc.append(i[0])
-
     return dates_list_desc
 
 def getAllTheDates():
@@ -207,16 +205,6 @@ def get_all_items():
         for i in stocks:
             stocks_list.append(i[0])
     return stocks_list
-
-def get_all_dates():
-    dates_list = []
-    with sqlite3.connect("data.db") as con:
-        cur = con.cursor()
-        q = "select invoice_date from table4;"
-        dates = cur.execute(q).fetchall()
-        for i in dates:
-            dates_list.append(i[0])
-    return dates_list
 
 def each_item_sold_count():
     sold_count = []
