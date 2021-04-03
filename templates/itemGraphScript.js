@@ -7,8 +7,6 @@ function invalidDate() {
     // function to make a error message visible
 }
 
-
-
 var ctx = document.getElementById('salesChart').getContext('2d');
 var myChart = new Chart(ctx, {
     type: 'line',
