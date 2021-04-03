@@ -3,6 +3,14 @@ from datetime import datetime
 import json
 from difflib import get_close_matches
 
+# Table 1: Current stocks
+# Daily sales: All sales data
+# Table 6: Prediction
+# Table 5:
+
+
+
+
 productDataPath = "productData.json"
 with open(productDataPath) as f:
     productDataJson = json.load(f)
@@ -158,7 +166,6 @@ def getSalesCount():
             salesList.append(tot)
     return {"xaxis": dates, "yaxis": salesList}
 
-# Fixme: Prasad
 def highestEarning(flag):
     highDemands = []
     with sqlite3.connect("data.db") as con:
@@ -232,3 +239,5 @@ def updateSalesDb(item, quantity):
 def getDistributorInfo(itemID):
     # TODO: Prasad
     pass
+
+print(highestEarning(True))
