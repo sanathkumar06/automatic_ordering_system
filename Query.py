@@ -83,15 +83,12 @@ def highOnDemand(flag):
         cur = con.cursor()
         q = "select * from daily_sales order by rowid desc limit 7";
         val = cur.execute(q).fetchall()
-        sumOfSales = []
         dic = {}
         for i in range(1, 51):
             sum = 0
             for j in range(0, 7):
                 sum += val[j][i]
             dic[i] = sum
-            sumOfSales.append(sum)
-        dict = {}
         items = []
         quantity = []
         if flag:
@@ -160,28 +157,43 @@ def getSalesCount():
 
 # Fixme: Prasad
 def highestEarning(flag):
-    highDemands = []
+    highDemands = {}
     with sqlite3.connect("data.db") as con:
         cur = con.cursor()
-        total = ""
-        for i in dates:
-            total += (i + "+") 
-            # query_date = '"' + d + '"'
-            # if flag:
-            #     # innerjoin to get highest earing for last 7 days
-            #     # sum of all sales for one particular date
-            #     q = "select a.stockID, max(a.Price * b."+ str(query_date) +") as highEarning from table2 a, table3 b where a.stockID == b.stockID order by highEarning;"
-            #     highEarning = cur.execute(q).fetchone()
-            # else:
-            #     q = "select a.stockID, min(a.Price * b."+ str(query_date) +") as highEarning from table2 a, table3 b where a.stockID == b.stockID order by highEarning;"
-            #     highEarning = cur.execute(q).fetchone()
-            # cnt = 1
-            # for j in highEarning:
-            #     if cnt % 2 == 0:
-            #         j = round(j, 2)
-            #     highDemands.append(j)
-            #     cnt += 1
-    return highDemands
+        q = "select * from daily_sales order by rowid desc limit 7";
+        val = cur.execute(q).fetchall()
+        for i in range(1, 51):
+            sum = 0
+            item_name = "ITEM_"
+            if i < 10:
+                item_name += ("0" + str(i))
+            else:
+                item_name += (str(i))
+            for j in range(0, 7):
+                sum += (val[j][i] * productDataJson[item_name]['price'])
+            highDemands[i] = round(sum, 2)
+        items = []
+        total = []
+        if flag:
+            sorted_keys = sorted(highDemands, key = highDemands.get, reverse = True)
+            cnt = 0
+            for w in sorted_keys:
+                if cnt == 7:
+                    break
+                cnt += 1    
+                items.append(w)
+                total.append(highDemands[w])
+        else:
+            sorted_keys = sorted(highDemands, key = highDemands.get, reverse = False)
+            cnt = 0
+            for w in sorted_keys:
+                if cnt == 7:
+                    break
+                cnt += 1    
+                items.append(w)
+                total.append(highDemands[w])
+        print(items)
+        print(total)
 
 #Moved
 def prepareHomePayload():
@@ -235,3 +247,5 @@ def getDistributorInfo(itemID):
     # TODO: Prasad
     pass
 
+print(highestEarning(True))
+print(highestEarning(False))
