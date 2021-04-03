@@ -79,13 +79,13 @@ def live_sales():
 
 
 # function to get both highest and lowest sold items in last 7 days
-def highOnDemand(dates_list, flag, limit):
+def highOnDemand(flag, limit):
     total_sales_of_stockID = ""
     with sqlite3.connect("data.db") as con:
         cur = con.cursor()
-        for i in range(0, len(dates_list)):
-            if (i != (len(dates_list) - 1)):
-                d = formated_date(dates_list[i])
+        for i in range(0, len(dates)):
+            if (i != (len(dates) - 1)):
+                d = formated_date(dates[i])
                 total_sales_of_stockID += (' "' + d + '"+')
             else:
                 total_sales_of_stockID += (' "' + d + '"')
@@ -187,6 +187,7 @@ def highestEarning(flag):
         # highDemands.sort()
     return highDemands
 
+#Moved
 def prepareHomePayload():
     payload = {}
     payload["highOnDemand"] = highOnDemand(dates, True, 7)
@@ -226,17 +227,6 @@ def each_item_sold_count():
             dates = cur.execute(q).fetchall()
             sold_count.append(dates)
     return sold_count
-
-def prepareItemDataPayload(itemId):
-    itemInfo = getItemInfo(itemId)
-    payload = {}
-    payload["ID"] = itemId
-    payload["name"] = itemInfo["name"]
-    payload["price"] = itemInfo["price"]
-    payload["dates"] = get_all_dates()
-    payload["sales"] = each_item_sold_count()
-    #payload["prediction"] = TODO:Predicted sales for the item
-    return payload
 
 # print(getLast7dates())
 # print(getSalesCount())

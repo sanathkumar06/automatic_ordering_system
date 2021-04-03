@@ -3,6 +3,7 @@ import sqlite3
 from flask import Flask, render_template, request, redirect, session
 import os
 import Query
+import Payloads
 
 app = Flask(__name__)
 
@@ -82,8 +83,7 @@ def home():
         return redirect('/')
 
     if (request.method == "GET"):
-        payload = Query.prepareHomePayload();
-        # print(payload)
+        payload = Payloads.homePagePayload();
         return render_template('home.html', data=payload, headings = headings, headings2 = headings2)
     else:
         item = request.form['Search']
@@ -111,9 +111,8 @@ def item(id):
         return redirect('/')
 
     if (request.method == 'GET'):
-        f = request.args.get("From")
-        t = request.args.get("To")
-        return render_template("popup_alert.html", path=id, f=f, t=t)
+        payload = Payloads.itemDataPayload(id)
+        return render_template("popup_alert.html", data = payload)
 
 
 @app.route('/sales', methods=['POST', 'GET'])
