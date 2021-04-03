@@ -5,6 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title></title>
+    <script>
+        function addSale() => {
+<!--        TODO: nikith-->
+        }
+    </script>
 </head>
 <style>
 </style>
@@ -12,9 +17,9 @@
     <h1 id="heading">Sales Portal</h1>
     <div class="search">
         <form action="{{url_for('sales')}}">      
-            <input id="searchbar" type="text" placeholder="Search for item" name="Search">
+            <input id="itemId" type="text" placeholder="Item ID" name="itemId">
             <input id="quantity" type="number" name="quantity">
-            <button id="searchbutton" type="submit">ADD</button>
+            <button id="searchbutton" type="submit" onclick="addSale()">ADD</button>
         </form>
     </div>
 

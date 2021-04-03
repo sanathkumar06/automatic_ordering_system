@@ -4,6 +4,9 @@ from flask import Flask, render_template, request, redirect, session
 import os
 import Query
 import Payloads
+import _thread
+import orderManagement
+
 
 app = Flask(__name__)
 
@@ -22,6 +25,7 @@ firebase = pyrebase.initialize_app(config)
 auth = firebase.auth()
 
 isLoggedIn = False
+
 
 @app.route('/')
 @app.route('/index', methods=['GET', 'POST'])
@@ -74,21 +78,23 @@ def logout():
     isLoggedIn = False
     return redirect('/')
 
+
 headings = ["Item Name", "Quantity"]
 headings2 = ["Item ID", "Total"]
+
 
 @app.route('/home', methods=['GET', 'POST'])
 def home():
     if (not isLoggedIn):
         return redirect('/')
 
-    if (request.method == "GET"):
+    if request.method == "GET":
         payload = Payloads.homePagePayload();
-        return render_template('home.html', data=payload, headings = headings, headings2 = headings2)
+        return render_template('home.html', data=payload, headings=headings, headings2=headings2)
     else:
         item = request.form['Search']
         response = Query.lookForItem(item)
-        if (response == "null"):
+        if response == "null":
             redirectLink = "/search/" + item.replace(" ", "_")
             return redirect(redirectLink)
         else:
@@ -101,7 +107,7 @@ def searched_item(item):
     if (not isLoggedIn):
         return redirect('/')
 
-    similar = Query.getSimilar(item.replace("_", " "))
+    similar = Payloads.searchResultPayload(item)
     return render_template("searchResult.html", data=similar)
 
 
@@ -112,18 +118,16 @@ def item(id):
 
     if (request.method == 'GET'):
         payload = Payloads.itemDataPayload(id)
-        return render_template("popup_alert.html", data = payload)
+        return render_template("popup_alert.html", data=payload)
 
 
 @app.route('/sales', methods=['POST', 'GET'])
 def sales():
     if (request.method == "GET"):
-        item = request.args.get("Search")
-        quan = request.args.get("quantity")
-        with sqlite3.connect("data.db") as con:
-            cur = con.cursor()
-            cur.execute("insert into table5(:item, :quan);", {"item": item, "quan": quan})
-            con.commit()
+        item = request.args.get("itemId")
+        quantity = request.args.get("quantity")
+        _thread.start_new_thread(orderManagement.processSale, (item, quantity))
+    else:
         return render_template("sales_portal.html")
 
 
@@ -134,7 +138,6 @@ def liveSale():
 
 @app.route('/liveOrders')
 def liveOrders():
-
     return render_template('liveOrders.html')
 
 
