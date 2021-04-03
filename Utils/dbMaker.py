@@ -1,11 +1,60 @@
 import xlrd
 import sqlite3
+import pandas
 from datetime import datetime, date 
 
 
 db = sqlite3.connect('../data.db')
 cur = db.cursor()
 
+# table-1
+# all_stocks = []
+# query_line = ""
+# for i in range(1, 51):
+#     stock_id = ""
+#     if i < 10:
+#         stock_id = "ITEM_0" + str(i)
+#     else:
+#         stock_id = "ITEM_" + str(i)
+#     if i != 50:    
+#         query_line += stock_id + " int,"
+#     else:
+#         query_line += stock_id + " int" 
+# print(query_line)
+
+# query_string = "daily_date date," + query_line
+
+# print(query_string)
+    # all_stocks.append(stock_id)
+    # q = "insert into table1 values('"+ stock_id +"', 0);"
+    # cur.execute(q)
+    # db.commit()
+
+# table - 2
+# q = "create table daily_sales(" + query_string + ");"
+# cur.execute(q)
+# db.commit()
+data = pandas.read_csv('../daily_sales.csv')
+print(data)
+
+# print(data['date'][0], data['1'][0])
+query = "insert into daily_sales values("
+for i in range(10, 1642):
+    q = query + ""   
+    qq = str(data['date'][i])
+    q += ("'"+ qq +"',")
+    sales = "" 
+    for j in range(1, 51):
+        if j != 50:
+            sales +=  (str(data[str(j)][i]) + ",")
+        else:
+            sales +=  (str(data[str(j)][i]) + ");")
+    out = (q + sales)
+    cur.execute(out)
+    db.commit()
+    print(out)
+# q = insert into daily_sales()
+# ans = cur.execute("select * from table1 limit 5;").fetchall()
 # this is for dates sorting
 # val = cur.execute("select invoice_date from table4 order by invoice_date DESC;").fetchall()
 # print()
@@ -14,9 +63,9 @@ cur = db.cursor()
 # cur.execute(create)
 # db.commit()
 
-create = "CREATE TABLE IF NOT EXISTS table7(stockID text, sold int, FOREIGN KEY(stockID) REFERENCES table1(stockID));"
-cur.execute(create)
-db.commit()
+# create = "CREATE TABLE IF NOT EXISTS table7(stockID text, sold int, FOREIGN KEY(stockID) REFERENCES table1(stockID));"
+# cur.execute(create)
+# db.commit()
 
 '''
 This is for sales portal table creation

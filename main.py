@@ -139,5 +139,5 @@ def liveOrders():
 
 
 if __name__ == '__main__':
-    app.secret_key = "yourppisveryverysmall"
+    app.secret_key = "RosesAreRedSkyIsBlueFBIWantsToStealMyDickCanIHideItInsideYou"
     app.run(debug=True)
