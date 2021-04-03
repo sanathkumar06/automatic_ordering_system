@@ -33,26 +33,30 @@ cur = db.cursor()
 # table - 2
 # q = "create table daily_sales(" + query_string + ");"
 # cur.execute(q)
-# db.commit()
-data = pandas.read_csv('../daily_sales.csv')
-print(data)
 
-# print(data['date'][0], data['1'][0])
-query = "insert into daily_sales values("
-for i in range(10, 1642):
-    q = query + ""   
-    qq = str(data['date'][i])
-    q += ("'"+ qq +"',")
-    sales = "" 
-    for j in range(1, 51):
-        if j != 50:
-            sales +=  (str(data[str(j)][i]) + ",")
-        else:
-            sales +=  (str(data[str(j)][i]) + ");")
-    out = (q + sales)
-    cur.execute(out)
-    db.commit()
-    print(out)
+# db.commit()
+# data = pandas.read_csv('../daily_sales.csv')
+# print(data)
+
+# # print(data['date'][0], data['1'][0])
+# query = "insert into daily_sales values("
+# for i in range(10, 1642):
+#     q = query + ""   
+#     qq = str(data['date'][i])
+#     q += ("'"+ qq +"',")
+#     sales = "" 
+#     for j in range(1, 51):
+#         if j != 50:
+#             sales +=  (str(data[str(j)][i]) + ",")
+#         else:
+#             sales +=  (str(data[str(j)][i]) + ");")
+#     out = (q + sales)
+#     cur.execute(out)
+#     db.commit()
+#     print(out)
+
+#table-2 column rename
+
 # q = insert into daily_sales()
 # ans = cur.execute("select * from table1 limit 5;").fetchall()
 # this is for dates sorting

@@ -166,7 +166,6 @@ def highestEarning(flag):
         total = ""
         for i in dates:
             total += (i + "+") 
-
             # query_date = '"' + d + '"'
             # if flag:
             #     # innerjoin to get highest earing for last 7 days
@@ -236,4 +235,3 @@ def getDistributorInfo(itemID):
     # TODO: Prasad
     pass
 
-print(highOnDemand())
