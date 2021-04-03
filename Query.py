@@ -143,12 +143,8 @@ def getSimilar(item):
     return IDandName
 
 
-#Expected return format:
-    # {'xaxis': ['2011-12-09', '2011-12-08', '2011-12-07', '2011-12-06', '2011-12-05', '2011-12-04', '2011-12-02'], 'yaxis': ['123', '133', '345', '355', '654', '789','5567']}
 def getSalesCount():
     salesList = []
-    # TODO: Total sales for last 7 days
-    # append to salesList
     with sqlite3.connect("data.db") as con:
         cur = con.cursor()
         for i in range(0, len(dates)):
@@ -160,9 +156,9 @@ def getSalesCount():
             for j in sales_count:
                 tot += (j[0]);
             salesList.append(tot)
-    # return salesList
     return {"xaxis": dates, "yaxis": salesList}
 
+# Fixme: Prasad
 def highestEarning(flag):
     highDemands = []
     with sqlite3.connect("data.db") as con:
@@ -183,8 +179,6 @@ def highestEarning(flag):
                     j = round(j, 2)
                 highDemands.append(j)
                 cnt += 1
-                # highDemands.append(j[1])
-        # highDemands.sort()
     return highDemands
 
 #Moved
@@ -228,10 +222,13 @@ def each_item_sold_count():
             sold_count.append(dates)
     return sold_count
 
-# print(getLast7dates())
-# print(getSalesCount())
-# print(highestEarning(True))
-# print(getSimilar("pizza"))
-# print(get_all_dates())
-# print(get_all_items())
-# print(each_item_sold_count())
+
+def updateSalesDb(item, quantity):
+    with sqlite3.connect("data.db") as con:
+        cur = con.cursor()
+        cur.execute("insert into table5(:item, :quan);", {"item": item, "quan": quantity})
+        con.commit()
+
+def getDistributorInfo(itemID):
+    # TODO: Prasad
+    pass

@@ -1,10 +1,11 @@
 import sqlite3
 import json
+import _thread
+import Query
 
 conn = sqlite3.connect("data.db")
 cur = conn.cursor()
 
-distributors = json.load("distributors.")
 
 def getCurrentSales(itemID):
     cur_sales = []
@@ -15,15 +16,17 @@ def getCurrentSales(itemID):
     print(cur_sales)
 
 
-def getDistributorInfo(itemID):
-    # TODO
-
-
 def placeOrder(itemID):
-    distrubutor = getDistributorInfo(itemId)
-    # TODO order
+    distrubutor = Query.getDistributorInfo(itemID)
+    # TODO Nikith
 
-def checkAvailablity(itemID):
+
+def checkAvailability(itemID):
     predictionData = json.load('prediction.json')
     if(getCurrentSales(itemID) >= predictionData[itemID]):
         placeOrder(itemID)
+
+
+def processSale(itemId, quantity):
+    Query.updateSalesDb(itemId, quantity)
+    checkAvailability(itemId)
