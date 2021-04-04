@@ -2,15 +2,15 @@ import Query
 
 def homePagePayload():
     payload = {}
-    payload["highOnDemand"] = Query.highOnDemand(True, 10)
-    payload["lowOnDemand"] = Query.highOnDemand(False, 10)
+    payload["highOnDemand"] = Query.highOnDemand(True)
+    payload["lowOnDemand"] = Query.highOnDemand(False)
     # TODO: Vamshi :
     payload["salesData"] = Query.getSalesCount()
     payload["highestEarning"] = Query.highestEarning(True)
     payload["lowestEarning"] = Query.highestEarning(False)
 
     # TODO: Prasad
-    # payload["totalSales"] = Query.getTotalSales()
+    payload["totalSales"] = Query.getTotalSales()
     # TODO: Prasad
     # payload["totalOrders"] = Query.getTotalOrders()
     # TODO: Prasad
