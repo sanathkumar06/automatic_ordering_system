@@ -9,8 +9,6 @@ from difflib import get_close_matches
 # Table 5:
 
 
-
-
 productDataPath = "productData.json"
 with open(productDataPath) as f:
     productDataJson = json.load(f)
@@ -30,6 +28,7 @@ def getLast7dates():
             dates_list_desc.append(i[0])
     return dates_list_desc
 
+
 def getAllTheDates():
     overall_dates = []
     with sqlite3.connect("data.db") as conn:
@@ -39,6 +38,7 @@ def getAllTheDates():
         for i in dates:
             overall_dates.append(i[0])
     return overall_dates
+
 
 # print(getAllTheDates())
 
@@ -72,10 +72,13 @@ def query(f , t = datetime.now().strftime("%Y-%m-%d"), stockID):
     return final_sales
 #print(query("2010-12-01", "2010-12-02", "10002"))
 '''
+
+
 def formated_date(d):
     return d.replace("-", "_")
 
-# fucntion to get the live sales
+
+# function to get the live sales
 def live_sales():
     with sqlite3.connect("data.db") as con:
         cur = con.cursor()
@@ -107,7 +110,7 @@ def highOnDemand(flag, limit):
         items = []
         quantity = []
         for i in sales:
-            #print(i[0], i[1])
+            # print(i[0], i[1])
             items.append(productDataJson[i[0]]["name"])
             quantity.append(i[1])
 
@@ -137,8 +140,8 @@ def lookForItem(item):
 
 
 # Return format example:
-    # getSimilar("biscuit"):
-    # {'ID': ['D', '21218', '22357'], 'names': ['Discount', 'Red spotty biscuit tin', 'Kings choice biscuit tin']}
+# getSimilar("biscuit"):
+# {'ID': ['D', '21218', '22357'], 'names': ['Discount', 'Red spotty biscuit tin', 'Kings choice biscuit tin']}
 def getSimilar(item):
     items = get_close_matches(item, nameIDMapJson.keys(), n=10, cutoff=0.4)
     IDs = []
@@ -156,13 +159,14 @@ def getSalesCount():
         for i in range(0, len(dates)):
             d = formated_date(dates[i])
             query_date = '"' + d + '"'
-            q = "select "+ query_date +" from table3 where " +  query_date  + " = " +  query_date  + " ;"
+            q = "select " + query_date + " from table3 where " + query_date + " = " + query_date + " ;"
             sales_count = cur.execute(q).fetchall()
             tot = 0
             for j in sales_count:
                 tot += (j[0]);
             salesList.append(tot)
     return {"xaxis": dates, "yaxis": salesList}
+
 
 def highestEarning(flag):
     highDemands = []
@@ -173,10 +177,12 @@ def highestEarning(flag):
             query_date = '"' + d + '"'
             if flag:
                 # innerjoin to get highest earing for last 7 days
-                q = "select a.stockID, max(a.Price * b."+ str(query_date) +") as highEarning from table2 a, table3 b where a.stockID == b.stockID order by highEarning;"
+                q = "select a.stockID, max(a.Price * b." + str(
+                    query_date) + ") as highEarning from table2 a, table3 b where a.stockID == b.stockID order by highEarning;"
                 highEarning = cur.execute(q).fetchone()
             else:
-                q = "select a.stockID, min(a.Price * b."+ str(query_date) +") as highEarning from table2 a, table3 b where a.stockID == b.stockID order by highEarning;"
+                q = "select a.stockID, min(a.Price * b." + str(
+                    query_date) + ") as highEarning from table2 a, table3 b where a.stockID == b.stockID order by highEarning;"
                 highEarning = cur.execute(q).fetchone()
             cnt = 1
             for j in highEarning:
@@ -186,15 +192,17 @@ def highestEarning(flag):
                 cnt += 1
     return highDemands
 
-#Moved
-def prepareHomePayload():
-    payload = {}
-    payload["highOnDemand"] = highOnDemand(dates, True, 7)
-    payload["lowOnDemand"] = highOnDemand(dates, False, 7)
-    payload["salesData"] = getSalesCount()
-    payload["highestEarning"] = highestEarning(True)
-    payload["lowestEarning"] = highestEarning(False)
-    return payload
+
+def getCurrentSales(itemID):
+    conn = sqlite3.connect("data.db")
+    cur = conn.cursor()
+    cur_sales = []
+    q = "select sold from table6 where stockID = '" + itemID + "';"
+    item_sales = cur.execute(q).fetchall()
+    for i in item_sales:
+        cur_sales.append(i[0])
+    print(cur_sales)
+
 
 def get_all_items():
     stocks_list = []
@@ -206,13 +214,14 @@ def get_all_items():
             stocks_list.append(i[0])
     return stocks_list
 
+
 def each_item_sold_count():
     sold_count = []
     with sqlite3.connect("data.db") as con:
         cur = con.cursor()
         stocks = get_all_items()
         for i in stocks:
-            q = "select * from table3 where stockID = '"+ i +"';"
+            q = "select * from table3 where stockID = '" + i + "';"
             dates = cur.execute(q).fetchall()
             sold_count.append(dates)
     return sold_count
@@ -224,8 +233,12 @@ def updateSalesDb(item, quantity):
         cur.execute("insert into table5(:item, :quan);", {"item": item, "quan": quantity})
         con.commit()
 
-def getDistributorInfo(itemID):
-    # TODO: Prasad
+
+def getItemPrediction(itemID):
+    # todo Sanath
     pass
 
-print(highestEarning(True))
+
+def getLatestSales():
+    # todo prasad
+    pass

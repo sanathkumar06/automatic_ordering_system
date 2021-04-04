@@ -1,29 +1,30 @@
 import sqlite3
-import json
-import _thread
 import Query
+import smtplib
+from email.message import EmailMessage
 
-conn = sqlite3.connect("data.db")
-cur = conn.cursor()
 
-
-def getCurrentSales(itemID):
-    cur_sales = []
-    q = "select sold from table6 where stockID = '"+ itemID +"';"
-    item_sales = cur.execute(q).fetchall()
-    for i in item_sales:
-        cur_sales.append(i[0])
-    print(cur_sales)
+def sendMail(info, quantity):
+    myMail = "fake1@gmail.com"
+    email = smtplib.SMTP(info["distributorMail"], 587)
+    email.starttls()
+    email.login(myMail, "sender_password")
+    # message = EmailMessage()
+    # message['Subject'] = "Order stuff"
+    msg = "Order:" + quantity
+    email.sendmail(myMail, info["distributorMail"], msg)
 
 
 def placeOrder(itemID):
-    distrubutor = Query.getDistributorInfo(itemID)
-    # TODO Nikith
+    itemInfo = Query.getItemInfo(itemID)
+    # todo Sanath
+    orderQuantity = 000
+    sendMail(itemInfo, orderQuantity)
 
 
 def checkAvailability(itemID):
-    predictionData = json.load('prediction.json')
-    if(getCurrentSales(itemID) >= predictionData[itemID]):
+    predictionData = Query.getItemPrediction(itemID)
+    if Query.getCurrentSales(itemID) >= predictionData[itemID]:
         placeOrder(itemID)
 
 

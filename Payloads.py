@@ -19,21 +19,21 @@ def homePagePayload():
 
 def salesPortalPayload():
     payload = {}
-    # payload["latestSales"] = Query.getLatestSales()
+    payload["latestSales"] = Query.getLatestSales()
     payload["topSelling"] = Query.highOnDemand(True, 10)
     return payload
 
-def itemDataPayload(itemId):
+def itemDataPayload(itemID):
     payload = {}
-    itemInfo = Query.getItemInfo(itemId)
-    payload["ID"] = itemId
+    itemInfo = Query.getItemInfo(itemID)
+    payload["ID"] = itemID
     payload["name"] = itemInfo["name"]
     payload["price"] = itemInfo["price"]
     payload["dates"] = Query.get_all_dates()
     payload["sales"] = Query.each_item_sold_count()
     # TODO: Sanath
     #  Predicted sales for the item
-    # payload["prediction"] = Query.getItemPrediction()
+    payload["prediction"] = Query.getItemPrediction(itemID)
     return payload
 
 def liveUpdatePayload():
