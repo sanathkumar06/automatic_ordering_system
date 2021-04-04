@@ -10,7 +10,7 @@ def homePagePayload():
     payload["lowestEarning"] = Query.highestEarning(False)
 
     # TODO: Prasad
-    payload["totalSales"] = Query.getTotalSales()
+    # p ayload["totalSales"] = Query.getTotalSales()
     # TODO: Prasad
     # payload["totalOrders"] = Query.getTotalOrders()
     # TODO: Prasad
