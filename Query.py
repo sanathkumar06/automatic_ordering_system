@@ -75,8 +75,6 @@ def live_sales():
         target = cur.execute(q).fetchall()
         return target
 
-print(dates)
-
 # function to get both highest and lowest sold items in last 7 days
 def highOnDemand(flag):
     with sqlite3.connect("data.db") as con:
@@ -192,8 +190,7 @@ def highestEarning(flag):
                 cnt += 1    
                 items.append(w)
                 total.append(highDemands[w])
-        print(items)
-        print(total)
+    return items
 
 #Moved
 def prepareHomePayload():
@@ -246,6 +243,3 @@ def updateSalesDb(item, quantity):
 def getDistributorInfo(itemID):
     # TODO: Prasad
     pass
-
-print(highestEarning(True))
-print(highestEarning(False))
