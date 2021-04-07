@@ -237,7 +237,7 @@ iframe {
   width: 100px;
   height: 100px;
   color: black;
-  margin-left: 19%;
+  margin-left: 0%;
 }
 
 .boxList {
@@ -255,6 +255,14 @@ iframe {
 
 } 
 
+.atOrders {
+  width: 380px;
+  height: 400px;
+  margin-left: 19%;
+  border: 2px solid rgb(0, 0, 0);
+  /* padding: 50px; */
+  /* margin: 20px; */
+}
 
 </style>
 
@@ -282,17 +290,17 @@ iframe {
   <div class="graph">
     <canvas id="salesChart"></canvas>
   </div>
-  <!--<div class="box">-->
-    <!--<div class="boxList">-->
+  <!-- <div class="box">
+    <div class="boxList">-->
       <!--<h3 id = "box_head">Total Items Sold From start </h3> -->
     <!--</div>-->
     <!--<div class="boxList">-->
       <!--<h3 id = "box_head">Total Items Sold From start </h3>-->
     <!--</div>-->
-    <!--<div class="boxList">-->
-      <!--<h3 id = "box_head">Total Items Sold From start </h3>-->
-    <!--</div>-->
-  <!--</div>-->
+    <!-- <div class="boxList">-->
+      <!-- <h3 id = "box_head">Total Items Sold From start </h3> -->
+    <!-- </div> --> 
+  <!-- </div> -->   
   <div class="box1">
     <div class="boxList">
       <h3 class = "box_head">Total Items Sold From start </h3>
@@ -304,7 +312,16 @@ iframe {
       <h3 class = "box_head">Total Items Sold From start </h3>
     </div>
   </div>
+
+  <!-- <div class="box1"> -->
+  
+    <div class="atOrders">
+      <h3 class="box_head">Auto Orders</h3>
+    </div>
+
 </div>
+
+
 
 <div class="home-row">
   <div class="live-sales">
@@ -323,7 +340,6 @@ iframe {
     <tr class="table-title">
       <th colspan="3">High on Demand</th>
     </tr>
-    
     <tr class="table-heading">
       {% for k in headings %}
       <th class="table-cell" >{{ k }}</th>
@@ -358,16 +374,17 @@ iframe {
   <table class="data-table">
     <tr class="table-title">
       <th colspan="3">Highest Earning</th>
+
     </tr>
     <tr class="table-heading">
       {% for l in headings2 %}
       <th class="table-cell" >{{ l }}</th>
       {% endfor %}
     </tr>
-    {% for i in range(0, 14, 2) %}
+    {% for i in range(0, 7) %}
     <tr class="table-row">
-      <td class="table-cell" > {{data["highestEarning"][i]}}</td>
-      <td class="table-cell" > {{data["highestEarning"][i + 1]}}</td>
+      <td class="table-cell" > {{data["highestEarning"][0][i]}}</td>
+      <td class="table-cell" > {{data["highestEarning"][1][i]}}</td>
     </tr>
     {% endfor %} 
   </table>
@@ -381,10 +398,10 @@ iframe {
       <th class="table-cell" >{{ l }}</th>
       {% endfor %}
     </tr>
-    {% for i in range(0, 14, 2) %}
+    {% for i in range(0, 7) %}
     <tr class="table-row">
-      <td class="table-cell" > {{data["lowestEarning"][i]}}</td>
-      <td class="table-cell" > {{data["lowestEarning"][i + 1]}}</td>
+      <td class="table-cell" > {{data["lowestEarning"][0][i]}}</td>
+      <td class="table-cell" > {{data["lowestEarning"][1][i]}}</td>
     </tr>
     {% endfor %} 
   </table>  

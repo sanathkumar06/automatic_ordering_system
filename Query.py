@@ -140,18 +140,20 @@ def getSimilar(item):
 
 def getSalesCount():
     salesList = []
-    with sqlite3.connect("data.db") as con:
-        cur = con.cursor()
-        for i in range(0, len(dates)):
-            d = formated_date(dates[i])
-            query_date = '"' + d + '"'
-            q = "select "+ query_date +" from table3 where " +  query_date  + " = " +  query_date  + " ;"
-            sales_count = cur.execute(q).fetchall()
-            tot = 0
-            for j in sales_count:
-                tot += (j[0]);
-            salesList.append(tot)
-    return {"xaxis": dates, "yaxis": salesList}
+    TODO:Nikith
+    pass
+    # with sqlite3.connect("data.db") as con:
+    #     cur = con.cursor()
+    #     for i in range(0, len(dates)):
+    #         d = formated_date(dates[i])
+    #         query_date = '"' + d + '"'
+    #         q = "select "+ query_date +" from table3 where " +  query_date  + " = " +  query_date  + " ;"
+    #         sales_count = cur.execute(q).fetchall()
+    #         tot = 0
+    #         for j in sales_count:
+    #             tot += (j[0]);
+    #         salesList.append(tot)
+    # return {"xaxis": dates, "yaxis": salesList}
 
 # Fixme: Prasad
 def highestEarning(flag):
@@ -190,7 +192,7 @@ def highestEarning(flag):
                 cnt += 1    
                 items.append(w)
                 total.append(highDemands[w])
-    return items
+    return [items, total]
 
 #Moved
 def prepareHomePayload():
