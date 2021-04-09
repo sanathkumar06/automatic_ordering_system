@@ -3,3 +3,5 @@ node_modules
 Utils/.~lock.online_retail.xlsx#
 .idea*
 __pycache__
+
+model.h5
