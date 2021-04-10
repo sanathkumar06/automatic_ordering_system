@@ -3,6 +3,14 @@ from datetime import datetime
 import json
 from difflib import get_close_matches
 from model import *
+
+# Table 1: Current stocks
+# Daily sales: All sales data
+# Table 6: Prediction
+# Table 5: StockID sold
+# Stock price: Stock and price
+
+
 productDataPath = "productData.json"
 with open(productDataPath) as f:
     productDataJson = json.load(f)
@@ -22,6 +30,7 @@ def getLast7dates():
             dates_list_desc.append(i[0])
     return dates_list_desc
 
+
 def getAllTheDates():
     overall_dates = []
     with sqlite3.connect("data.db") as conn:
@@ -32,13 +41,16 @@ def getAllTheDates():
             overall_dates.append(i[0])
     return overall_dates
 
+
+# print(getAllTheDates())
+
 dates = getLast7dates()
-print(dates)
 
 def formated_date(d):
     return d.replace("-", "_")
 
-# fucntion to get the live sales
+
+# function to get the live sales
 def live_sales():
     with sqlite3.connect("data.db") as con:
         cur = con.cursor()
@@ -71,7 +83,7 @@ def highOnDemand(flag, limit):
             for w in sorted_keys:
                 if cnt == limit:
                     break
-                cnt += 1    
+                cnt += 1
                 items.append(w)
                 quantity.append(dic[w])
         else:
@@ -80,7 +92,7 @@ def highOnDemand(flag, limit):
             for w in sorted_keys:
                 if cnt == limit:
                     break
-                cnt += 1    
+                cnt += 1
                 items.append(w)
                 quantity.append(dic[w])
     return {"items": items, "quantity": quantity, "limit" : limit}
@@ -154,7 +166,7 @@ def highestEarning(flag):
             for w in sorted_keys:
                 if cnt == 7:
                     break
-                cnt += 1    
+                cnt += 1
                 items.append(w)
                 total.append(highDemands[w])
         else:
@@ -163,20 +175,21 @@ def highestEarning(flag):
             for w in sorted_keys:
                 if cnt == 7:
                     break
-                cnt += 1    
+                cnt += 1
                 items.append(w)
                 total.append(highDemands[w])
     return [items, total]
 
-#Moved
-def prepareHomePayload():
-    payload = {}
-    payload["highOnDemand"] = highOnDemand(dates, True, 7)
-    payload["lowOnDemand"] = highOnDemand(dates, False, 7)
-    payload["salesData"] = getSalesCount()
-    payload["highestEarning"] = highestEarning(True)
-    payload["lowestEarning"] = highestEarning(False)
-    return payload
+def getCurrentSales(itemID):
+    conn = sqlite3.connect("data.db")
+    cur = conn.cursor()
+    cur_sales = []
+    q = "select sold from table6 where stockID = '" + itemID + "';"
+    item_sales = cur.execute(q).fetchall()
+    for i in item_sales:
+        cur_sales.append(i[0])
+    print(cur_sales)
+
 
 def get_all_items():
     stocks_list = []
@@ -187,6 +200,17 @@ def get_all_items():
         for i in stocks:
             stocks_list.append(i[0])
     return stocks_list
+
+
+def get_all_dates():
+    dates_list = []
+    with sqlite3.connect("data.db") as con:
+        cur = con.cursor()
+        q = "select invoice_date from table4;"
+        dates = cur.execute(q).fetchall()
+        for i in dates:
+            dates_list.append(i[0])
+    return dates_list
 
 def each_item_sold_count():
     sold_count = []
@@ -206,8 +230,9 @@ def updateSalesDb(item, quantity):
         cur.execute("insert into table5(:item, :quan);", {"item": item, "quan": quantity})
         con.commit()
 
-def getDistributorInfo(itemID):
-    # TODO: Prasad
+
+def getLatestSales():
+    # todo prasad
     pass
 
 def getItemPrediction():
@@ -219,4 +244,4 @@ def getItemPrediction():
         load_main()
         res = weekdata(list(var[0]))
         print(res)
-#getItemPrediction()
+getItemPrediction()
