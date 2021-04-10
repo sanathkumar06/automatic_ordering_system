@@ -389,7 +389,7 @@ iframe {
       {% endfor %}
     </tr>
     
-    {% for i in range(0, 7) %}
+    {% for i in range(0, data["highOnDemand"]["limit"]) %}
     <tr class="table-row">
       {%if data["highOnDemand"]['items'][i] <10 %}
         <td class="table-cell" > ITEM_0{{data["highOnDemand"]['items'][i]}}</td>
@@ -410,7 +410,7 @@ iframe {
       <th class="table-cell" >{{ k }}</th>
       {% endfor %}
     </tr>
-    {% for i in range(0, 7) %}
+    {% for i in range(0, data["lowOnDemand"]["limit"]) %}
     <tr class="table-row">
       {%if data["lowOnDemand"]['items'][i] <10 %}
         <td class="table-cell" > ITEM_0{{data["lowOnDemand"]['items'][i]}}</td>
@@ -432,7 +432,7 @@ iframe {
       <th class="table-cell" >{{ l }}</th>
       {% endfor %}
     </tr>
-    {% for i in range(0, 7) %}
+    {% for i in range(0, data["highestEarning"][2]) %}
     <tr class="table-row">
       {%if data["highestEarning"][0][i] < 10 %}
         <td class="table-cell" > ITEM_0{{data["highestEarning"][0][i]}}</td>
@@ -453,7 +453,7 @@ iframe {
       <th class="table-cell" >{{ l }}</th>
       {% endfor %}
     </tr>
-    {% for i in range(0, 7) %}
+    {% for i in range(0, data["lowestEarning"][2]) %}
     <tr class="table-row">
       {%if data["lowestEarning"][0][i] < 10 %}
         <td class="table-cell" > ITEM_0{{data["lowestEarning"][0][i]}}</td>
