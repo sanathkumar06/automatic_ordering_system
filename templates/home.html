@@ -57,6 +57,7 @@ body{
   outline: none;
   transition: transform 0.8s;
   float: right;
+  margin-left: 10px;
 }
 
 #logout:hover {
@@ -252,8 +253,18 @@ iframe {
   color: #ffffff;
   background-color: #24305e;
   margin-top: 0 0 0 auto;
+  font-size: 20px;
+  text-align: center;
+}
 
-} 
+.box_head1{
+  font-family: sans-serif;
+  color: #ffffff;
+  background-color: #24305e;
+  margin-top: 0 0 0 auto;
+  /* font-size: 10px; */
+  text-align: center;
+}
 
 .atOrders {
   width: 380px;
@@ -262,10 +273,17 @@ iframe {
   border: 2px solid rgb(0, 0, 0);
   /* padding: 50px; */
   /* margin: 20px; */
+  font-size: 30px;
+  text-align: center;
+}
+
+.vOrders {
+  width: 375px;
+  height: 355px;
+  overflow-y: auto;
 }
 
 </style>
-
 
 
 <body>
@@ -273,8 +291,13 @@ iframe {
 
   <div class="navabar header" id="dest">
       <h2 class="project-title">AUTOMATIC ORDERING SYSTEM</h2>
+      
       <a href="/logout">
         <button id="logout" > Logout</button>
+      </a>
+
+      <a href="salesOrdering.html">
+      <button id="logout" >Sales Portal</button>
       </a>
   </div>
 
@@ -303,20 +326,40 @@ iframe {
   <!-- </div> -->   
   <div class="box1">
     <div class="boxList">
-      <h3 class = "box_head">Total Items Sold From start </h3>
+      <h3 class = "box_head">Items Sold All Time</h3>
     </div>
     <div class="boxList">
-      <h3 class = "box_head">Total Items Sold From start </h3>
+      <h3 class = "box_head">Items Sold Per Day</h3>
     </div>
     <div class="boxList">
-      <h3 class = "box_head">Total Items Sold From start </h3>
+      <h3 class = "box_head">Items Sold Per Hour</h3>
     </div>
   </div>
 
   <!-- <div class="box1"> -->
   
     <div class="atOrders">
-      <h3 class="box_head">Auto Orders</h3>
+      <h3 class="box_head1">Auto Orders</h3>
+      <div class="vOrders">
+      # TODO: Prasad : give data here
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </div>
     </div>
 
 </div>
@@ -346,7 +389,7 @@ iframe {
       {% endfor %}
     </tr>
     
-    {% for i in range(0, 7) %}
+    {% for i in range(0, data["highOnDemand"]["limit"]) %}
     <tr class="table-row">
       {%if data["highOnDemand"]['items'][i] <10 %}
         <td class="table-cell" > ITEM_0{{data["highOnDemand"]['items'][i]}}</td>
@@ -367,7 +410,7 @@ iframe {
       <th class="table-cell" >{{ k }}</th>
       {% endfor %}
     </tr>
-    {% for i in range(0, 7) %}
+    {% for i in range(0, data["lowOnDemand"]["limit"]) %}
     <tr class="table-row">
       {%if data["lowOnDemand"]['items'][i] <10 %}
         <td class="table-cell" > ITEM_0{{data["lowOnDemand"]['items'][i]}}</td>
@@ -389,7 +432,7 @@ iframe {
       <th class="table-cell" >{{ l }}</th>
       {% endfor %}
     </tr>
-    {% for i in range(0, 7) %}
+    {% for i in range(0, data["highestEarning"][2]) %}
     <tr class="table-row">
       {%if data["highestEarning"][0][i] < 10 %}
         <td class="table-cell" > ITEM_0{{data["highestEarning"][0][i]}}</td>
@@ -410,7 +453,7 @@ iframe {
       <th class="table-cell" >{{ l }}</th>
       {% endfor %}
     </tr>
-    {% for i in range(0, 7) %}
+    {% for i in range(0, data["lowestEarning"][2]) %}
     <tr class="table-row">
       {%if data["lowestEarning"][0][i] < 10 %}
         <td class="table-cell" > ITEM_0{{data["lowestEarning"][0][i]}}</td>
