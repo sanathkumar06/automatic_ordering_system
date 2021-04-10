@@ -142,11 +142,11 @@ def getSalesCount():
     return {"xaxis": dates, "yaxis": salesList}
 
 # Fixme: Prasad
-def highestEarning(flag):
+def highestEarning(flag, limit):
     highDemands = {}
     with sqlite3.connect("data.db") as con:
         cur = con.cursor()
-        q = "select * from daily_sales order by rowid desc limit 7";
+        q = "select * from daily_sales order by rowid desc limit " + str(limit);
         val = cur.execute(q).fetchall()
         for i in range(1, 51):
             sum = 0
@@ -155,7 +155,7 @@ def highestEarning(flag):
                 item_name += ("0" + str(i))
             else:
                 item_name += (str(i))
-            for j in range(0, 7):
+            for j in range(0, limit):
                 sum += (val[j][i] * productDataJson[item_name]['price'])
             highDemands[i] = round(sum, 2)
         items = []
@@ -164,7 +164,7 @@ def highestEarning(flag):
             sorted_keys = sorted(highDemands, key = highDemands.get, reverse = True)
             cnt = 0
             for w in sorted_keys:
-                if cnt == 7:
+                if cnt == limit:
                     break
                 cnt += 1
                 items.append(w)
@@ -173,12 +173,12 @@ def highestEarning(flag):
             sorted_keys = sorted(highDemands, key = highDemands.get, reverse = False)
             cnt = 0
             for w in sorted_keys:
-                if cnt == 7:
+                if cnt == limit:
                     break
                 cnt += 1
                 items.append(w)
                 total.append(highDemands[w])
-    return [items, total]
+    return [items, total, limit]
 
 def getCurrentSales(itemID):
     conn = sqlite3.connect("data.db")

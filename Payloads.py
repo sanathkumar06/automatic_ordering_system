@@ -6,11 +6,10 @@ def homePagePayload():
     payload["lowOnDemand"] = Query.highOnDemand(False, 10)
     # TODO: Vamshi :
     # payload["salesData"] = Query.getSalesCount()
-    payload["highestEarning"] = Query.highestEarning(True)
-    payload["lowestEarning"] = Query.highestEarning(False)
-
+    payload["highestEarning"] = Query.highestEarning(True, 10)
+    payload["lowestEarning"] = Query.highestEarning(False, 10)
     # TODO: Prasad
-    # payload["totalSales"] = Query.getTotalSales()
+    # p ayload["totalSales"] = Query.getTotalSales()
     # TODO: Prasad
     # payload["totalOrders"] = Query.getTotalOrders()
     # TODO: Prasad
@@ -19,15 +18,14 @@ def homePagePayload():
 
 def salesPortalPayload():
     payload = {}
-    #todo prasad
     # payload["latestSales"] = Query.getLatestSales()
     payload["topSelling"] = Query.highOnDemand(True, 10)
     return payload
 
-def itemDataPayload(itemID):
+def itemDataPayload(itemId):
     payload = {}
-    itemInfo = Query.getItemInfo(itemID)
-    payload["ID"] = itemID
+    itemInfo = Query.getItemInfo(itemId)
+    payload["ID"] = itemId
     payload["name"] = itemInfo["name"]
     payload["price"] = itemInfo["price"]
     payload["dates"] = Query.getAllTheDates()

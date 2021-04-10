@@ -13,6 +13,21 @@ cur = db.cursor()
 
 #stock_price table creation
 # print(productDataJson)
+# i = 1
+# while(i <= 50):
+#     item_name = "ITEM_"
+#     if i < 10:
+#         item_name += ("0" + str(i))
+#     else:
+#         item_name += (str(i))
+#     price = productDataJson[item_name]['price']
+#     i += 1 
+#     print(str(item_name) + "===>" + str(price))
+#     q = "insert into stock_price values('"+ str(item_name) +"', "+ str(price) +");"
+#     cur.execute(q)
+#     db.commit()
+
+#inserting into table5 and table prediction
 i = 1
 while(i <= 50):
     item_name = "ITEM_"
@@ -20,12 +35,12 @@ while(i <= 50):
         item_name += ("0" + str(i))
     else:
         item_name += (str(i))
-    price = productDataJson[item_name]['price']
-    i += 1 
-    print(str(item_name) + "===>" + str(price))
-    q = "insert into stock_price values('"+ str(item_name) +"', "+ str(price) +");"
+    q = "insert into table5 values('"+ item_name +"', 0);"
+    q1 = "insert into prediction values('"+ item_name +"', 0, 0, 0);"
     cur.execute(q)
+    cur.execute(q1)
     db.commit()
+    i += 1
 
 # table-1
 # all_stocks = []
