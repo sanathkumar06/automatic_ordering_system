@@ -1,19 +1,31 @@
 import sqlite3
-import Query
+# import Query
 import smtplib
-from email.message import EmailMessage
-
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 
 def sendMail(info, quantity):
-    myMail = "fake1@gmail.com"
-    email = smtplib.SMTP(info["distributorMail"], 587)
-    email.starttls()
-    email.login(myMail, "sender_password")
-    # message = EmailMessage()
-    # message['Subject'] = "Order stuff"
-    msg = "Order:" + quantity
-    email.sendmail(myMail, info["distributorMail"], msg)
+    myMail = "auto.order.system@gmail.com"
+    myPass = "order@123"
 
+    msg = MIMEMultipart('alternative')
+    msg['From'] = myMail
+    msg['To'] = info['distributorMail']
+    #todo Vamshi
+    # add proper order subject and message
+    # https://www.freecodecamp.org/news/send-emails-using-code-4fcea9df63f/
+    msg['Subject'] = "ESCN"
+    message = "Order:" + quantity
+    msg.attach(MIMEText(message, 'plain'))
+
+    # s = smtplib.SMTP("imap.gmail.com", 993)
+    s = smtplib.SMTP_SSL('smtp.gmail.com')
+    s.login(myMail, myPass)
+    s.send_message(msg)
+    s.quit()
+
+info = {'distributorMail': "nikithks007@gmail.com"}
+sendMail(info, '5000')
 
 def placeOrder(itemID):
     itemInfo = Query.getItemInfo(itemID)
