@@ -2,6 +2,7 @@ import sqlite3
 from datetime import datetime
 import json
 from difflib import get_close_matches
+from model import *
 
 # Table 1: Current stocks
 # Daily sales: All sales data
@@ -10,7 +11,6 @@ from difflib import get_close_matches
 # Stock price: Stock and price
 
 
-from model import *
 productDataPath = "productData.json"
 with open(productDataPath) as f:
     productDataJson = json.load(f)
@@ -46,36 +46,6 @@ def getAllTheDates():
 
 dates = getLast7dates()
 
-# default parameter error in this function
-'''
-def query(f , t = datetime.now().strftime("%Y-%m-%d"), stockID):
-    #formatedDates = []
-    with sqlite3.connect("data.db") as conn:
-        cur = conn.cursor()
-        dates = cur.execute("select invoice_date from table4 where invoice_date between :fr and :to;", {"fr" : f, "to" : t}).fetchall()
-        sales = []
-        for i in range(0, len(dates)):
-            s = str(dates[i])
-            #print(s[2:12])
-            requiredDate = s[2:12]
-            requiredDate = requiredDate.replace('-', '_')
-            requiredDate = '"' + requiredDate + '"'
-            #q = "select "+ requiredDate +" from table3 where stockID = :id;"
-            #print(q)
-            sale = cur.execute("select "+ requiredDate +" from table3 where stockID = :id;",{ "id" : stockID}).fetchone()
-            sales.append(sale);
-            #print(sales)  
-            #formatedDates.append(requiredDate)
-        print(sales)
-        final_sales = []
-        for i in range(0, len(sales)):
-            j = str(sales[i])
-            final_sales.append(float(j[1:-2]))    
-    return final_sales
-#print(query("2010-12-01", "2010-12-02", "10002"))
-'''
-
-
 def formated_date(d):
     return d.replace("-", "_")
 
@@ -90,40 +60,42 @@ def live_sales():
 
 
 # function to get both highest and lowest sold items in last 7 days
-def highOnDemand(flag, limit):
+def highOnDemand(flag):
     total_sales_of_stockID = ""
     with sqlite3.connect("data.db") as con:
         cur = con.cursor()
-        for i in range(0, len(dates)):
-            if (i != (len(dates) - 1)):
-                d = formated_date(dates[i])
-                total_sales_of_stockID += (' "' + d + '"+')
-            else:
-                total_sales_of_stockID += (' "' + d + '"')
-
-        if (flag):
-            q = "select stockID, total from( select stockID,(" + total_sales_of_stockID + ") as total from table3) order by total desc limit " + str(
-                limit) + ";"
-        else:
-            q = "select stockID, total from( select stockID,(" + total_sales_of_stockID + ") as total from table3) order by total asc limit " + str(
-                limit) + ";"
-
-        sales = cur.execute(q).fetchall()
+        q = "select * from daily_sales order by rowid desc limit 7";
+        val = cur.execute(q).fetchall()
+        sumOfSales = []
+        dic = {}
+        for i in range(1, 51):
+            sum = 0
+            for j in range(0, 7):
+                sum += val[j][i]
+            dic[i] = sum
+            sumOfSales.append(sum)
+        dict = {}
         items = []
         quantity = []
-        for i in sales:
-            #print(i[0], i[1])
-            items.append(productDataJson[i[0]]["name"])
-            quantity.append(i[1])
-
-        return {"items": items, "quantity": quantity}
-
-        # sales_list = []
-        # for i in sales:
-        #     t = str(i).replace("('","").replace("',)","").replace("(","").replace(")","")
-        #     sales_list.append(t)
-        # return sales_list
-
+        if flag:
+            sorted_keys = sorted(dic, key = dic.get, reverse = True)
+            cnt = 0
+            for w in sorted_keys:
+                if cnt == 7:
+                    break
+                cnt += 1
+                items.append(w)
+                quantity.append(dic[w])
+        else:
+            sorted_keys = sorted(dic, key = dic.get, reverse = False)
+            cnt = 0
+            for w in sorted_keys:
+                if cnt == 7:
+                    break
+                cnt += 1
+                items.append(w)
+                quantity.append(dic[w])
+    return {"items": items, "quantity": quantity}
 
 def getItemInfo(itemId):
     return productDataJson[itemId]
@@ -169,8 +141,9 @@ def getSalesCount():
             salesList.append(tot)
     return {"xaxis": dates, "yaxis": salesList}
 
+# Fixme: Prasad
 def highestEarning(flag):
-    highDemands = []
+    highDemands = {}
     with sqlite3.connect("data.db") as con:
         cur = con.cursor()
         q = "select * from daily_sales order by rowid desc limit 7";
@@ -188,7 +161,7 @@ def highestEarning(flag):
         items = []
         total = []
         if flag:
-            sorted_keys = sorted(highDemands, key=highDemands.get, reverse=True)
+            sorted_keys = sorted(highDemands, key = highDemands.get, reverse = True)
             cnt = 0
             for w in sorted_keys:
                 if cnt == 7:
@@ -197,7 +170,7 @@ def highestEarning(flag):
                 items.append(w)
                 total.append(highDemands[w])
         else:
-            sorted_keys = sorted(highDemands, key=highDemands.get, reverse=False)
+            sorted_keys = sorted(highDemands, key = highDemands.get, reverse = False)
             cnt = 0
             for w in sorted_keys:
                 if cnt == 7:
@@ -205,9 +178,7 @@ def highestEarning(flag):
                 cnt += 1
                 items.append(w)
                 total.append(highDemands[w])
-        print(items)
-        print(total)
-
+    return [items, total]
 
 def getCurrentSales(itemID):
     conn = sqlite3.connect("data.db")

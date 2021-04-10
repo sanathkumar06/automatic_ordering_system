@@ -5,7 +5,7 @@ def homePagePayload():
     payload["highOnDemand"] = Query.highOnDemand(True)
     payload["lowOnDemand"] = Query.highOnDemand(False)
     # TODO: Vamshi :
-    payload["salesData"] = Query.getSalesCount()
+    # payload["salesData"] = Query.getSalesCount()
     payload["highestEarning"] = Query.highestEarning(True)
     payload["lowestEarning"] = Query.highestEarning(False)
 
