@@ -2,8 +2,8 @@ import Query
 
 def homePagePayload():
     payload = {}
-    payload["highOnDemand"] = Query.highOnDemand(True)
-    payload["lowOnDemand"] = Query.highOnDemand(False)
+    payload["highOnDemand"] = Query.highOnDemand(True, 10)
+    payload["lowOnDemand"] = Query.highOnDemand(False, 10)
     # TODO: Vamshi :
     # payload["salesData"] = Query.getSalesCount()
     payload["highestEarning"] = Query.highestEarning(True)

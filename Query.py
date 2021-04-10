@@ -48,17 +48,17 @@ def live_sales():
 
 
 # function to get both highest and lowest sold items in last 7 days
-def highOnDemand(flag):
+def highOnDemand(flag, limit):
     total_sales_of_stockID = ""
     with sqlite3.connect("data.db") as con:
         cur = con.cursor()
-        q = "select * from daily_sales order by rowid desc limit 7";
+        q = "select * from daily_sales order by rowid desc limit " + str(limit);
         val = cur.execute(q).fetchall()
         sumOfSales = []
         dic = {}
         for i in range(1, 51):
             sum = 0
-            for j in range(0, 7):
+            for j in range(0, limit):
                 sum += val[j][i]
             dic[i] = sum
             sumOfSales.append(sum)
@@ -69,7 +69,7 @@ def highOnDemand(flag):
             sorted_keys = sorted(dic, key = dic.get, reverse = True)
             cnt = 0
             for w in sorted_keys:
-                if cnt == 7:
+                if cnt == limit:
                     break
                 cnt += 1    
                 items.append(w)
@@ -78,12 +78,12 @@ def highOnDemand(flag):
             sorted_keys = sorted(dic, key = dic.get, reverse = False)
             cnt = 0
             for w in sorted_keys:
-                if cnt == 7:
+                if cnt == limit:
                     break
                 cnt += 1    
                 items.append(w)
                 quantity.append(dic[w])
-    return {"items": items, "quantity": quantity}
+    return {"items": items, "quantity": quantity, "limit" : limit}
 
 def getItemInfo(itemId):
     return productDataJson[itemId]
