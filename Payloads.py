@@ -2,8 +2,8 @@ import Query
 
 def homePagePayload():
     payload = {}
-    payload["highOnDemand"] = Query.highOnDemand(True, 10)
-    payload["lowOnDemand"] = Query.highOnDemand(False, 10)
+    payload["highOnDemand"] = Query.highOnDemand(True)
+    payload["lowOnDemand"] = Query.highOnDemand(False)
     # TODO: Vamshi :
     payload["salesData"] = Query.getSalesCount()
     payload["highestEarning"] = Query.highestEarning(True)
@@ -31,8 +31,6 @@ def itemDataPayload(itemID):
     payload["price"] = itemInfo["price"]
     payload["dates"] = Query.get_all_dates()
     payload["sales"] = Query.each_item_sold_count()
-    # TODO: Sanath
-    #  Predicted sales for the item
     payload["prediction"] = Query.getItemPrediction(itemID)
     return payload
 
