@@ -12,7 +12,7 @@ db = sqlite3.connect('../data.db')
 cur = db.cursor()
 
 #stock_price table creation
-print(productDataJson)
+# print(productDataJson)
 i = 1
 while(i <= 50):
     item_name = "ITEM_"

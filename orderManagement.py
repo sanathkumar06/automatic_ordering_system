@@ -17,7 +17,7 @@ def sendMail(info, quantity):
 
 def placeOrder(itemID):
     itemInfo = Query.getItemInfo(itemID)
-    # todo Sanath
+    # TODO Sanath
     orderQuantity = 000
     sendMail(itemInfo, orderQuantity)
 
