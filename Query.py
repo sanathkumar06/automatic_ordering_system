@@ -35,7 +35,7 @@ def getAllTheDates():
     overall_dates = []
     with sqlite3.connect("data.db") as conn:
         cur = conn.cursor()
-        q = "select * from table4;"
+        q = "select daily_date from daily_sales;"
         dates = cur.execute(q).fetchall()
         for i in dates:
             overall_dates.append(i[0])

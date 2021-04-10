@@ -118,6 +118,7 @@ def item(id):
 
     if (request.method == 'GET'):
         payload = Payloads.itemDataPayload(id)
+        print(payload)
         return render_template("popup_alert.html", data=payload)
 
 

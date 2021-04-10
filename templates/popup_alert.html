@@ -7,10 +7,11 @@
   <title>Document</title>
 </head>
 <body>
-  <h1>Stock : {{path}}</h1>
+  <!-- {{data}} -->
+  <h1>Stock : {{ data['ID']}}</h1>
   <ul>
-    <li>{{f}}</li>
-    <li>{{t}}</li>
+    <li> Name : {{ data['name']}}</li>
+    <li> Price : {{ data['price']}}</li>
   </ul>
 </body>
 </html>
