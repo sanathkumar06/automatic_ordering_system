@@ -235,6 +235,8 @@ def getLatestSales():
     # todo prasad
     pass
 
+
+
 def getItemPrediction():
     with sqlite3.connect("data.db") as con:
         cur = con.cursor()
@@ -243,5 +245,33 @@ def getItemPrediction():
         #model.main()
         load_main()
         res = weekdata(list(var[0]))
-        print(res)
-getItemPrediction()
+        #print(res[0])
+        
+        for i in range(50):
+            val1 = int(res[i][0])
+            val2 = int(res[i][1])
+            val3 = int(res[i][2])
+            itemNO = 'ITEM_'
+            if(i<10):
+                itemNO += '0'
+            itemNO += str(i+1)
+            #print(itemNO, val1, val2, val3) 
+            cur.execute("update prediction set day1 = '" + str(val1)+"', day2 = '" + str(val2)+"', day3 = '" + str(val3)+"' where stockID = '" + itemNO +"';")
+            con.commit()
+
+#getItemPrediction()
+
+def intermediatePrediction(date,itemID):
+    with sqlite3.connect("data.db") as con:
+        cur = con.cursor()
+        var = cur.execute("select * from table5;").fetchall()
+        print(var)
+        lis = [date]
+        for i in var:
+            lis.append(i)
+        res = weekdata(lis)
+        itmNo = itemID[:-2]
+        lis = []
+        for i in res[int(intmNo)-1]:
+            lis.append(int(i))
+        return lis
