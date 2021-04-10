@@ -15,7 +15,7 @@ scaler = pickle.load(open('scaler.pkl', 'rb'))
 
 def scale_data(df,scaler):
     #scaler = pickle.load(open('scaler.pkl', 'rb'))
-    print(df)
+    #print(df)
     df = scaler.transform(df)
     return df
 
@@ -26,15 +26,15 @@ def unscale_data(df, scaler):
 
 def convert(lis, dateval):
     #df = pd.DataFrame(lis)
-    print(lis)
-    print(dateval)
+    #print(lis)
+    #print(dateval)
     df = pd.DataFrame(columns = ['dateval'])
     row = {'dateval':dateval}
     df = df.append(row,ignore_index=True)
     #df['dateval'] = dateval
     df['dateval'] = pd.to_datetime(df['dateval'],format='%d/%m/%Y')
-    print("dtateasda")
-    print(df)
+    #print("dtateasda")
+    #print(df)
     dataf = pd.DataFrame()
     dataf['weekday_0'] = (df.dateval.dt.weekday == 0) *1
     dataf['weekday_1'] = (df.dateval.dt.weekday == 1) *1
@@ -56,8 +56,8 @@ def convert(lis, dateval):
     dataf['month_11'] = (df.dateval.dt.month == 11) *1
     dataf['month_12'] = (df.dateval.dt.month == 12) *1
     #print(column_name)
-    print(dataf['month_7'])
-    print(dataf)
+    #print(dataf['month_7'])
+    #print(dataf)
     #li = []
     #li.append(lis)
     #print(li)
@@ -70,22 +70,22 @@ def convert(lis, dateval):
     #l.append(row)
     lis = np.array(lis)
     lis = lis.reshape(1,-1)
-    print(lis)
+    #print(lis)
     #print(lis)
     df = scale_data(lis,scaler)
-    print(df)
-    print(df.shape)
+    #print(df)
+    #print(df.shape)
     df = pd.DataFrame(df,columns=column_name)
-    print(df)
-    print(df.shape)
+    #print(df)
+    #print(df.shape)
     dataf = pd.concat([dataf, df], axis=1)
-    print(dataf)
+    #print(dataf)
     return dataf
 
 def predict_val(model, dataf):
     test_X = dataf.values
     test_X = test_X.reshape((test_X.shape[0], 1, test_X.shape[1]))
-    print(test_X.shape)
+    #print(test_X.shape)
     yhat = model.predict(test_X)
     yhat = unscale_data(yhat,scaler)
     return yhat
@@ -100,34 +100,35 @@ def convertDate(da):
 def weekdata(lis):
     #print(lis)
     dateval = lis[0]
-    print(dateval)
+    #print(dateval)
     lis = lis[1:]
-    print(lis)
+    #print(lis)
     dateval = datetime.datetime.strptime(dateval,'%d-%m-%Y').date()
     dateval = convertDate(dateval)
-    print("date:", dateval)
+    #print("date:", dateval)
     day1 = convert(lis, dateval)
-    print(day1.shape)
+    #print(day1.shape)
     #pred_val = []
     df = predict_val(loaded_model,day1)
     #pred_val.append(df)
     df = pd.DataFrame(df)
     #dateval = datetime.datetime.strptime(dateval,'%d-%m-%Y').date()
-    for i in range(6):
-        print('hello')
+    for i in range(2):
+        #print('hello')
         dateval = datetime.datetime.strptime(dateval,'%d/%m/%Y').date()
         dateval += datetime.timedelta(days = 1)
         dateval = convertDate(dateval)
-        print(dateval)
-        print(df)
+        #print(dateval)
+        #print(df)
         day1 = convert(df.iloc[-1,:],dateval)
         df1 = predict_val(loaded_model, day1)
         df1 = pd.DataFrame(df1)
         df = df.append(df1, ignore_index=True)
         #df = pd.concat(df,df1, axis = 0)
-    print(df)
-    sum_df = df.sum(axis=0)
-    print(sum_df)
+    #print(df)
+    sum_df = df.sum(axis=0).round()
+    #print(sum_df)
+    return df.round()
 
 
 def load_main():
@@ -143,4 +144,4 @@ def load_main():
  
     # evaluate loaded model on test data
     loaded_model.compile(loss='mean_absolute_error', optimizer='adam')
-load_main()
+#load_main()

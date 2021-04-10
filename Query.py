@@ -219,4 +219,4 @@ def getItemPrediction():
         load_main()
         res = weekdata(list(var[0]))
         print(res)
-getItemPrediction()
+#getItemPrediction()
