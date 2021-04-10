@@ -7,11 +7,11 @@
   <title>Document</title>
 </head>
 <body>
-  {{data}}
-  <h1>Stock : </h1>
+  <!-- {{data}} -->
+  <h1>Stock : {{ data['ID']}}</h1>
   <ul>
-    <li></li>
-    <li></li>
+    <li> Name : {{ data['name']}}</li>
+    <li> Price : {{ data['price']}}</li>
   </ul>
 </body>
 </html>
