@@ -5,5 +5,4 @@ Utils/.~lock.online_retail.xlsx#
 *.pyc
 __pycache__
 __pycache__/Query.cpython-38.pyc
-
 model.h5
