@@ -9,7 +9,7 @@ from model import *
 # Table 6: Prediction
 # Table 5: StockID sold
 # Stock price: Stock and price
-
+# prediction: stockID, day1, day2, day3, day4, day5, day6, day7
 
 productDataPath = "productData.json"
 with open(productDataPath) as f:
@@ -189,6 +189,7 @@ def getCurrentSales(itemID):
     for i in item_sales:
         cur_sales.append(i[0])
     print(cur_sales)
+
 
 def getCurrentStock(itemID):
     #TODO Prasad
