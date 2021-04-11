@@ -242,7 +242,7 @@ def getLatestSales():
 def addPredictionColumn(count):
     with sqlite3.connect("data.db") as con:
         cur = con.cursor()
-        day = "day"+str(count)
+        day = "day"+str(count+3)
         var = cur.execute("alter table prediction add column '"+ str(day) + "' int;")
         con.commit()
 
