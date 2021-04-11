@@ -37,8 +37,7 @@ sendMail(info, '5000')
 
 
 def repredict(itemID):
-    # TODO Sanath
-    orderQuantity = 000
+    orderQuantity = Query.intermediatePrediction(itemID, 7)
     return orderQuantity
 
 
