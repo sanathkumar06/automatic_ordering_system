@@ -7,7 +7,6 @@ import Payloads
 import _thread
 import orderManagement
 
-
 app = Flask(__name__)
 
 config = {
@@ -145,4 +144,3 @@ def liveOrders():
 if __name__ == '__main__':
     app.secret_key = "RosesAreRedSkyIsBlueFBIWantsToStealMyDickCanIHideItInsideYou"
     app.run(debug=True)
-
