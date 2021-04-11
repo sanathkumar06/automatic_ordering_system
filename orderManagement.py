@@ -22,7 +22,7 @@ def sendMail(info, quantity):
     # https://www.freecodecamp.org/news/send-emails-using-code-4fcea9df63f/
     msg['Subject'] = "Order Deliviery Required"
 
-    message = "Hello Distritutor," + "\n" + "The Order of Item " + "itemname" + "Has been placed by the customer for" + " " + quantity + " " + "Quantities" + "\n" + "Request you to Dispach the Order As Soon As Possible" + "\n" + "\n" + "- Auto Ordering Company"
+    message = "Hello Distritutor," + "\n" + "The Order of Item " + info['name'] + "Has been placed by the customer for" + " " + quantity + " " + "Quantities" + "\n" + "Request you to Dispach the Order As Soon As Possible" + "\n" + "\n" + "- Auto Ordering Company"
     msg.attach(MIMEText(message, 'plain'))
 
     # s = smtplib.SMTP("imap.gmail.com", 993)
@@ -30,10 +30,6 @@ def sendMail(info, quantity):
     s.login(myMail, myPass)
     s.send_message(msg)
     s.quit()
-
-
-info = {'distributorMail': "vamshi123pv@gmail.com"}
-sendMail(info, '5000')
 
 
 def repredict(itemID):
