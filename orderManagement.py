@@ -7,6 +7,7 @@ import json
 
 now = datetime.now()
 pathToQueue = "orderQueue.json"
+pathToPlacedOrder = "placedOrders.json"
 
 
 def sendMail(info, quantity):
@@ -37,17 +38,41 @@ def repredict(itemID):
 
 
 def addToOrderQueue(itemID, quantity):
-    current_time = now.strftime("%H:%M")
+    current_time = now.strftime("%H:%M:%S")
     info = Query.getItemInfo(itemID)
     with open(pathToQueue) as f:
         data = json.load(f)
-    data[itemID] = {"time": current_time, "name": info['name'], "quantity": quantity, "price": info['price']}
+    data[itemID] = {"time": current_time, "quantity": quantity}
 
     with open(pathToQueue, 'w') as outfile:
         json.dump(data, outfile)
 
+# addToOrderQueue('ITEM_03', 1000)
+# addToOrderQueue('ITEM_07', 700)
 
-addToOrderQueue('ITEM_05', 500)
+
+def removeFromOrderQueue(itemID):
+    with open(pathToQueue) as f:
+        data = json.load(f)
+
+    data.pop(itemID)
+    with open(pathToQueue, 'w') as outfile:
+        json.dump(data, outfile)
+
+
+def updateToOrdered(itemID, info):
+    with open(pathToPlacedOrder) as f:
+        data = json.load(f)
+
+    data[itemID] = info
+    with open(pathToPlacedOrder, 'w') as outfile:
+        json.dump(data, outfile)
+
+
+def placeOrder(itemID, data):
+    sendMail(Query.getItemInfo(itemID), str(data['quantity']))
+    updateToOrdered(itemID, data)
+    removeFromOrderQueue(itemID)
 
 
 def checkAvailability(itemID):
