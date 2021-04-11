@@ -12,7 +12,7 @@ def homePagePayload():
     payload = {}
     payload["highOnDemand"] = Query.highOnDemand(True, 10)
     payload["lowOnDemand"] = Query.highOnDemand(False, 10)
-    payload["salesData"] = Query.getSalesCount()
+    # payload["salesData"] = Query.getSalesCount()
     payload["highestEarning"] = Query.highestEarning(True, 10)
     payload["lowestEarning"] = Query.highestEarning(False, 10)
     payload["allTimeSales"] = Query.getItemSoldAllTime()

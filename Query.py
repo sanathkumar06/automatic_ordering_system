@@ -3,7 +3,7 @@ from datetime import datetime
 import json
 from difflib import get_close_matches
 from model import *
-
+import json
 # Table 1: Current stocks
 # Daily sales: All sales data
 # Table 6: Prediction
@@ -13,6 +13,7 @@ from model import *
 
 productDataPath = "Resources/productData.json"
 pathToPlacedOrder = "Resources/placedOrders.json"
+pathToCache = "Resources/tempCache.json"
 
 with open(productDataPath) as f:
     productDataJson = json.load(f)
@@ -20,6 +21,8 @@ with open(productDataPath) as f:
 nameIDMapJsonPath = "Resources/nameIDMap.json"
 with open(nameIDMapJsonPath) as f:
     nameIDMapJson = json.load(f)
+
+
 
 def getLast30Days():
     with sqlite3.connect("data.db") as conn:
@@ -268,7 +271,7 @@ def getCurrentStock(itemID):
         var1 = cur.execute("select quantity from table1 where stockID = '" + str(itemID) +"';").fetchall()
         curr = var1[0][0]
         return int(curr)
-    pass
+    
 
 
 def get_all_items():
@@ -376,3 +379,39 @@ def intermediatePrediction(itemID, limit):
         var1 = cur.execute("select quantity from table1 where stockID = '" + str(itemID) +"';").fetchall()
         curr = var1[0][0]
         return sum(lis)
+
+
+def getPredictedSales():
+    with open(pathToCache) as f:
+        count = json.load(f)
+    with sqlite3.connect("data.db") as con:
+        cur = con.cursor()
+        if(count<5):
+            pass
+
+        else:
+            day = "day"+str(int(count)-4)+", day"+str(int(count)-3)+ ", day"+str(int(count)-2)+ ", day"+str(int(count)-1)+ ", day"+str(int(count))+ ", day"+str(int(count)+1)+ ", day"+str(int(count)+2)
+            var = cur.execute("select '"+ day +"'from prediction;").fetchall()
+    
+def initialPrediction():
+    with sqlite3.connect("data.db") as con:
+        cur = con.cursor()
+        var = cur.execute("select * from daily_sales order by rowid DESC limit 7;").fetchall()
+        var = list(var)
+        var = var[::-1]
+        load_main()
+        for i in range(0,4):
+            res = weekdata(var[i], 1)
+            print(res)
+            print(res[0])
+            day = 'day'+str(i+1)
+            for j in range(50):
+                itemNO = 'ITEM_'
+                if(j<10):
+                    itemNO += '0'
+                itemNO += str(j+1)
+                val = int(res[j])                
+                cur.execute("update prediction set '" + str(day) +"' = '" + str(val)+"' where stockID = '" + itemNO +"';")
+                con.commit()
+
+initialPrediction()
