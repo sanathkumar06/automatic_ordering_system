@@ -199,22 +199,17 @@ def getSimilar(item):
 
 
 def getSalesCount():
-    salesList = []
-    with sqlite3.connect("data.db") as con:
-        cur = con.cursor()
-        for i in range(0, len(dates)):
-            d = formated_date(dates[i])
-            query_date = '"' + d + '"'
-            q = "select " + query_date + " from table3 where " + query_date + " = " + query_date + " ;"
-            sales_count = cur.execute(q).fetchall()
-            tot = 0
-            for j in sales_count:
-                tot += (j[0]);
-            salesList.append(tot)
-    return {"xaxis": dates, "yaxis": salesList}
+    query_line = getQueryLine()
+    dates = getLast7dates()
+    item_sold = []
+    with sqlite3.connect("data.db") as conn:
+        cur = conn.cursor()
+        for i in dates:
+            q = "select " + query_line + " from daily_sales where daily_date = '"+ str(i) +"' ;"
+            tot = cur.execute(q).fetchone()
+            item_sold.append(tot[0])
+    return item_sold
 
-
-# Fixme: Prasad
 def highestEarning(flag, limit):
     highDemands = {}
     with sqlite3.connect("data.db") as con:
@@ -296,17 +291,15 @@ def get_all_dates():
     return dates_list
 
 
-def each_item_sold_count():
-    sold_count = []
+def eachItemSoldCount(limit, id):
+    # sold_count = []
     with sqlite3.connect("data.db") as con:
         cur = con.cursor()
-        stocks = get_all_items()
-        for i in stocks:
-            q = "select * from table3 where stockID = '" + i + "';"
-            dates = cur.execute(q).fetchall()
-            sold_count.append(dates)
+        q = "select daily_date, "+ id + " from daily_sales order by rowid limit "+ str(limit) + ";"
+        sold_count = cur.execute(q).fetchall()
     return sold_count
 
+# print(eachItemSoldCount(90, "ITEM_01"))
 
 def updateSalesDb(item, quantity):
     with sqlite3.connect("data.db") as con:
@@ -450,7 +443,4 @@ def initialPrediction():
                     print(val)              
                 cur.execute("update prediction set '" + str(day) +"' = '" + str(val)+"' where stockID = '" + itemNO +"';")
                 con.commit()
-
-
-
 
