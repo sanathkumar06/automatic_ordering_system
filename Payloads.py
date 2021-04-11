@@ -12,16 +12,16 @@ def homePagePayload():
     payload = {}
     payload["highOnDemand"] = Query.highOnDemand(True, 10)
     payload["lowOnDemand"] = Query.highOnDemand(False, 10)
-    # TODO: Vamshi :
-    # payload["salesData"] = Query.getSalesCount()
+    payload["salesData"] = Query.getSalesCount()
     payload["highestEarning"] = Query.highestEarning(True, 10)
     payload["lowestEarning"] = Query.highestEarning(False, 10)
     # TODO: Prasad
-    # p ayload["totalSales"] = Query.getTotalSales()
+    # payload["totalSales"] = Query.getTotalSales()
     # TODO: Prasad
     # payload["totalOrders"] = Query.getTotalOrders()
     # TODO: Sanath
     # payload["predictedSales"] = Query.getPredictedSales()
+    payload['placedOrders'] = Query.getPlacedOrder()
     return payload
 
 
@@ -42,7 +42,7 @@ def itemDataPayload(itemId):
     # payload["sales"] = Query.each_item_sold_count()
     # TODO: Sanath
     #  Predicted sales for the item
-    # payload["prediction"] = Query.getItemPrediction()
+    payload["prediction"] = Query.getItemPredictionFromDB()
     return payload
 
 

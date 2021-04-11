@@ -12,6 +12,8 @@ from model import *
 # prediction: stockID, day1, day2, day3, day4, day5, day6, day7
 
 productDataPath = "Resources/productData.json"
+pathToPlacedOrder = "Resources/placedOrders.json"
+
 with open(productDataPath) as f:
     productDataJson = json.load(f)
 
@@ -45,8 +47,6 @@ def getAllTheDates():
             overall_dates.append(i[0])
     return overall_dates
 
-
-print(getAllTheDates())
 
 dates = getLast7dates()
 
@@ -282,7 +282,14 @@ def getItemPrediction(limit, count):
                 cur.execute("update prediction set '" + str(day) +"' = '" + str(val)+"' where stockID = '" + itemNO +"';")
                 con.commit()
 
-#getItemPrediction()
+
+def getPlacedOrder():
+    with open(pathToPlacedOrder) as f:
+        data = json.load(f)
+    return data
+
+def getItemPredictionFromDB():
+    pass
 
 def intermediatePrediction(itemID, limit):
     with sqlite3.connect("data.db") as con:
