@@ -416,7 +416,23 @@ def getPredictedSales():
             for j in range(50):
                 ch += var[j][i]
             lis.append(ch)
-        return(lis)
+        res = getLast7dates()
+        res = res[:4]
+        res = res[::-1]
+        for i in range(3):
+            if i == 0:
+                dateval = res[-1]
+            #print(dateval)
+            dateval = datetime.datetime.strptime(str(dateval),'%d-%m-%Y').date()
+            #print(dateval)
+            dateval+=datetime.timedelta(days=1)
+            #print(dateval)
+            dateval = str(dateval)
+            dateval = dateval.split('-')
+            dateval = dateval[::-1]
+            dateval =  '-'.join(dateval)
+            res.append(dateval)
+        return {"xaxis": res, "yaxis": lis}
 #getPredictedSales()
     
 def initialPrediction():
