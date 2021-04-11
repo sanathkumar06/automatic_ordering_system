@@ -4,8 +4,9 @@ import json
 import orderManagement
 
 now = datetime.now()
-pathToQueue = "orderQueue.json"
+pathToQueue = "Resources/orderQueue.json"
 timeFormat = "%H:%M:%S"
+
 
 def homePagePayload():
     payload = {}
@@ -23,11 +24,13 @@ def homePagePayload():
     # payload["predictedSales"] = Query.getPredictedSales()
     return payload
 
+
 def salesPortalPayload():
     payload = {}
     # payload["latestSales"] = Query.getLatestSales()
     payload["topSelling"] = Query.highOnDemand(True, 10)
     return payload
+
 
 def itemDataPayload(itemId):
     payload = {}
@@ -42,22 +45,25 @@ def itemDataPayload(itemId):
     # payload["prediction"] = Query.getItemPrediction()
     return payload
 
+
 def liveUpdatePayload():
     return open('file.log', 'r').readlines()
 
+
 def liveSalesPayload():
-    #TODO: Prasad
+    # TODO: Prasad
     # recent sales
     pass
 
+
 def searchResultPayload(item):
     return Query.getSimilar(item.replace("_", " "))
+
 
 def queuePayload():
     with open(pathToQueue) as f:
         data = json.load(f)
     items = data.keys()
-    print(items)
     payload = {}
     current_time = now.strftime("%H:%M:%S")
     for item in items:
@@ -78,4 +84,3 @@ def queuePayload():
 
 
 queuePayload()
-

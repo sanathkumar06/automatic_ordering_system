@@ -5,12 +5,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> {{data}} | Result</title>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-    
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+            integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+            integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+            crossorigin="anonymous"></script>
+
     <script src="https://kit.fontawesome.com/a81368914c.js"></script>
-    <script src = "https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -140,44 +146,45 @@ body{
 }
 
 
+
 </style>
 
 <body>
-    <div class="navabar header" id="dest">
-        <h2 class="project-title">AUTOMATIC ORDERING SYSTEM</h2>
-        <a href="/logout">
-          <button id="logout" > Logout</button>
-        </a>
-    </div>
-  
-    <div class="search">
-      <form action="/home" method="POST">      
+<div class="navabar header" id="dest">
+    <h2 class="project-title">AUTOMATIC ORDERING SYSTEM</h2>
+    <a href="/logout">
+        <button id="logout"> Logout</button>
+    </a>
+</div>
+
+<div class="search">
+    <form action="/home" method="POST">
         <input id="searchbar" type="text" placeholder="Search for item" name="Search" required>
-        <button id="searchbutton" type="submit"><i class="fas fa-search"></i>  Search</button>
-      </form>
-    </div>
+        <button id="searchbutton" type="submit"><i class="fas fa-search"></i> Search</button>
+    </form>
+</div>
 
 <div class="table">
     <table class="data-table">
         <tr class="table-title">
-            <th colspan="2">  Searched Items</th>
+            <th colspan="2"> Searched Items</th>
         </tr>
         <tr class="table-heading">
             <th class="table1-cell">ID</th>
             <th class="table1-cell">Names</th>
         </tr>
         {% for i in data['ID'] %}
-            {% set outer_loop = loop %}
-            {% for j in data['names'] %}
-            {% if outer_loop.index0 == loop.index0  %}
+        {% set outer_loop = loop %}
+        {% for j in data['names'] %}
+        {% if outer_loop.index0 == loop.index0 %}
         <tr class="table-row">
-            <td class="table-cell"> <a href="#">{{ i }}</a></td>
-            <td class="table-cell"> <a href="#">{{ j }} </a> </td>
+            <td class="table-cell"><a href="#">{{ i }}</a></td>
+            <td class="table-cell"><a href="#">{{ j }} </a></td>
         </tr>
         {% endif %}
         {% endfor %}
         {% endfor %}
-        
+
     </table>
 </div>
 </body>

@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>User | Create Account</title>
     <link
-      href="/templates/create_account.css"
-      rel="stylesheet"
-      type="text/css"
+            href="/templates/create_account.css"
+            rel="stylesheet"
+            type="text/css"
     />
-  </head>
+</head>
 
-  <style>
+<style>
 
   body 
   {
@@ -149,47 +149,47 @@ label {
   transform: scale(1.1);
 }
 
-  </style>
 
-  <body>
-    <header>
-      <div class = "title">
+</style>
+
+<body>
+<header>
+    <div class="title">
         <h1>Automatic Ordering System</h1>
-      </div>
-      </header>
-  <main>
-      <div class="container">
+    </div>
+</header>
+<main>
+    <div class="container">
         <h2 id="wel">Welcome, Please Sign-Up</h2>
         <form action="/create_account" method="post">
-          <div class="email">
-            <input type="email" name="name" id="email" placeholder="Email">
-          </div>
-          
-          <div class="container-items">
-            <input type="password" name="password" id="password" placeholder="Password">
-          </div>
+            <div class="email">
+                <input type="email" name="name" id="email" placeholder="Email">
+            </div>
 
-          <!-- {% if smessage %}
-          <div id="umessage">{{smessage}}</div>
-          {% endif %}  -->
-          {% if umessage %}
-          <div id="umessage">{{umessage}}</div>
-          {% endif %}
-          
-          <div class="container-items">
-            <button type="submit" id="submit" name = "Create Account">Sign Up</button>
-            <h4 id="click" > Already have a acouunt? <a class="a" href="/index">Click Here</a> </h4>
-          </div>
-          </form>
-      </div> 
-    </main>   
-  </body>
+            <div class="container-items">
+                <input type="password" name="password" id="password" placeholder="Password">
+            </div>
+
+            <!-- {% if smessage %}
+            <div id="umessage">{{smessage}}</div>
+            {% endif %}  -->
+            {% if umessage %}
+            <div id="umessage">{{umessage}}</div>
+            {% endif %}
+
+            <div class="container-items">
+                <button type="submit" id="submit" name="Create Account">Sign Up</button>
+                <h4 id="click"> Already have a acouunt? <a class="a" href="/index">Click Here</a></h4>
+            </div>
+        </form>
+    </div>
+</main>
+</body>
 </html>
 
 
-
-  <!-- {% if smessage %}
-      <div id="umessage">{{smessage}}</div>
-      {% endif %} {% if umessage %}
-      <div>{{umessage}}</div>
-      {% endif %} -->
+<!-- {% if smessage %}
+    <div id="umessage">{{smessage}}</div>
+    {% endif %} {% if umessage %}
+    <div>{{umessage}}</div>
+    {% endif %} -->

@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -126,50 +125,51 @@ label {
   padding-right: 25px;
 } 
 
+
 </style>
 
 
 <body>
-  <header>
-      <div class = "title">
+<header>
+    <div class="title">
         <h1>Automatic Ordering System</h1>
-      </div>
-        <!-- <h1>Create Account</h1> -->
-      </header>
-      <main>
-        <div class="container">
-          <div class= "container-items">
+    </div>
+    <!-- <h1>Create Account</h1> -->
+</header>
+<main>
+    <div class="container">
+        <div class="container-items">
             <h1> Administrator Login </h1>
-            </div>
-            <div class="container-items">
-              <form action="/index" method = "post">
+        </div>
+        <div class="container-items">
+            <form action="/index" method="post">
                 <div class="email">
-                  <input type="email" name="name" id="email" placeholder="Email">
+                    <input type="email" name="name" id="email" placeholder="Email">
                 </div>
-                
+
                 <div class="container-items">
-                  <input type="password" name="password" id="password" placeholder="Password">
+                    <input type="password" name="password" id="password" placeholder="Password">
                 </div>
 
                 {% if umessage %}
-                <div class = "error-message">
-                 <p> <u> {{umessage}} </u> </p>
+                <div class="error-message">
+                    <p><u> {{umessage}} </u></p>
                 </div>
                 {% endif %}
-                
+
                 <div class="container-items">
-                  <button type="submit" id="submit" name = "Create Account">Login</button>
+                    <button type="submit" id="submit" name="Create Account">Login</button>
                 </div>
-              </form>
-            </div>    
-            
-            <div class="container-items">
-              <div class="links-box">
+            </form>
+        </div>
+
+        <div class="container-items">
+            <div class="links-box">
                 <a id="forget" href="/forgot_password">Forgot Password</a>
                 <a id="new" href="/create_account"> New Registration?</a>
-              </div>
             </div>
-        </div>    
-      </main>
-    </body>
+        </div>
+    </div>
+</main>
+</body>
 </html>

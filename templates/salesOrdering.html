@@ -6,17 +6,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sales-Portal-For-Ordering</title>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-    
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+            integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+            integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+            crossorigin="anonymous"></script>
+
     <script src="https://kit.fontawesome.com/a81368914c.js"></script>
-    <script src = "https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  
+
 </head>
 
 <style>
@@ -164,42 +170,43 @@ iframe {
   height: 500px;
 }
 
+
 </style>
 
 <body>
-    <div class="navabar header" id="dest">
-      <h2 class="project-title">AUTOMATIC ORDERING SYSTEM</h2>
-      <a href="/logout">
-        <button id="logout" > Logout</button>
-      </a>
-  </div>
+<div class="navabar header" id="dest">
+    <h2 class="project-title">AUTOMATIC ORDERING SYSTEM</h2>
+    <a href="/logout">
+        <button id="logout"> Logout</button>
+    </a>
+</div>
 
-  <div class="search">
-    <form action="/home" method="POST">      
-      <input id="searchbar" type="text" placeholder="Search for item" name="Search" required>
-      <button id="searchbutton" type="submit"><i class="fas fa-search"></i>  Search</button>
+<div class="search">
+    <form action="/home" method="POST">
+        <input id="searchbar" type="text" placeholder="Search for item" name="Search" required>
+        <button id="searchbutton" type="submit"><i class="fas fa-search"></i> Search</button>
     </form>
-  </div>
+</div>
 
 <div>
-  <h4 class="orderName"> ORDER YOUR ITEMS HERE </h4>
+    <h4 class="orderName"> ORDER YOUR ITEMS HERE </h4>
     <div class="order">
         <form action="/salesOrdering" method="POST">
-          <input id="Quantity" type="text"  placeholder="Item ID" name="ItemId">
-          <input id="Quantity" type="text"  placeholder="Quantity" name="Quantity">
-          <button id="buy" type="submit"><i class="fas fa-shopping-cart" aria-hidden="true"></i> BUY</button>
+            <input id="Quantity" type="text" placeholder="Item ID" name="ItemId">
+            <input id="Quantity" type="text" placeholder="Quantity" name="Quantity">
+            <button id="buy" type="submit"><i class="fas fa-shopping-cart" aria-hidden="true"></i> BUY</button>
         </form>
     </div>
 </div>
 
 <div class="home-row">
-  <div class="live-sales">
-    <iframe class="frames" height=320px width=100% src="/topSales" frameborder="0"></iframe>
-  </div>
+    <div class="live-sales">
+        <iframe class="frames" height=320px width=100% src="/topSales" frameborder="0"></iframe>
+    </div>
 
-  <div class="live-orders">
-    <iframe class="frames" height=320px width=100% src="/soldItems" frameborder="0"></iframe>
-  </div>
+    <div class="live-orders">
+        <iframe class="frames" height=320px width=100% src="/soldItems" frameborder="0"></iframe>
+    </div>
 </div>
 
 </body>

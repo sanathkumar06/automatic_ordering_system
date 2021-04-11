@@ -2,16 +2,16 @@ import xlrd
 import sqlite3
 import pandas
 import json
-from datetime import datetime, date 
+from datetime import datetime, date
 
-productDataPath = "../productData.json"
+productDataPath = "../Resources/productData.json"
 with open(productDataPath) as f:
     productDataJson = json.load(f)
 
 db = sqlite3.connect('../data.db')
 cur = db.cursor()
 
-#stock_price table creation
+# stock_price table creation
 # print(productDataJson)
 # i = 1
 # while(i <= 50):
@@ -27,7 +27,7 @@ cur = db.cursor()
 #     cur.execute(q)
 #     db.commit()
 
-#inserting into table5 and table prediction
+# inserting into table5 and table prediction
 # i = 1
 # while(i <= 50):
 #     item_name = "ITEM_"
@@ -60,10 +60,10 @@ cur = db.cursor()
 # query_string = "daily_date date," + query_line
 
 # print(query_string)
-    # all_stocks.append(stock_id)
-    # q = "insert into table1 values('"+ stock_id +"', 0);"
-    # cur.execute(q)
-    # db.commit()
+# all_stocks.append(stock_id)
+# q = "insert into table1 values('"+ stock_id +"', 0);"
+# cur.execute(q)
+# db.commit()
 
 # table - 2
 # q = "create table daily_sales(" + query_string + ");"
@@ -90,7 +90,7 @@ cur = db.cursor()
 #     db.commit()
 #     print(out)
 
-#table-2 column rename
+# table-2 column rename
 
 # q = insert into daily_sales()
 # ans = cur.execute("select * from table1 limit 5;").fetchall()
@@ -152,9 +152,6 @@ cur = db.cursor()
 #     except:
 #         print(val)
 # db.commit()
-
-
-
 
 
 # #Table 1
@@ -250,4 +247,3 @@ cur = db.cursor()
 
 
 # db.commit()
-

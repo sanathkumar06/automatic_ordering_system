@@ -1,24 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title> User | Welcome</title>
     <!--link href="/templates/.css" rel="stylesheet" type="text/css" /-->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-    
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+            integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+            integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+            crossorigin="anonymous"></script>
+
     <script src="https://kit.fontawesome.com/a81368914c.js"></script>
-    <script src = "https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  </head>
+</head>
 
-  <style>
+<style>
     *{
   box-sizing: border-box;
 }
@@ -283,192 +289,192 @@ iframe {
   overflow-y: auto;
 }
 
+
 </style>
 
 
 <body>
 <div class="bgimage">
 
-  <div class="navabar header" id="dest">
-      <h2 class="project-title">AUTOMATIC ORDERING SYSTEM</h2>
-      
-      <a href="/logout">
-        <button id="logout" > Logout</button>
-      </a>
+    <div class="navabar header" id="dest">
+        <h2 class="project-title">AUTOMATIC ORDERING SYSTEM</h2>
 
-      <a href="salesOrdering.html">
-      <button id="logout" >Sales Portal</button>
-      </a>
-  </div>
+        <a href="/logout">
+            <button id="logout"> Logout</button>
+        </a>
 
-  <div class="search">
-    <form action="/home" method="POST">      
-      <input id="searchbar" type="text" placeholder="Search for item" name="Search" required>
-      <button id="searchbutton" type="submit"><i class="fas fa-search"></i>  Search</button>
-    </form>
-  </div>
-
-
-<div class="home-row">
-  <div class="graph">
-    <canvas id="salesChart"></canvas>
-  </div>
-  <!-- <div class="box">
-    <div class="boxList">-->
-      <!--<h3 id = "box_head">Total Items Sold From start </h3> -->
-    <!--</div>-->
-    <!--<div class="boxList">-->
-      <!--<h3 id = "box_head">Total Items Sold From start </h3>-->
-    <!--</div>-->
-    <!-- <div class="boxList">-->
-      <!-- <h3 id = "box_head">Total Items Sold From start </h3> -->
-    <!-- </div> --> 
-  <!-- </div> -->   
-  <div class="box1">
-    <div class="boxList">
-      <h3 class = "box_head">Items Sold All Time</h3>
-    </div>
-    <div class="boxList">
-      <h3 class = "box_head">Items Sold Per Day</h3>
-    </div>
-    <div class="boxList">
-      <h3 class = "box_head">Items Sold Per Hour</h3>
-    </div>
-  </div>
-
-  <!-- <div class="box1"> -->
-  
-    <div class="atOrders">
-      <h3 class="box_head1">Auto Orders</h3>
-      <div class="vOrders">
-      # TODO: Prasad : give data here
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-      </div>
+        <a href="salesOrdering.html">
+            <button id="logout">Sales Portal</button>
+        </a>
     </div>
 
-</div>
+    <div class="search">
+        <form action="/home" method="POST">
+            <input id="searchbar" type="text" placeholder="Search for item" name="Search" required>
+            <button id="searchbutton" type="submit"><i class="fas fa-search"></i> Search</button>
+        </form>
+    </div>
 
 
+    <div class="home-row">
+        <div class="graph">
+            <canvas id="salesChart"></canvas>
+        </div>
+        <!-- <div class="box">
+          <div class="boxList">-->
+        <!--<h3 id = "box_head">Total Items Sold From start </h3> -->
+        <!--</div>-->
+        <!--<div class="boxList">-->
+        <!--<h3 id = "box_head">Total Items Sold From start </h3>-->
+        <!--</div>-->
+        <!-- <div class="boxList">-->
+        <!-- <h3 id = "box_head">Total Items Sold From start </h3> -->
+        <!-- </div> -->
+        <!-- </div> -->
+        <div class="box1">
+            <div class="boxList">
+                <h3 class="box_head">Items Sold All Time</h3>
+            </div>
+            <div class="boxList">
+                <h3 class="box_head">Items Sold Per Day</h3>
+            </div>
+            <div class="boxList">
+                <h3 class="box_head">Items Sold Per Hour</h3>
+            </div>
+        </div>
 
-<div class="home-row">
-  <div class="live-sales">
-    <iframe class="frames" height=320px width=100% src="/liveSales" frameborder="0">
-      
-    </iframe>
-  </div>
+        <!-- <div class="box1"> -->
 
-  <div class="live-orders">
-    <iframe class="frames" height=320px width=100% src="/liveOrders" frameborder="0"></iframe>
-  </div>
-</div>
+        <div class="atOrders">
+            <h3 class="box_head1">Auto Orders</h3>
+            <div class="vOrders">
+                # TODO: Prasad : give data here
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </div>
+        </div>
 
-<div class="home-row">
-  <table class="data-table">
-    <tr class="table-title">
-      <th colspan="3">High on Demand</th>
-    </tr>
-    <tr class="table-heading">
-      {% for k in headings %}
-      <th class="table-cell" >{{ k }}</th>
-      {% endfor %}
-    </tr>
-    
-    {% for i in range(0, data["highOnDemand"]["limit"]) %}
-    <tr class="table-row">
-      {%if data["highOnDemand"]['items'][i] <10 %}
-        <td class="table-cell" > ITEM_0{{data["highOnDemand"]['items'][i]}}</td>
-      {%else%}
-        <td class="table-cell" > ITEM_{{data["highOnDemand"]['items'][i]}}</td>
-      {%endif%}
-      <td class="table-cell" > {{ data["highOnDemand"]['quantity'][i]}}</td>
-    </tr>
-    {% endfor %} 
-  </table>
+    </div>
 
-  <table class="data-table">
-    <tr class="table-title">
-      <th colspan="3">Low on Demand</th>
-    </tr>
-    <tr class="table-heading">
-      {% for k in headings %}
-      <th class="table-cell" >{{ k }}</th>
-      {% endfor %}
-    </tr>
-    {% for i in range(0, data["lowOnDemand"]["limit"]) %}
-    <tr class="table-row">
-      {%if data["lowOnDemand"]['items'][i] <10 %}
-        <td class="table-cell" > ITEM_0{{data["lowOnDemand"]['items'][i]}}</td>
-      {%else%}
-        <td class="table-cell" > ITEM_{{data["lowOnDemand"]['items'][i]}}</td>
-      {% endif %}
-      <td class="table-cell" > {{ data["lowOnDemand"]['quantity'][i]}}</td>
-    </tr>
-    {% endfor %} 
-  </table>  
 
-  <table class="data-table">
-    <tr class="table-title">
-      <th colspan="3">Highest Earning</th>
+    <div class="home-row">
+        <div class="live-sales">
+            <iframe class="frames" height=320px width=100% src="/liveSales" frameborder="0">
 
-    </tr>
-    <tr class="table-heading">
-      {% for l in headings2 %}
-      <th class="table-cell" >{{ l }}</th>
-      {% endfor %}
-    </tr>
-    {% for i in range(0, data["highestEarning"][2]) %}
-    <tr class="table-row">
-      {%if data["highestEarning"][0][i] < 10 %}
-        <td class="table-cell" > ITEM_0{{data["highestEarning"][0][i]}}</td>
-      {%else%}
-        <td class="table-cell" > ITEM_{{data["highestEarning"][0][i]}}</td>
-      {%endif%}
-      <td class="table-cell" > {{data["highestEarning"][1][i]}}</td>
-    </tr>
-    {% endfor %} 
-  </table>
+            </iframe>
+        </div>
 
-  <table class="data-table">
-    <tr class="table-title">
-      <th colspan="3">Lowest Earning</th>
-    </tr>
-    <tr class="table-heading">
-      {% for l in headings2 %}
-      <th class="table-cell" >{{ l }}</th>
-      {% endfor %}
-    </tr>
-    {% for i in range(0, data["lowestEarning"][2]) %}
-    <tr class="table-row">
-      {%if data["lowestEarning"][0][i] < 10 %}
-        <td class="table-cell" > ITEM_0{{data["lowestEarning"][0][i]}}</td>
-      {%else%}
-        <td class="table-cell" > ITEM_{{data["lowestEarning"][0][i]}}</td>
-      {%endif%}
-      <td class="table-cell" > {{data["lowestEarning"][1][i]}}</td>
-    </tr>
-    {% endfor %} 
-  </table>  
-</div>
+        <div class="live-orders">
+            <iframe class="frames" height=320px width=100% src="/liveOrders" frameborder="0"></iframe>
+        </div>
+    </div>
+
+    <div class="home-row">
+        <table class="data-table">
+            <tr class="table-title">
+                <th colspan="3">High on Demand</th>
+            </tr>
+            <tr class="table-heading">
+                {% for k in headings %}
+                <th class="table-cell">{{ k }}</th>
+                {% endfor %}
+            </tr>
+
+            {% for i in range(0, data["highOnDemand"]["limit"]) %}
+            <tr class="table-row">
+                {%if data["highOnDemand"]['items'][i] <10 %}
+                <td class="table-cell"> ITEM_0{{data["highOnDemand"]['items'][i]}}</td>
+                {%else%}
+                <td class="table-cell"> ITEM_{{data["highOnDemand"]['items'][i]}}</td>
+                {%endif%}
+                <td class="table-cell"> {{ data["highOnDemand"]['quantity'][i]}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        <table class="data-table">
+            <tr class="table-title">
+                <th colspan="3">Low on Demand</th>
+            </tr>
+            <tr class="table-heading">
+                {% for k in headings %}
+                <th class="table-cell">{{ k }}</th>
+                {% endfor %}
+            </tr>
+            {% for i in range(0, data["lowOnDemand"]["limit"]) %}
+            <tr class="table-row">
+                {%if data["lowOnDemand"]['items'][i] <10 %}
+                <td class="table-cell"> ITEM_0{{data["lowOnDemand"]['items'][i]}}</td>
+                {%else%}
+                <td class="table-cell"> ITEM_{{data["lowOnDemand"]['items'][i]}}</td>
+                {% endif %}
+                <td class="table-cell"> {{ data["lowOnDemand"]['quantity'][i]}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        <table class="data-table">
+            <tr class="table-title">
+                <th colspan="3">Highest Earning</th>
+
+            </tr>
+            <tr class="table-heading">
+                {% for l in headings2 %}
+                <th class="table-cell">{{ l }}</th>
+                {% endfor %}
+            </tr>
+            {% for i in range(0, data["highestEarning"][2]) %}
+            <tr class="table-row">
+                {%if data["highestEarning"][0][i] < 10 %}
+                <td class="table-cell"> ITEM_0{{data["highestEarning"][0][i]}}</td>
+                {%else%}
+                <td class="table-cell"> ITEM_{{data["highestEarning"][0][i]}}</td>
+                {%endif%}
+                <td class="table-cell"> {{data["highestEarning"][1][i]}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        <table class="data-table">
+            <tr class="table-title">
+                <th colspan="3">Lowest Earning</th>
+            </tr>
+            <tr class="table-heading">
+                {% for l in headings2 %}
+                <th class="table-cell">{{ l }}</th>
+                {% endfor %}
+            </tr>
+            {% for i in range(0, data["lowestEarning"][2]) %}
+            <tr class="table-row">
+                {%if data["lowestEarning"][0][i] < 10 %}
+                <td class="table-cell"> ITEM_0{{data["lowestEarning"][0][i]}}</td>
+                {%else%}
+                <td class="table-cell"> ITEM_{{data["lowestEarning"][0][i]}}</td>
+                {%endif%}
+                <td class="table-cell"> {{data["lowestEarning"][1][i]}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
 
 </body>
 
-  <script>
+<script>
     var ctx = document.getElementById('salesChart').getContext('2d');
     var myChart = new Chart(ctx, {
         type: 'line',
@@ -498,5 +504,6 @@ iframe {
         }
     });
 
-  </script>
+
+</script>
 </html>
