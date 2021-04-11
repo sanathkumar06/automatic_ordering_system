@@ -22,8 +22,7 @@ def homePagePayload():
     # payload["totalSales"] = Query.getTotalSales()
     # TODO: Prasad
     # payload["totalOrders"] = Query.getTotalOrders()
-    # TODO: Sanath
-    # payload["predictedSales"] = Query.getPredictedSales()
+    payload["predictedSales"] = Query.getPredictedSales()
     payload['placedOrders'] = Query.getPlacedOrder()
     return payload
 
