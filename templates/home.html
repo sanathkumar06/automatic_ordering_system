@@ -22,6 +22,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="shortcut icon" type="image/x-icon" href="/static/logo.png" />
 </head>
 
 <style>
@@ -242,7 +243,7 @@ iframe {
   display: flex;
   flex-direction: column;
   width: 100px;
-  height: 100px;
+  height: 400px;
   color: black;
   margin-left: 0%;
 }
@@ -252,6 +253,7 @@ iframe {
   height: 400px;
   border: 2px solid rgb(0, 0, 0);
   margin: 1%;  
+  
 }
 
 .box_head{
@@ -261,6 +263,7 @@ iframe {
   margin-top: 0 0 0 auto;
   font-size: 20px;
   text-align: center;
+  height: 40px;
 }
 
 .box_head1{
@@ -288,9 +291,13 @@ iframe {
   font-size: small;
 }
 
+.salesNumber {
+  font-size: 50px;
+  font-family:monospace;
+  
+}
 
 </style>
-
 
 <body>
 <div class="bgimage">
@@ -334,15 +341,15 @@ iframe {
         <div class="box1" style="text-align: center;">
             <div class="boxList">
                 <h3 class="box_head">Items Sold All Time :</h3>
-                <span >{{data["allTimeSales"]}}</span>
+                <h1 class="salesNumber" ><small>{{data["allTimeSales"]}}</small></h1>
             </div>
             <div class="boxList">
                 <h3 class="box_head">Items Sold Per Month</h3>
-                <span>{{data["soldPerMonth"]}}</span>
+                <h1 class="salesNumber"><small>{{data["soldPerMonth"]}}</small></h1>
             </div>
             <div class="boxList">
                 <h3 class="box_head">Items Sold Per Week</h3>
-                <span>{{data["soldPerWeek"]}}</span>
+                <h1 class="salesNumber"><small>{{data["soldPerWeek"]}}</small></h1>
             </div>
         </div>
 
@@ -351,13 +358,21 @@ iframe {
         <div class="atOrders">
             <h3 class="box_head1">Auto Orders</h3>
             <div class="vOrders">
-              <h6> Item_ID      Item_Name     Item_Price </h6>
+              <table>
+              <tr>
+              {% for i in headings4 %}
+              <th>{{i}}</th>
+              {% endfor %}
+            </tr>
               {% for i in data["placedOrders"].keys() %}
-                  <div id="autoText">{{i}}</div>
-                  <div id="autoText">{{data["placedOrders"][i]['name']}}</div>
-                  <div id="autoText">{{data["placedOrders"][i]['cost']}}</div>
-                  <div id="autoText" >{{data["placedOrders"][i]['quantity']}}</div>
-                {%endfor%}
+                  <tr>  
+                  <td><div id="autoText">{{i}}</div></td>
+                  <td><div id="autoText">{{data["placedOrders"][i]['name']}}</div></td>
+                  <td><div id="autoText">{{data["placedOrders"][i]['cost']}}</div></td>
+                  <td><div id="autoText" >{{data["placedOrders"][i]['quantity']}}</div></td>
+                </tr>
+              {%endfor%}
+            </table>
             </div>
         </div>
 

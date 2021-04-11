@@ -80,6 +80,7 @@ def logout():
 
 headings = ["Item Name", "Quantity"]
 headings2 = ["Item ID", "Total"]
+autoheadings = ["Item Id" , "Item Name" , "Item Quantity" , "Item Cost"]
 
 
 @app.route('/home', methods=['GET', 'POST'])
@@ -89,7 +90,7 @@ def home():
 
     if request.method == "GET":
         payload = Payloads.homePagePayload();
-        return render_template('home.html', data=payload, headings=headings, headings2=headings2)
+        return render_template('home.html', data=payload, headings=headings, headings2=headings2 ,headings4= autoheadings)
     else:
         item = request.form['Search']
         response = Query.lookForItem(item)
