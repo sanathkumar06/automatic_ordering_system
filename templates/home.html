@@ -331,15 +331,19 @@ iframe {
         <!-- <h3 id = "box_head">Total Items Sold From start </h3> -->
         <!-- </div> -->
         <!-- </div> -->
-        <div class="box1">
+
+        <div class="box1" style="text-align: center;">
             <div class="boxList">
-                <h3 class="box_head">Items Sold All Time</h3>
+                <h3 class="box_head">Items Sold All Time :</h3>
+                <span >{{data["allTimeSales"]}}</span>
             </div>
             <div class="boxList">
-                <h3 class="box_head">Items Sold Per Day</h3>
+                <h3 class="box_head">Items Sold Per Month</h3>
+                <span>{{data["soldPerMonth"]}}</span>
             </div>
             <div class="boxList">
-                <h3 class="box_head">Items Sold Per Hour</h3>
+                <h3 class="box_head">Items Sold Per Week</h3>
+                <span>{{data["soldPerWeek"]}}</span>
             </div>
         </div>
 

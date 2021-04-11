@@ -19,10 +19,59 @@ nameIDMapJsonPath = "Resources/nameIDMap.json"
 with open(nameIDMapJsonPath) as f:
     nameIDMapJson = json.load(f)
 
-# function to swap columns eod
+def getLast30Days():
+    with sqlite3.connect("data.db") as conn:
+        cur = conn.cursor() 
+        q = "select daily_date from daily_sales order by rowid desc limit 30;"
+        dates = cur.execute(q).fetchall()
+        return dates
+
+# print(getLast30Days())
+
+def getQueryLine():
+    i = 1
+    query_line = ""
+    while(i <= 50):
+        item_name = "ITEM_"
+        if i < 10:
+            item_name += ("0" + str(i))
+            query_line += (" sum("+ item_name +") +")
+        else:
+            item_name += (str(i))
+            if(i < 50):
+                query_line += (" sum("+ item_name +") +")
+            else:
+                query_line += (" sum(" + item_name + ")")
+        i += 1
+    return query_line
 
 def getItemSoldAllTime():
-    pass
+    query_line = getQueryLine()
+    # print(query_line)
+    with sqlite3.connect("data.db") as conn:
+        cur = conn.cursor()
+        q = "select " + query_line + "from daily_sales;"
+        total = cur.execute(q).fetchone()
+        return total[0]
+
+def getItemSoldPerMonth():
+    query_line = getQueryLine()
+    dates = getLast30Days()
+    item_sold = []
+    with sqlite3.connect("data.db") as conn:
+        cur = conn.cursor()
+        for i in dates:
+            q = "select " + query_line + " from daily_sales where daily_date = '"+ str(i[0]) +"' ;"
+            tot = cur.execute(q).fetchone()
+            item_sold.append(tot)
+    final_total = 0
+    for j in item_sold:
+        final_total += j[0]
+    return final_total
+
+
+# print(getItemSoldAllTime())
+
 
 def getLast7dates():
     with sqlite3.connect("data.db") as con:
@@ -34,6 +83,22 @@ def getLast7dates():
             dates_list_desc.append(i[0])
     return dates_list_desc
 
+def getItemSoldPerWeek():
+    query_line = getQueryLine()
+    dates = getLast7dates()
+    item_sold = []
+    with sqlite3.connect("data.db") as conn:
+        cur = conn.cursor()
+        for i in dates:
+            q = "select " + query_line + " from daily_sales where daily_date = '"+ str(i) +"' ;"
+            tot = cur.execute(q).fetchone()
+            item_sold.append(tot)
+    final_total = 0
+    for j in item_sold:
+        final_total += j[0]
+    return final_total
+# print(getItemSoldPerWeek())
+# print(getLast7dates())
 
 def getAllTheDates():
     overall_dates = []
@@ -46,7 +111,7 @@ def getAllTheDates():
     return overall_dates
 
 
-print(getAllTheDates())
+# print(getAllTheDates())
 
 dates = getLast7dates()
 

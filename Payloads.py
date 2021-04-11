@@ -16,6 +16,9 @@ def homePagePayload():
     # payload["salesData"] = Query.getSalesCount()
     payload["highestEarning"] = Query.highestEarning(True, 10)
     payload["lowestEarning"] = Query.highestEarning(False, 10)
+    payload["allTimeSales"] = Query.getItemSoldAllTime()
+    payload["soldPerWeek"] = Query.getItemSoldPerWeek()
+    payload["soldPerMonth"] = Query.getItemSoldPerMonth()
     # TODO: Prasad
     # p ayload["totalSales"] = Query.getTotalSales()
     # TODO: Prasad
@@ -39,6 +42,7 @@ def itemDataPayload(itemId):
     payload["name"] = itemInfo["name"]
     payload["price"] = itemInfo["price"]
     payload["dates"] = Query.getAllTheDates()
+    
     # payload["sales"] = Query.each_item_sold_count()
     # TODO: Sanath
     #  Predicted sales for the item
@@ -83,4 +87,4 @@ def queuePayload():
     return payload
 
 
-queuePayload()
+# queuePayload()
