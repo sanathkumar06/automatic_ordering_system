@@ -268,7 +268,7 @@ def getItemPrediction(limit, count):
 
 #getItemPrediction()
 
-def intermediatePrediction(date, itemID, limit):
+def intermediatePrediction(date, itemID, limit, count):
     with sqlite3.connect("data.db") as con:
         cur = con.cursor()
         var = cur.execute("select * from table5;").fetchall()
@@ -281,9 +281,10 @@ def intermediatePrediction(date, itemID, limit):
         lis = []
         for i in res[int(itmNo)-1]:
             lis.append(int(i))
-
+        day1 = 'day'+str(count+1)
+        day2 = 'day'+str(count+2)
         val1 = int(lis[0])  
         val2 = int(lis[1])          
-        cur.execute("update prediction set day6 = '" + str(val1)+"' , day7 = '" + str(val2)+"' where stockID = '" + itemNO +"';")
+        cur.execute("update prediction set '" + str(day1) +"' = '" + str(val1)+"' , '" + str(day2) +"' = '" + str(val2)+"' where stockID = '" + itemNO +"';")
         con.commit()
         return sum(lis)
