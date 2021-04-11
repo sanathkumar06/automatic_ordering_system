@@ -12,18 +12,15 @@ def homePagePayload():
     payload = {}
     payload["highOnDemand"] = Query.highOnDemand(True, 10)
     payload["lowOnDemand"] = Query.highOnDemand(False, 10)
-    # payload["salesData"] = Query.getSalesCount()
+    payload["salesData"] = Query.getSalesCount()
     payload["highestEarning"] = Query.highestEarning(True, 10)
     payload["lowestEarning"] = Query.highestEarning(False, 10)
     payload["allTimeSales"] = Query.getItemSoldAllTime()
     payload["soldPerWeek"] = Query.getItemSoldPerWeek()
     payload["soldPerMonth"] = Query.getItemSoldPerMonth()
-    # TODO: Prasad
-    # payload["totalSales"] = Query.getTotalSales()
-    # TODO: Prasad
+    # TODO: Nikith
     # payload["totalOrders"] = Query.getTotalOrders()
-    # TODO: Sanath
-    # payload["predictedSales"] = Query.getPredictedSales()
+    payload["predictedSales"] = Query.getPredictedSales()
     payload['placedOrders'] = Query.getPlacedOrder()
     return payload
 
@@ -42,8 +39,7 @@ def itemDataPayload(itemId):
     payload["name"] = itemInfo["name"]
     payload["price"] = itemInfo["price"]
     payload["dates"] = Query.getAllTheDates()
-    
-    # payload["sales"] = Query.each_item_sold_count()
+    payload["sales"] = Query.eachItemSoldCount(90, itemId)
     # TODO: Sanath
     #  Predicted sales for the item
     payload["prediction"] = Query.getItemPredictionFromDB()
@@ -55,7 +51,7 @@ def liveUpdatePayload():
 
 
 def liveSalesPayload():
-    # TODO: Prasad
+    # TODO: Nikith
     # recent sales
     pass
 
@@ -83,8 +79,5 @@ def queuePayload():
         else:
             tempDict['min'] = mins
             payload[item] = tempDict
-
     return payload
 
-
-print(queuePayload())
