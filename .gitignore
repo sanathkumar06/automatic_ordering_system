@@ -2,6 +2,8 @@ node_modules
 .vscode/settings.json
 Utils/.~lock.online_retail.xlsx#
 .idea*
+*.pyc
 __pycache__
+__pycache__/Query.cpython-38.pyc
 
 model.h5
