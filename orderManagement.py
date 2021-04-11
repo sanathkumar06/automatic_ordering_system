@@ -1,5 +1,4 @@
 import sqlite3
-# import Query
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
@@ -11,11 +10,12 @@ def sendMail(info, quantity):
     msg = MIMEMultipart('alternative')
     msg['From'] = myMail
     msg['To'] = info['distributorMail']
-    #todo Vamshi
     # add proper order subject and message
+
     # https://www.freecodecamp.org/news/send-emails-using-code-4fcea9df63f/
-    msg['Subject'] = "ESCN"
-    message = "Order:" + quantity
+    msg['Subject'] = "Order Deliviery Required"
+    
+    message = "Hello Distritutor," + "\n" + "The Order of Item " + "itemname" + "Has been placed by the customer for" + " " +quantity + " " +"Quantities" + "\n" + "Request you to Dispach the Order As Soon As Possible" + "\n" + "\n" + "- Auto Ordering Company"
     msg.attach(MIMEText(message, 'plain'))
 
     # s = smtplib.SMTP("imap.gmail.com", 993)
@@ -24,7 +24,7 @@ def sendMail(info, quantity):
     s.send_message(msg)
     s.quit()
 
-info = {'distributorMail': "nikithks007@gmail.com"}
+info = {'distributorMail': "vamshi123pv@gmail.com"}
 sendMail(info, '5000')
 
 def placeOrder(itemID):

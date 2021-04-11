@@ -8,16 +8,196 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
-<body>
+<style>
+    *{
+  box-sizing: border-box;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+body{
+  background-color: #a8d0e6;
+}
+
+
+.header {
+  font-family: sans-serif;
+  color: #f76c6c;
+  margin: 0px;
+  font-size: x-large;
+  background-color: #24305e;
+  padding: 40px;
+}
+
+.project-title {
+  display: inline;
+  margin: 40px 0px;
+  padding: 5px 10px;
+  border: solid #ffffff;
+  border-width: 5px 0px;
+}
+
+#logout {
+  border-radius: 30px;
+  width: 100px;
+  height: 40px;
+  outline: none;
+  transition: transform 0.8s;
+  float: right;
+  margin-left: 10px;
+}
+
+#logout:hover {
+  transform: scale(.9);
+}
+
+.search {
+  display: flex;
+  justify-content: center;
+  font-family: sans-serif;
+  margin: 20px;
+  outline:none;
+}
+
+#searchbar {
+  border-radius: 30px;
+  width: 760px;
+  height: 40px;
+  border-color: #24305e;
+  outline: none;
+  padding-left: 20px;
+  /* background-color: #24305e; */
+}
+
+#searchbutton {
+  border-radius: 30px;
+  color: white;
+  font-size: 20px;
+  padding: 5px;
+  /* width: 50px; */
+  /* height: 40px; */
+  border-color: #24305e;
+  background-color: #24305e;
+  outline:none;
+  transition: transform 0.8s;
+}
+
+#searchbutton:hover {
+  transform: scale(.9);
+}
+
+.home-row {
+  display: flex;
+  flex-direction: row;
+  /* align-items: center; */
+  margin: 20px;
+  /* justify-content: space-evenly; */
+}
+
+.item-name-block {
+    font-family: sans-serif;
+    font-size: 20px;
+}
+
+.item-name{
+font-family: sans-serif;
+}
+
+.item-id-block {
+    font-family: sans-serif;
+    font-size: 20px;
+}
+
+.item-id{
+    font-family: sans-serif;
+    font-size: 20px;
+}
+
+.item-price-block {
+    font-family: sans-serif;
+    font-size: 20px;
+}
+
+.item-price {
+    font-family: sans-serif;
+    font-size: 20px;
+}
+
+.predicted-sale-block {
+    font-family: sans-serif;
+    font-size: 20px;
+}
+
+.predicted-sale {
+    font-family: sans-serif;
+    font-size: 20px;
+}
+
+.graph-block {
+    margin-top: 30px;
+}
+
+.date-selector {
+    width: 200px;
+    height: 35px;
+    border-radius: 30px;
+    padding-left: 10px;
+}
+
+.date-block {
+    padding-left: 37%;
+}
+
+.date-button {
+    width: 80px;
+    height: 35px;
+    border-radius: 30px;
+    transition: transform 0.8s;
+    background-color: #24305e;
+    color: white;
+    outline: none;
+}
+
+.date-button:hover {
+  transform: scale(.9);
+}
+
+
+</style>
+
+<body> 
+
+    <div class="navabar header" id="dest">
+        <h2 class="project-title">AUTOMATIC ORDERING SYSTEM</h2>
+        
+        <a href="/logout">
+          <button id="logout" > Logout</button>
+        </a>
+  
+        <a href="salesOrdering.html">
+        <button id="logout" >Sales Portal</button>
+        </a>
+    </div>
+  
+    <div class="search">
+      <form action="/home" method="POST">      
+        <input id="searchbar" type="text" placeholder="Search for item" name="Search" required>
+        <button id="searchbutton" type="submit"><i class="fas fa-search"></i>  Search</button>
+      </form>
+    </div>
+
     <div class="item-info-block">
         <h1 class="item-name-block">Item Name: <span class="item-name">{{data["name"]}}</span></h1>
         <div class="item-id-block">Item ID: <span class="item-id">{{data["ID"]}}</span></div>
         <div class="item-price-block">Price: <span class="item-price">{{data["price"]}}</span></div>
-        <div class="predicted-block">Price: <span class="predicted-sale">{{data["prediction"]}}</span></div>
+        <div class="predicted-sale-block">Price: <span class="predicted-sale">{{data["prediction"]}}</span></div>
     </div>
 
 
-    <div class="graph-block" style="border: 5px solid black">
+    <div class="graph-block" style="border: 2px solid black">
         <div class="date-block">
             <input class="date-selector" type="date" id="from-date">
             <input class="date-selector" type="date" id="to-date">
