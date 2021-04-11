@@ -238,33 +238,36 @@ def getLatestSales():
     # todo prasad
     pass
 
+def addPredictionColumn(count):
+    with sqlite3.connect("data.db") as con:
+        cur = con.cursor()
+        day = "day"+str(count)
+        var = cur.execute("alter table prediction add column '"+ str(day) + "' int;")
+        con.commit()
 
-
-def getItemPrediction():
+def getItemPrediction(limit, count):
     with sqlite3.connect("data.db") as con:
         cur = con.cursor()
         var = cur.execute("select * from daily_sales order by rowid DESC limit 1;").fetchall()
         #print(var[0])
         #model.main()
         load_main()
-        res = weekdata(list(var[0]))
+        res = weekdata(list(var[0]), limit)
         #print(res[0])
-        
         for i in range(50):
-            val1 = int(res[i][0])
-            val2 = int(res[i][1])
-            val3 = int(res[i][2])
             itemNO = 'ITEM_'
             if(i<10):
                 itemNO += '0'
             itemNO += str(i+1)
-            #print(itemNO, val1, val2, val3) 
-            cur.execute("update prediction set day1 = '" + str(val1)+"', day2 = '" + str(val2)+"', day3 = '" + str(val3)+"' where stockID = '" + itemNO +"';")
-            con.commit()
+            for j in range(limit):
+                day = 'day'+str(j)
+                val = int(res[i][j])                
+                cur.execute("update prediction set '" + str(day) +"' = '" + str(val)+"' where stockID = '" + itemNO +"';")
+                con.commit()
 
 #getItemPrediction()
 
-def intermediatePrediction(date,itemID):
+def intermediatePrediction(date, itemID, limit):
     with sqlite3.connect("data.db") as con:
         cur = con.cursor()
         var = cur.execute("select * from table5;").fetchall()
@@ -272,9 +275,14 @@ def intermediatePrediction(date,itemID):
         lis = [date]
         for i in var:
             lis.append(i)
-        res = weekdata(lis)
+        res = weekdata(lis,limit)
         itmNo = itemID[:-2]
         lis = []
         for i in res[int(itmNo)-1]:
             lis.append(int(i))
-        return lis
+
+        val1 = int(lis[0])  
+        val2 = int(lis[1])          
+        cur.execute("update prediction set day6 = '" + str(val1)+"' , day7 = '" + str(val2)+"' where stockID = '" + itemNO +"';")
+        con.commit()
+        return sum(lis)
