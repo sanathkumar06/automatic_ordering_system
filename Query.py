@@ -190,6 +190,9 @@ def getCurrentSales(itemID):
         cur_sales.append(i[0])
     print(cur_sales)
 
+def getCurrentStock(itemID):
+    #TODO Prasad
+    pass
 
 def get_all_items():
     stocks_list = []
@@ -272,6 +275,6 @@ def intermediatePrediction(date,itemID):
         res = weekdata(lis)
         itmNo = itemID[:-2]
         lis = []
-        for i in res[int(intmNo)-1]:
+        for i in res[int(itmNo)-1]:
             lis.append(int(i))
         return lis

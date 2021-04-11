@@ -1,7 +1,14 @@
 import sqlite3
+import Query
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+from datetime import datetime
+import json
+
+now = datetime.now()
+pathToQueue = "orderQueue.json"
+
 
 def sendMail(info, quantity):
     myMail = "auto.order.system@gmail.com"
@@ -11,7 +18,6 @@ def sendMail(info, quantity):
     msg['From'] = myMail
     msg['To'] = info['distributorMail']
     # add proper order subject and message
-
     # https://www.freecodecamp.org/news/send-emails-using-code-4fcea9df63f/
     msg['Subject'] = "Order Deliviery Required"
     
@@ -27,17 +33,34 @@ def sendMail(info, quantity):
 info = {'distributorMail': "vamshi123pv@gmail.com"}
 sendMail(info, '5000')
 
-def placeOrder(itemID):
-    itemInfo = Query.getItemInfo(itemID)
+
+def repredict(itemID):
     # TODO Sanath
     orderQuantity = 000
-    sendMail(itemInfo, orderQuantity)
+    return orderQuantity
+
+
+def addToOrderQueue(itemID, quantity):
+    current_time = now.strftime("%H:%M")
+    info = Query.getItemInfo(itemID)
+    with open(pathToQueue) as f:
+        data = json.load(f)
+    data[itemID] = {"time": current_time, "name": info['name'], "quantity": quantity, "price": info['price']}
+
+    with open(pathToQueue, 'w') as outfile:
+        json.dump(data, outfile)
+
+
+addToOrderQueue('ITEM_05', 500)
 
 
 def checkAvailability(itemID):
     predictionData = Query.getItemPrediction(itemID)
     if Query.getCurrentSales(itemID) >= predictionData[itemID]:
-        placeOrder(itemID)
+        currentStock = Query.getCurrentStock(itemID)
+        newPrediction = repredict(itemID)
+        if newPrediction > currentStock:
+            addToOrderQueue(itemID, currentStock)
 
 
 def processSale(itemId, quantity):
