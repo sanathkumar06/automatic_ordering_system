@@ -248,7 +248,7 @@ iframe {
 }
 
 .boxList {
-  width: 380px;
+  width: 300px;
   height: 400px;
   border: 2px solid rgb(0, 0, 0);
   margin: 1%;  
@@ -273,12 +273,10 @@ iframe {
 }
 
 .atOrders {
-  width: 380px;
+  width: 450px;
   height: 400px;
-  margin-left: 19%;
+  margin-left: 14.5%;
   border: 2px solid rgb(0, 0, 0);
-  /* padding: 50px; */
-  /* margin: 20px; */
   font-size: 30px;
   text-align: center;
 }
@@ -287,6 +285,7 @@ iframe {
   width: 375px;
   height: 355px;
   overflow-y: auto;
+  font-size: small;
 }
 
 
@@ -352,24 +351,13 @@ iframe {
         <div class="atOrders">
             <h3 class="box_head1">Auto Orders</h3>
             <div class="vOrders">
-                # TODO: Prasad : give data here
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
+              <h6> Item_ID      Item_Name     Item_Price </h6>
+              {% for i in data["placedOrders"].keys() %}
+                  <div id="autoText">{{i}}</div>
+                  <div id="autoText">{{data["placedOrders"][i]['name']}}</div>
+                  <div id="autoText">{{data["placedOrders"][i]['cost']}}</div>
+                  <div id="autoText" >{{data["placedOrders"][i]['quantity']}}</div>
+                {%endfor%}
             </div>
         </div>
 
