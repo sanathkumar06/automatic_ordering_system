@@ -260,8 +260,8 @@ def getItemPrediction(limit, count):
             if(i<10):
                 itemNO += '0'
             itemNO += str(i+1)
-            for j in range(limit):
-                day = 'day'+str(j)
+            for j in range(count,count+3):
+                day = 'day'+str(j+1)
                 val = int(res[i][j])                
                 cur.execute("update prediction set '" + str(day) +"' = '" + str(val)+"' where stockID = '" + itemNO +"';")
                 con.commit()
