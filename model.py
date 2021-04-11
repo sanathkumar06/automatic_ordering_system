@@ -8,7 +8,7 @@ column_name = []
 for i in range(1, 51):
     column_name.append('var' + str(i))
 
-scaler = pickle.load(open('scaler.pkl', 'rb'))
+scaler = pickle.load(open('Resources/scaler.pkl', 'rb'))
 
 
 def scale_data(df, scaler):
@@ -133,7 +133,7 @@ def weekdata(lis, limit):
 
 
 def load_main():
-    json_file = open('model.json', 'r')
+    json_file = open('Resources/model.json', 'r')
     loaded_model_json = json_file.read()
     json_file.close()
     global loaded_model
