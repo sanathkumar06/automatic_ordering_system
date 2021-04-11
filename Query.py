@@ -19,6 +19,10 @@ nameIDMapJsonPath = "Resources/nameIDMap.json"
 with open(nameIDMapJsonPath) as f:
     nameIDMapJson = json.load(f)
 
+# function to swap columns eod
+
+def getItemSoldAllTime():
+    pass
 
 def getLast7dates():
     with sqlite3.connect("data.db") as con:
@@ -42,7 +46,7 @@ def getAllTheDates():
     return overall_dates
 
 
-# print(getAllTheDates())
+print(getAllTheDates())
 
 dates = getLast7dates()
 
