@@ -97,7 +97,7 @@ def convertDate(da):
     new = da[2]+'/'+da[1]+'/'+da[0]
     return new
 
-def weekdata(lis):
+def weekdata(lis, limit):
     #print(lis)
     dateval = lis[0]
     #print(dateval)
@@ -113,7 +113,7 @@ def weekdata(lis):
     #pred_val.append(df)
     df = pd.DataFrame(df)
     #dateval = datetime.datetime.strptime(dateval,'%d-%m-%Y').date()
-    for i in range(2):
+    for i in range(limit-1):
         #print('hello')
         dateval = datetime.datetime.strptime(dateval,'%d/%m/%Y').date()
         dateval += datetime.timedelta(days = 1)

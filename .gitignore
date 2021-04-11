@@ -4,6 +4,5 @@ Utils/.~lock.online_retail.xlsx#
 .idea*
 *.pyc
 __pycache__
-__pycache__/Query.cpython-38.pyc
-
+ __pycache__/Query.cpython-38.pyc
 model.h5

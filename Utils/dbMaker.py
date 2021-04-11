@@ -28,19 +28,19 @@ cur = db.cursor()
 #     db.commit()
 
 #inserting into table5 and table prediction
-i = 1
-while(i <= 50):
-    item_name = "ITEM_"
-    if i < 10:
-        item_name += ("0" + str(i))
-    else:
-        item_name += (str(i))
-    q = "insert into table5 values('"+ item_name +"', 0);"
-    q1 = "insert into prediction values('"+ item_name +"', 0, 0, 0);"
-    cur.execute(q)
-    cur.execute(q1)
-    db.commit()
-    i += 1
+# i = 1
+# while(i <= 50):
+#     item_name = "ITEM_"
+#     if i < 10:
+#         item_name += ("0" + str(i))
+#     else:
+#         item_name += (str(i))
+#     q = "insert into table5 values('"+ item_name +"', 0);"
+#     q1 = "insert into prediction values('"+ item_name +"', 0, 0, 0);"
+#     cur.execute(q)
+#     cur.execute(q1)
+#     db.commit()
+#     i += 1
 
 # table-1
 # all_stocks = []
