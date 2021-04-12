@@ -390,7 +390,7 @@ def getItemPrediction(itemID):
         #print(q)
         var = cur.execute(q).fetchall()
         return(var[0][0])
-getItemPrediction("ITEM_02")
+#getItemPrediction("ITEM_02")
 
 def getPlacedOrder():
     with open(pathToPlacedOrder) as f:
