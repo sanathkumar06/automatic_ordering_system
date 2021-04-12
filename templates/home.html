@@ -289,6 +289,7 @@ iframe {
 }
 
 
+
 </style>
 
 
@@ -334,7 +335,7 @@ iframe {
         <div class="box1" style="text-align: center;">
             <div class="boxList">
                 <h3 class="box_head">Items Sold All Time :</h3>
-                <span >{{data["allTimeSales"]}}</span>
+                <span>{{data["allTimeSales"]}}</span>
             </div>
             <div class="boxList">
                 <h3 class="box_head">Items Sold Per Month</h3>
@@ -351,12 +352,12 @@ iframe {
         <div class="atOrders">
             <h3 class="box_head1">Auto Orders</h3>
             <div class="vOrders">
-              <h6> Item_ID      Item_Name     Item_Price </h6>
-              {% for i in data["placedOrders"].keys() %}
-                  <div id="autoText">{{i}}</div>
-                  <div id="autoText">{{data["placedOrders"][i]['name']}}</div>
-                  <div id="autoText">{{data["placedOrders"][i]['cost']}}</div>
-                  <div id="autoText" >{{data["placedOrders"][i]['quantity']}}</div>
+                <h6> Item_ID Item_Name Item_Price </h6>
+                {% for i in data["placedOrders"].keys() %}
+                <div id="autoText">{{i}}</div>
+                <div id="autoText">{{data["placedOrders"][i]['name']}}</div>
+                <div id="autoText">{{data["placedOrders"][i]['cost']}}</div>
+                <div id="autoText">{{data["placedOrders"][i]['quantity']}}</div>
                 {%endfor%}
             </div>
         </div>
@@ -366,7 +367,7 @@ iframe {
 
     <div class="home-row">
         <div class="live-sales">
-            <iframe class="frames" height=320px width=100% src="/liveSales" frameborder="0">
+            <iframe class="frames" height=320px width=100% src="/queue" frameborder="0">
 
             </iframe>
         </div>
@@ -495,6 +496,7 @@ iframe {
             }
         }
     });
+
 
 
 </script>

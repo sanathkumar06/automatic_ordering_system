@@ -6,6 +6,7 @@ import orderManagement
 now = datetime.now()
 pathToQueue = "Resources/orderQueue.json"
 timeFormat = "%H:%M:%S"
+waitTime = 60
 
 
 def homePagePayload():
@@ -42,7 +43,7 @@ def itemDataPayload(itemId):
     payload["name"] = itemInfo["name"]
     payload["price"] = itemInfo["price"]
     payload["dates"] = Query.getAllTheDates()
-    
+
     # payload["sales"] = Query.each_item_sold_count()
     # TODO: Sanath
     #  Predicted sales for the item
@@ -78,13 +79,13 @@ def queuePayload():
         tempDict['name'] = info['name']
         tempDict['quantity'] = data[item]['quantity']
         tempDict['cost'] = data[item]['quantity'] * info['price']
-        if mins > 5:
+        if mins > waitTime:
             orderManagement.placeOrder(item, tempDict)
         else:
-            tempDict['min'] = mins
+            tempDict['min'] = waitTime - mins
             payload[item] = tempDict
 
     return payload
 
 
-print(queuePayload())
+# print(queuePayload())

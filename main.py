@@ -124,9 +124,9 @@ def item(id):
 @app.route('/sales', methods=['POST', 'GET'])
 def sales():
     if (request.method == "GET"):
-        item = request.args.get("itemId")
-        quantity = request.args.get("quantity")
-        _thread.start_new_thread(orderManagement.processSale, (item, quantity))
+        itemID = request.form["itemId"]
+        quantity = request.form["quantity"]
+        _thread.start_new_thread(orderManagement.processSale, (itemID, quantity))
     else:
         return render_template("sales_portal.html")
 
@@ -139,6 +139,24 @@ def liveSale():
 @app.route('/liveOrders')
 def liveOrders():
     return render_template('liveOrders.html')
+
+
+@app.route('/queue', methods=['POST', 'GET'])
+def orderQueue():
+    if (request.method == "POST"):
+        ID = request.form['itemId']
+        print("ID==============",ID)
+        quantity = request.form["itemQuantity"]
+        orderManagement.placeOrderManually(ID, quantity)
+        return redirect('/queue')
+    else:
+        return render_template('orderConfirm.html', data = Payloads.queuePayload())
+
+
+@app.route('/cancel/<string:id>')
+def cancel(ID):
+    # TODO niki
+    orderManagement.removeFromOrderQueue(ID)
 
 
 if __name__ == '__main__':
