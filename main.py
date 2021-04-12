@@ -144,7 +144,7 @@ def delivered(i):
 
 @app.route('/orderConfirm')
 def liveSale():
-    return render_template('orderConfirm.html')
+    return render_template('orderConfirm.html', data=Payloads.queuePayload())
 
 
 @app.route('/liveOrders')

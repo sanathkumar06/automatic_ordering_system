@@ -78,7 +78,7 @@ def queuePayload():
         else:
             tempDict['min'] = waitTime - mins
             payload[item] = tempDict
-
+    print(payload)
     return payload
 
 

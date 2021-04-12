@@ -13,9 +13,7 @@
 
     <style>
         .item-block {
-            border: 2px solid black;
-            width: 50%;
-            height: 100%;
+           margin-bottom: 20px;
         }
 
         .item-info {
@@ -31,9 +29,10 @@
 
         .item-quantity {
             border-radius: 20px;
-            width: 400px;
+            width: 100%;
             height: 30px;
-            margin-left: 200px;
+            margin-left: 20px;
+            padding-left: 4px;
         }
 
         .control-buttons {
@@ -48,7 +47,7 @@
         .message-panel {
             font-family: sans-serif;
             font-size: 20px;
-            margin-top: 20px;
+            /* margin-top: 20px; */
         }
 
         .buttons {
@@ -61,10 +60,10 @@
 {% if data | length > 0%}
 {% for i in data.keys()%}
 <div class="item-block">
-    <div class="item-info">
+    <!-- <div class="item-info">
         <div class="item-name">{{data[i]['name']}}</div>
         <div class="item-id">{{i}}</div>
-    </div>
+    </div> -->
     <div class="order-control">
         <form method="post" action="/queue">
         <div class="item-name">{{data[i]['name']}}
@@ -75,13 +74,11 @@
             </div>
             <div class="control-buttons">
                 <a href="/cancel/{{i}}">
-                    <button>Cancel Order</button>
+                    <button class="buttons">Cancel Order</button>
                 </a>
-                <button type="submit">Place Order</button>
+                <button class="buttons" type="submit">Place Order</button>
             </div>
         </form>
-                <button class ="buttons">Cancel Order</button>
-                <button class="buttons">Place Order</button>
         </div>
         <div class="message-panel">Order will be placed automatically in {{data[i]['min']}} minute(s).</div>
     </div>
