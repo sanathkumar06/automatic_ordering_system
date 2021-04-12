@@ -40,9 +40,8 @@ def itemDataPayload(itemId):
     payload["price"] = itemInfo["price"]
     payload["dates"] = Query.getAllTheDates()
     payload["sales"] = Query.eachItemSoldCount(90, itemId)
-    # TODO: Sanath
-    #  Predicted sales for the item
-    payload["prediction"] = Query.getItemPredictionFromDB()
+    
+    payload["prediction"] = Query.getItemPredictionFromDB(itemID)
     return payload
 
 
