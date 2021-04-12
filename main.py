@@ -134,7 +134,7 @@ def sales():
 
 @app.route('/orderConfirm')
 def liveSale():
-    return render_template('orderConfirm.html' data = )
+    return render_template('orderConfirm.html')
 
 
 @app.route('/liveOrders')
