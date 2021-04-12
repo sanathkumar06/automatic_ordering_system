@@ -393,7 +393,7 @@ font-size: 17px;
                   <td><div class="autoText">{{data["placedOrders"][i]['name']}}</div></td>
                   <td><div class="autoText" >{{data["placedOrders"][i]['quantity']}}</div></td>
                   #TODO Vamshi add link to delivery
-                  <td> <button class="buttons">Delivered</button></td>
+                  <td><a href="/delivered/{{i}}"><button class="buttons">Delivered</button></a></td>
                 </tr>
               {%endfor%}
             </table>

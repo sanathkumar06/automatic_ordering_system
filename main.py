@@ -6,6 +6,7 @@ import Query
 import Payloads
 import _thread
 import orderManagement
+import json
 
 app = Flask(__name__)
 
@@ -130,6 +131,15 @@ def sales():
         _thread.start_new_thread(orderManagement.processSale, (item, quantity))
     else:
         return render_template("sales_portal.html")
+
+@app.route('/delivered/<string:i>')
+def delivered(i):
+    with open("Resources/placedOrders.json") as f:
+        data = json.load(f)
+    data.pop(i)
+    with open("Resources/placedOrders.json", 'w') as outfile:
+        json.dump(data, outfile)
+    return "successfully removed!"
 
 
 @app.route('/orderConfirm')
