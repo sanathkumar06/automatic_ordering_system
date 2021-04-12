@@ -253,7 +253,6 @@ iframe {
   height: 400px;
   border: 2px solid rgb(0, 0, 0);
   margin: 1%;  
-  
 }
 
 .box_head{
@@ -295,7 +294,7 @@ iframe {
 .salesNumber {
   font-size: 50px;
   font-family:monospace;
-  
+
 }
 
 .autoText {
@@ -323,6 +322,7 @@ font-size: 17px;
 }
 </style>
 
+
 <body>
 <div class="bgimage">
 
@@ -344,6 +344,7 @@ font-size: 17px;
             <button id="searchbutton" type="submit"><i class="fas fa-search"></i> Search</button>
         </form>
     </div>
+
 
     <div class="home-row">
         <div class="graph">
@@ -388,7 +389,7 @@ font-size: 17px;
               {% endfor %}
             </tr>
               {% for i in data["placedOrders"].keys() %}
-                  <tr>  
+                  <tr>
                   <td><div class="autoText">{{i}}</div></td>
                   <td><div class="autoText">{{data["placedOrders"][i]['name']}}</div></td>
                   <td><div class="autoText" >{{data["placedOrders"][i]['quantity']}}</div></td>
@@ -516,7 +517,7 @@ font-size: 17px;
                 label: 'No. of items sold',
                 fill: true,
                 lineTension: 0,
-                data: '{{ data["predictedSales"]["yaxis"] }}', 
+                data: '{{ data["predictedSales"]["yaxis"] }}',
                 
                 borderColor: "rgba(0, 0, 0, 1)",
                 // hoverBorderColor: "rgba(0, 255, 0, 1)",

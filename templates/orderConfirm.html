@@ -7,9 +7,8 @@
     <script>
         let flag = true
         window.onload = function() {
-            setTimeout(function(){if(flag) {window.location.reload(1);}}, 1500);
+            setTimeout(function(){if(flag) {window.location.reload(1);}}, 15000);
         };
-
     </script>
 
     <style>
@@ -21,7 +20,7 @@
 
         .item-info {
 
-        } 
+        }
 
         .item-name {
             font-family: sans-serif;
@@ -42,7 +41,7 @@
             margin-left: 440px;
         }
         .buttons {
-            
+
             border-radius: 20px;
         }
 
@@ -59,21 +58,37 @@
     </style>
 </head>
 <body>
+{% if data | length > 0%}
 {% for i in data.keys()%}
 <div class="item-block">
     <div class="item-info">
+        <div class="item-name">{{data[i]['name']}}</div>
+        <div class="item-id">{{i}}</div>
+    </div>
+    <div class="order-control">
+        <form method="post" action="/queue">
         <div class="item-name">{{data[i]['name']}}
         <div class="order-control">
             <input onfocus="flag = false" class='item-quantity' value="{{data[i]['quantity']}}" name="itemQuantity">
+            <input type="hidden" value="{{i}}" name="itemId">
             </div>
             </div>
             <div class="control-buttons">
+                <a href="/cancel/{{i}}">
+                    <button>Cancel Order</button>
+                </a>
+                <button type="submit">Place Order</button>
+            </div>
+        </form>
                 <button class ="buttons">Cancel Order</button>
                 <button class="buttons">Place Order</button>
         </div>
         <div class="message-panel">Order will be placed automatically in {{data[i]['min']}} minute(s).</div>
     </div>
-    {%endfor%}
 </div>
+{%endfor%}
+{%else%}
+<div class="empty-message">No orders to be placed</div>
+{%endif%}
 </body>
 </html>
