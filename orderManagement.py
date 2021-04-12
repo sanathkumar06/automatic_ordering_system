@@ -11,7 +11,8 @@ pathToQueue = "Resources/orderQueue.json"
 pathToPlacedOrder = "Resources/placedOrders.json"
 
 
-def sendMail(info, quantity):
+def sendMail(itemID, quantity):
+    info = Query.getItemInfo(itemID)
     myMail = "auto.order.system@gmail.com"
     myPass = "order@123"
 
@@ -22,7 +23,8 @@ def sendMail(info, quantity):
     # https://www.freecodecamp.org/news/send-emails-using-code-4fcea9df63f/
     msg['Subject'] = "Order Deliviery Required"
 
-    message = "Hello Distritutor," + "\n" + "The Order of Item " + info['name'] + "Has been placed by the customer for" + " " + quantity + " " + "Quantities" + "\n" + "Request you to Dispach the Order As Soon As Possible" + "\n" + "\n" + "- Auto Ordering Company"
+    message = "Hello Distritutor," + "\n" + "The Order of Item " + info[
+        'name'] + "Has been placed by the customer for" + " " + quantity + " " + "Quantities" + "\n" + "Request you to Dispach the Order As Soon As Possible" + "\n" + "\n" + "- Auto Ordering Company"
     msg.attach(MIMEText(message, 'plain'))
 
     # s = smtplib.SMTP("imap.gmail.com", 993)
@@ -50,13 +52,16 @@ def addToOrderQueue(itemID, quantity):
 
 # addToOrderQueue('ITEM_03', 1000)
 # addToOrderQueue('ITEM_07', 700)
+# addToOrderQueue('ITEM_27', 770)
 
 
 def removeFromOrderQueue(itemID):
     with open(pathToQueue) as f:
         data = json.load(f)
-
-    data.pop(itemID)
+    try:
+        data.pop(itemID)
+    except Exception:
+        print(Exception)
     with open(pathToQueue, 'w') as outfile:
         json.dump(data, outfile)
 
@@ -71,7 +76,18 @@ def updateToOrdered(itemID, info):
 
 
 def placeOrder(itemID, data):
-    sendMail(Query.getItemInfo(itemID), str(data['quantity']))
+    sendMail(itemID, str(data['quantity']))
+    updateToOrdered(itemID, data)
+    removeFromOrderQueue(itemID)
+
+
+def placeOrderManually(itemID, quantity):
+    sendMail(itemID, str(quantity))
+    data = {}
+    info = Query.getItemInfo(itemID)
+    data['name'] = info['name']
+    data['quantity'] = quantity
+    data['cost'] = int(quantity) * info['price']
     updateToOrdered(itemID, data)
     removeFromOrderQueue(itemID)
 

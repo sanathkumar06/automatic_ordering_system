@@ -171,45 +171,45 @@ font-family: sans-serif;
 
 <body>
 
-<div class="navabar header" id="dest">
-    <h2 class="project-title">AUTOMATIC ORDERING SYSTEM</h2>
+    <div class="navabar header" id="dest">
+        <h2 class="project-title">AUTOMATIC ORDERING SYSTEM</h2>
 
-    <a href="/logout">
-        <button id="logout"> Logout</button>
-    </a>
+        <a href="/logout">
+          <button id="logout" > Logout</button>
+        </a>
 
-    <a href="salesOrdering.html">
-        <button id="logout">Sales Portal</button>
-    </a>
-</div>
+        <a href="salesOrdering.html">
+        <button id="logout" >Sales Portal</button>
+        </a>
+    </div>
 
-<div class="search">
-    <form action="/home" method="POST">
+    <div class="search">
+      <form action="/home" method="POST">
         <input id="searchbar" type="text" placeholder="Search for item" name="Search" required>
-        <button id="searchbutton" type="submit"><i class="fas fa-search"></i> Search</button>
-    </form>
-</div>
-
-<div class="item-info-block">
-    <h1 class="item-name-block">Item Name: <span class="item-name">{{data["name"]}}</span></h1>
-    <div class="item-id-block">Item ID: <span class="item-id">{{data["ID"]}}</span></div>
-    <div class="item-price-block">Price: <span class="item-price">{{data["price"]}}</span></div>
-    <div class="predicted-sale-block">Price: <span class="predicted-sale">{{data["prediction"]}}</span></div>
-</div>
-
-
-<div class="graph-block" style="border: 2px solid black">
-    <div class="date-block">
-        <input class="date-selector" type="date" id="from-date">
-        <input class="date-selector" type="date" id="to-date">
-        <button class="date-button" onclick="setRange()">Set range</button>
-        <div class="date-error">Invalid date range selected</div>
+        <button id="searchbutton" type="submit"><i class="fas fa-search"></i>  Search</button>
+      </form>
     </div>
-    <div class="graph">
-        <canvas id="salesChart"></canvas>
+
+    <div class="item-info-block">
+        <h1 class="item-name-block">Item Name: <span class="item-name">{{data["name"]}}</span></h1>
+        <div class="item-id-block">Item ID: <span class="item-id">{{data["ID"]}}</span></div>
+        <div class="item-price-block">Price: <span class="item-price">{{ data['price'] }}</span></div>
+        <div class="predicted-sale-block">Price: <span class="predicted-sale">{{data["prediction"]}}</span></div>
     </div>
-</div>
+
+
+    <div class="graph-block" style="border: 2px solid black">
+        <div class="date-block">
+            <input class="date-selector" type="date" id="from-date">
+            <input class="date-selector" type="date" id="to-date">
+            <button class="date-button" onclick="setRange()">Set range</button>
+            <div class="date-error">Invalid date range selected</div>
+        </div>
+        <div class="graph">
+            <canvas id="salesChart"></canvas>
+        </div>
+    </div>
 </body>
-<script src="itemGraphScript.js">
-</script>
+  <script src="itemGraphScript.js">
+  </script>
 </html>
