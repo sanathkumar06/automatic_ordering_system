@@ -24,13 +24,13 @@ with open(nameIDMapJsonPath) as f:
     nameIDMapJson = json.load(f)
 
 
+
 def getLast30Days():
     with sqlite3.connect("data.db") as conn:
         cur = conn.cursor()
         q = "select daily_date from daily_sales order by rowid desc limit 30;"
         dates = cur.execute(q).fetchall()
         return dates
-
 
 # print(getLast30Days())
 
@@ -69,7 +69,7 @@ def getItemSoldPerMonth():
     with sqlite3.connect("data.db") as conn:
         cur = conn.cursor()
         for i in dates:
-            q = "select " + query_line + " from daily_sales where daily_date = '" + str(i[0]) + "' ;"
+            q = "select " + query_line + " from daily_sales where daily_date = '"+ str(i[0]) +"' ;"
             tot = cur.execute(q).fetchone()
             item_sold.append(tot)
     final_total = 0
@@ -85,12 +85,11 @@ def getLast7dates():
     with sqlite3.connect("data.db") as con:
         cur = con.cursor()
         # getting last 7 dates from table for which only contain dates
-        dates_desc = cur.execute("select daily_date from daily_sales order by daily_date DESC LIMIT 7;").fetchall()
+        dates_desc = cur.execute("select daily_date from daily_sales order by rowid DESC LIMIT 7;").fetchall()
         dates_list_desc = []
         for i in dates_desc:
             dates_list_desc.append(i[0])
     return dates_list_desc
-
 
 def getItemSoldPerWeek():
     query_line = getQueryLine()
@@ -99,7 +98,7 @@ def getItemSoldPerWeek():
     with sqlite3.connect("data.db") as conn:
         cur = conn.cursor()
         for i in dates:
-            q = "select " + query_line + " from daily_sales where daily_date = '" + str(i) + "' ;"
+            q = "select " + query_line + " from daily_sales where daily_date = '"+ str(i) +"' ;"
             tot = cur.execute(q).fetchone()
             item_sold.append(tot)
     final_total = 0
@@ -180,7 +179,6 @@ def highOnDemand(flag, limit):
 def getItemInfo(itemId):
     return productDataJson[itemId]
 
-
 def lookForItem(item):
     try:
         productDataJson[item]
@@ -191,7 +189,6 @@ def lookForItem(item):
             return id
         except:
             return "null"
-
 
 # Return format example:
 # getSimilar("biscuit"):
@@ -207,22 +204,17 @@ def getSimilar(item):
 
 
 def getSalesCount():
-    salesList = []
-    with sqlite3.connect("data.db") as con:
-        cur = con.cursor()
-        for i in range(0, len(dates)):
-            d = formated_date(dates[i])
-            query_date = '"' + d + '"'
-            q = "select " + query_date + " from table3 where " + query_date + " = " + query_date + " ;"
-            sales_count = cur.execute(q).fetchall()
-            tot = 0
-            for j in sales_count:
-                tot += (j[0]);
-            salesList.append(tot)
-    return {"xaxis": dates, "yaxis": salesList}
+    query_line = getQueryLine()
+    dates = getLast7dates()
+    item_sold = []
+    with sqlite3.connect("data.db") as conn:
+        cur = conn.cursor()
+        for i in dates:
+            q = "select " + query_line + " from daily_sales where daily_date = '"+ str(i) +"' ;"
+            tot = cur.execute(q).fetchone()
+            item_sold.append(tot[0])
+    return item_sold
 
-
-# Fixme: Prasad
 def highestEarning(flag, limit):
     highDemands = {}
     with sqlite3.connect("data.db") as con:
@@ -270,13 +262,13 @@ def getCurrentSales(itemID):
     item_sales = cur.execute(q).fetchall()
     for i in item_sales:
         cur_sales.append(i[0])
-    print(cur_sales)
+    return(cur_sales)
 
 
 def getCurrentStock(itemID):
     with sqlite3.connect("data.db") as con:
         cur = con.cursor()
-        var1 = cur.execute("select quantity from table1 where stockID = '" + str(itemID) + "';").fetchall()
+        var1 = cur.execute("select quantity from table1 where stockID = '" + str(itemID) +"';").fetchall()
         curr = var1[0][0]
         return int(curr)
 
@@ -303,17 +295,15 @@ def get_all_dates():
     return dates_list
 
 
-def each_item_sold_count():
-    sold_count = []
+def eachItemSoldCount(limit, id):
+    # sold_count = []
     with sqlite3.connect("data.db") as con:
         cur = con.cursor()
-        stocks = get_all_items()
-        for i in stocks:
-            q = "select * from table3 where stockID = '" + i + "';"
-            dates = cur.execute(q).fetchall()
-            sold_count.append(dates)
+        q = "select daily_date, "+ id + " from daily_sales order by rowid limit "+ str(limit) + ";"
+        sold_count = cur.execute(q).fetchall()
     return sold_count
-
+#eachItemSoldCount(90, "ITEM_01")
+# print(eachItemSoldCount(90, "ITEM_01"))
 
 def updateSalesDb(item, quantity):
     with sqlite3.connect("data.db") as con:
@@ -335,26 +325,41 @@ def addPredictionColumn(count):
         con.commit()
 
 
-def getItemPrediction(limit, count):
+def getItemPrediction1():
+    with open(pathToCache) as f:
+        c = json.load(f)
     with sqlite3.connect("data.db") as con:
         cur = con.cursor()
         var = cur.execute("select * from daily_sales order by rowid DESC limit 1;").fetchall()
-        # print(var[0])
-        # model.main()
+        #print(var[0])
+        #model.main()
         load_main()
-        res = weekdata(list(var[0]), limit)
-        # print(res[0])
+        res = weekdata(list(var[0]), 3)
+        #print(res[0])
+        count = c["count"]
         for i in range(50):
             itemNO = 'ITEM_'
-            if (i < 10):
+            if(i<9):
                 itemNO += '0'
-            itemNO += str(i + 1)
-            for j in range(count, count + 3):
-                day = 'day' + str(j + 1)
-                val = int(res[i][j])
-                cur.execute(
-                    "update prediction set '" + str(day) + "' = '" + str(val) + "' where stockID = '" + itemNO + "';")
+            itemNO += str(i+1)
+
+            for j in range(count,count+3):
+                day = 'day'+str(j+1)
+                val = int(res[i][j])                
+                cur.execute("update prediction set '" + str(day) +"' = '" + str(val)+"' where stockID = '" + itemNO +"';")
                 con.commit()
+
+def getItemPrediction(itemID):
+    with open(pathToCache) as f:
+        c = json.load(f)
+    with sqlite3.connect("data.db") as con:
+        cur = con.cursor()
+        count = c["count"]
+        day = "day"+str(count)
+        q = "select "+day+" from prediction where stockID =  '" + str(itemID)+ "';"
+        #print(q)
+        var = cur.execute(q).fetchall()
+        return(var[0][0])
 
 
 def getPlacedOrder():
@@ -362,16 +367,41 @@ def getPlacedOrder():
         data = json.load(f)
     return data
 
+def getItemPredictionFromDB(itemID):
+    with sqlite3.connect("data.db") as con:
+        cur = con.cursor()
+        q = "select day1, day2, day3, day4, day5, day6, day7 from prediction where stockID =   '" +str(itemID)+"' ;"
+        var = cur.execute(q).fetchall()
+        lis = []
+        for i in var[0]:
+            lis.append(i)
+        res = getLast7dates()
+        res = res[:4]
+        res = res[::-1]
+        for i in range(3):
+            if i == 0:
+                dateval = res[-1]
+            #print(dateval)
+            dateval = datetime.datetime.strptime(str(dateval),'%d-%m-%Y').date()
+            #print(dateval)
+            dateval+=datetime.timedelta(days=1)
+            #print(dateval)
+            dateval = str(dateval)
+            dateval = dateval.split('-')
+            dateval = dateval[::-1]
+            dateval =  '-'.join(dateval)
+            res.append(dateval)
+        return {"xaxis": res, "yaxis": lis}
 
-def getItemPredictionFromDB():
-    pass
 
 
 def intermediatePrediction(itemID, limit):
+    with open(pathToCache) as f:
+        c = json.load(f)
     with sqlite3.connect("data.db") as con:
         cur = con.cursor()
         var = cur.execute("select * from table5;").fetchall()
-        print(var)
+        #print(var)
         lis = [date]
         for i in var:
             lis.append(i[1])
@@ -380,54 +410,77 @@ def intermediatePrediction(itemID, limit):
         lis = []
         for i in res[int(itmNo) - 1]:
             lis.append(int(i))
-        day1 = 'day' + str(count + 1)
-        day2 = 'day' + str(count + 2)
-        val1 = int(lis[0])
-        val2 = int(lis[1])
-        cur.execute("update prediction set '" + str(day1) + "' = '" + str(val1) + "' , '" + str(day2) + "' = '" + str(
-            val2) + "' where stockID = '" + str(itemNO) + "';")
+        count = c["count"]
+        day1 = 'day'+str(count+1)
+        day2 = 'day'+str(count+2)
+        val1 = int(lis[0])  
+        val2 = int(lis[1])          
+        cur.execute("update prediction set '" + str(day1) +"' = '" + str(val1)+"' , '" + str(day2) +"' = '" + str(val2)+"' where stockID = '" + str(itemNO) +"';")
         con.commit()
-        var1 = cur.execute("select quantity from table1 where stockID = '" + str(itemID) + "';").fetchall()
-        curr = var1[0][0]
+        #var1 = cur.execute("select quantity from table1 where stockID = '" + str(itemID) +"';").fetchall()
+        #curr = var1[0][0]
         return sum(lis)
 
 
 def getPredictedSales():
     with open(pathToCache) as f:
-        count = json.load(f)
+        c = json.load(f)
     with sqlite3.connect("data.db") as con:
         cur = con.cursor()
-        if (count < 5):
-            pass
+        count = c["count"]
+        day = "day" +str(int(count)-4)+ ", day"+ str(int(count)-3)+ ", day"+str(int(count)-2)+ ", day"+str(int(count)-1)+ ", day"+str(int(count))+ ", day"+str(int(count)+1)+ ", day"+str(int(count)+2)
+        q = "select "+ day +" from prediction;"
+        #print(q)
+        var = cur.execute(q).fetchall()
+        #print(len(var))
+        #print(len(var[0]))
+        lis = []
+        for i in range(7):
+            ch = 0
+            for j in range(50):
+                ch += var[j][i]
+            lis.append(ch)
+        res = getLast7dates()
+        res = res[:4]
+        res = res[::-1]
+        for i in range(3):
+            if i == 0:
+                dateval = res[-1]
+            #print(dateval)
+            dateval = datetime.datetime.strptime(str(dateval),'%d-%m-%Y').date()
+            #print(dateval)
+            dateval+=datetime.timedelta(days=1)
+            #print(dateval)
+            dateval = str(dateval)
+            dateval = dateval.split('-')
+            dateval = dateval[::-1]
+            dateval =  '-'.join(dateval)
+            res.append(dateval)
+        return {"xaxis": res, "yaxis": lis}
 
-        else:
-            day = "day" + str(int(count) - 4) + ", day" + str(int(count) - 3) + ", day" + str(
-                int(count) - 2) + ", day" + str(int(count) - 1) + ", day" + str(int(count)) + ", day" + str(
-                int(count) + 1) + ", day" + str(int(count) + 2)
-            var = cur.execute("select '" + day + "'from prediction;").fetchall()
-
-
+    
 def initialPrediction():
     with sqlite3.connect("data.db") as con:
         cur = con.cursor()
         var = cur.execute("select * from daily_sales order by rowid DESC limit 7;").fetchall()
         var = list(var)
         var = var[::-1]
+        #print(var)
         load_main()
-        for i in range(0, 4):
+        for i in range(0,7):
+            #print("inside")
             res = weekdata(var[i], 1)
-            print(res)
-            print(res[0])
-            day = 'day' + str(i + 1)
+            #print(res)
+            #print(res[9])
+            day = 'day'+str(i+1)
             for j in range(50):
                 itemNO = 'ITEM_'
-                if (j < 10):
+                if(j<9):
                     itemNO += '0'
-                itemNO += str(j + 1)
+                itemNO += str(j+1)
                 val = int(res[j])
-                cur.execute(
-                    "update prediction set '" + str(day) + "' = '" + str(val) + "' where stockID = '" + itemNO + "';")
+                if i==3:
+                    print(val)
+                cur.execute("update prediction set '" + str(day) +"' = '" + str(val)+"' where stockID = '" + itemNO +"';")
                 con.commit()
 
-
-initialPrediction()

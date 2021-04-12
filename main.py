@@ -80,6 +80,7 @@ def logout():
 
 headings = ["Item Name", "Quantity"]
 headings2 = ["Item ID", "Total"]
+autoheadings = ["Item Id" , "Item Name" , "Item Quantity", "Status"]
 
 
 @app.route('/home', methods=['GET', 'POST'])
@@ -89,7 +90,7 @@ def home():
 
     if request.method == "GET":
         payload = Payloads.homePagePayload();
-        return render_template('home.html', data=payload, headings=headings, headings2=headings2)
+        return render_template('home.html', data=payload, headings=headings, headings2=headings2 ,headings4= autoheadings)
     else:
         item = request.form['Search']
         response = Query.lookForItem(item)
@@ -131,9 +132,9 @@ def sales():
         return render_template("sales_portal.html")
 
 
-@app.route('/liveSales')
+@app.route('/orderConfirm')
 def liveSale():
-    return render_template('liveSales.html')
+    return render_template('orderConfirm.html')
 
 
 @app.route('/liveOrders')

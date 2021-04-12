@@ -12,7 +12,49 @@
     </script>
 
     <style>
+        .item-block {
+            border: 2px solid black;
+            width: 50%;
+            height: 100%;
+        }
 
+        .item-info {
+
+        }
+
+        .item-name {
+            font-family: sans-serif;
+            font-size: 20px;
+            display: flex;
+            flex-direction: row;
+        }
+
+        .item-quantity {
+            border-radius: 20px;
+            width: 400px;
+            height: 30px;
+            margin-left: 200px;
+        }
+
+        .control-buttons {
+            margin-top: 10px;
+            margin-left: 440px;
+        }
+        .buttons {
+
+            border-radius: 20px;
+        }
+
+        .message-panel {
+            font-family: sans-serif;
+            font-size: 20px;
+            margin-top: 20px;
+        }
+
+        .buttons {
+            font-family: sans-serif;
+            font-size: 18px;
+        }
     </style>
 </head>
 <body>
@@ -25,8 +67,12 @@
     </div>
     <div class="order-control">
         <form method="post" action="/queue">
+        <div class="item-name">{{data[i]['name']}}
+        <div class="order-control">
             <input onfocus="flag = false" class='item-quantity' value="{{data[i]['quantity']}}" name="itemQuantity">
             <input type="hidden" value="{{i}}" name="itemId">
+            </div>
+            </div>
             <div class="control-buttons">
                 <a href="/cancel/{{i}}">
                     <button>Cancel Order</button>
@@ -34,6 +80,9 @@
                 <button type="submit">Place Order</button>
             </div>
         </form>
+                <button class ="buttons">Cancel Order</button>
+                <button class="buttons">Place Order</button>
+        </div>
         <div class="message-panel">Order will be placed automatically in {{data[i]['min']}} minute(s).</div>
     </div>
 </div>
