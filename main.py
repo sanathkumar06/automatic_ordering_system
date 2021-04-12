@@ -80,7 +80,7 @@ def logout():
 
 headings = ["Item Name", "Quantity"]
 headings2 = ["Item ID", "Total"]
-autoheadings = ["Item Id" , "Item Name" , "Item Quantity", "Status"]
+autoheadings = ["Item Id", "Item Name", "Item Quantity", "Status"]
 
 
 @app.route('/home', methods=['GET', 'POST'])
@@ -90,7 +90,8 @@ def home():
 
     if request.method == "GET":
         payload = Payloads.homePagePayload();
-        return render_template('home.html', data=payload, headings=headings, headings2=headings2 ,headings4= autoheadings)
+        return render_template('home.html', data=payload, headings=headings, headings2=headings2,
+                               headings4=autoheadings)
     else:
         item = request.form['Search']
         response = Query.lookForItem(item)
@@ -146,12 +147,12 @@ def liveOrders():
 def orderQueue():
     if (request.method == "POST"):
         ID = request.form['itemId']
-        print("ID==============",ID)
+        print("ID==============", ID)
         quantity = request.form["itemQuantity"]
         orderManagement.placeOrderManually(ID, quantity)
         return redirect('/queue')
     else:
-        return render_template('orderConfirm.html', data = Payloads.queuePayload())
+        return render_template('orderConfirm.html', data=Payloads.queuePayload())
 
 
 @app.route('/cancel/<string:id>')

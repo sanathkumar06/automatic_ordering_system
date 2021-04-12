@@ -1,1 +1,10 @@
-{"ITEM_03": {"time": "13:17:53", "quantity": 1000}, "ITEM_07": {"time": "13:17:53", "quantity": 700}}
+{
+  "ITEM_03": {
+    "time": "13:17:53",
+    "quantity": 1000
+  },
+  "ITEM_07": {
+    "time": "13:17:53",
+    "quantity": 700
+  }
+}

@@ -22,7 +22,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="shortcut icon" type="image/x-icon" href="/static/logo.png" />
+    <link rel="shortcut icon" type="image/x-icon" href="/static/logo.png"/>
 </head>
 
 <style>
@@ -320,6 +320,7 @@ font-family: sans-serif;
 font-size: 17px;
 
 }
+
 </style>
 
 
@@ -365,7 +366,7 @@ font-size: 17px;
         <div class="box1" style="text-align: center;">
             <div class="boxList">
                 <h3 class="box_head">Items Sold All Time :</h3>
-                <h1 class="salesNumber" ><small>{{data["allTimeSales"]}}</small></h1>
+                <h1 class="salesNumber"><small>{{data["allTimeSales"]}}</small></h1>
             </div>
             <div class="boxList">
                 <h3 class="box_head">Items Sold Per Month</h3>
@@ -382,22 +383,30 @@ font-size: 17px;
         <div class="atOrders">
             <h3 class="box_head1">Auto Orders</h3>
             <div class="vOrders">
-              <table>
-              <tr>
-              {% for i in headings4 %}
-              <th class="headingAutoOrder">{{i}}</th>
-              {% endfor %}
-            </tr>
-              {% for i in data["placedOrders"].keys() %}
-                  <tr>
-                  <td><div class="autoText">{{i}}</div></td>
-                  <td><div class="autoText">{{data["placedOrders"][i]['name']}}</div></td>
-                  <td><div class="autoText" >{{data["placedOrders"][i]['quantity']}}</div></td>
-                  #TODO Vamshi add link to delivery
-                  <td> <button class="buttons">Delivered</button></td>
-                </tr>
-              {%endfor%}
-            </table>
+                <table>
+                    <tr>
+                        {% for i in headings4 %}
+                        <th class="headingAutoOrder">{{i}}</th>
+                        {% endfor %}
+                    </tr>
+                    {% for i in data["placedOrders"].keys() %}
+                    <tr>
+                        <td>
+                            <div class="autoText">{{i}}</div>
+                        </td>
+                        <td>
+                            <div class="autoText">{{data["placedOrders"][i]['name']}}</div>
+                        </td>
+                        <td>
+                            <div class="autoText">{{data["placedOrders"][i]['quantity']}}</div>
+                        </td>
+                        #TODO Vamshi add link to delivery
+                        <td>
+                            <button class="buttons">Delivered</button>
+                        </td>
+                    </tr>
+                    {%endfor%}
+                </table>
             </div>
         </div>
 
@@ -503,27 +512,36 @@ font-size: 17px;
             {% endfor %}
         </table>
     </div>
-    '{{ data["predictedSales"]["xaxis"] }}'
-    '{{ data["predictedSales"]["yaxis"] }}'
 </body>
-{{data["predictedSales"]["xaxis"]}}
 <script>
     var ctx = document.getElementById('salesChart').getContext('2d');
     var myChart = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: '{{data["predictedSales"]["xaxis"]}}',
+            labels: {{data["predictedSales"]["xaxis"] | safe}},
             datasets: [{
+                label: 'Prediction',
+                fill: true,
+                lineTension: 0,
+                data: {{ data["predictedSales"]["yaxis"] | safe}},
+
+                borderColor: "rgba(0, 0, 255, 1)",
+                // hoverBorderColor: "rgba(0, 255, 0, 1)",
+                borderWidth: 1,
+
+                pointBackgroundColor: "rgba(255, 0, 0, 1)"
+            },
+            {
                 label: 'No. of items sold',
                 fill: true,
                 lineTension: 0,
-                data: '{{ data["predictedSales"]["yaxis"] }}',
-                
+                data: {{ data["salesData"] | safe}},
+
                 borderColor: "rgba(0, 0, 0, 1)",
-                // hoverBorderColor: "rgba(0, 255, 0, 1)",
+                hoverBorderColor: "rgba(0, 255, 0, 1)",
                 borderWidth: 1,
-    
-                pointBackgroudColor: "rgba(255, 0, 0, 1)"
+
+                pointBackgroundColor: "rgba(255, 0, 0, 1)"
             }]
         },
         options: {
@@ -536,6 +554,7 @@ font-size: 17px;
             }
         }
     });
+
 
 
 </script>

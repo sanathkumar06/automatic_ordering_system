@@ -9,6 +9,7 @@
         window.onload = function() {
             setTimeout(function(){if(flag) {window.location.reload(1);}}, 15000);
         };
+
     </script>
 
     <style>
@@ -55,6 +56,7 @@
             font-family: sans-serif;
             font-size: 18px;
         }
+
     </style>
 </head>
 <body>
@@ -67,11 +69,12 @@
     </div>
     <div class="order-control">
         <form method="post" action="/queue">
-        <div class="item-name">{{data[i]['name']}}
-        <div class="order-control">
-            <input onfocus="flag = false" class='item-quantity' value="{{data[i]['quantity']}}" name="itemQuantity">
-            <input type="hidden" value="{{i}}" name="itemId">
-            </div>
+            <div class="item-name">{{data[i]['name']}}
+                <div class="order-control">
+                    <input onfocus="flag = false" class='item-quantity' value="{{data[i]['quantity']}}"
+                           name="itemQuantity">
+                    <input type="hidden" value="{{i}}" name="itemId">
+                </div>
             </div>
             <div class="control-buttons">
                 <a href="/cancel/{{i}}">
@@ -80,11 +83,11 @@
                 <button type="submit">Place Order</button>
             </div>
         </form>
-                <button class ="buttons">Cancel Order</button>
-                <button class="buttons">Place Order</button>
-        </div>
-        <div class="message-panel">Order will be placed automatically in {{data[i]['min']}} minute(s).</div>
+        <button class="buttons">Cancel Order</button>
+        <button class="buttons">Place Order</button>
     </div>
+    <div class="message-panel">Order will be placed automatically in {{data[i]['min']}} minute(s).</div>
+</div>
 </div>
 {%endfor%}
 {%else%}
