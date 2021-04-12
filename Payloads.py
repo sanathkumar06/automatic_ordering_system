@@ -23,7 +23,7 @@ def homePagePayload():
     payload["predictedSales"] = Query.getPredictedSales()
     payload['placedOrders'] = Query.getPlacedOrder()
     return payload
-
+print(homePagePayload())
 
 def salesPortalPayload():
     payload = {}
@@ -42,13 +42,12 @@ def itemDataPayload(itemId):
     payload["sales"] = Query.eachItemSoldCount(90, itemId)
     # TODO: Sanath
     #  Predicted sales for the item
-    payload["prediction"] = Query.getItemPredictionFromDB()
+    payload["prediction"] = Query.getItemPredictionFromDB(itemId)
     return payload
 
 
 def liveUpdatePayload():
     return open('file.log', 'r').readlines()
-
 
 def liveSalesPayload():
     # TODO: Nikith

@@ -172,7 +172,6 @@ def highOnDemand(flag, limit):
 def getItemInfo(itemId):
     return productDataJson[itemId]
 
-
 def lookForItem(item):
     try:
         productDataJson[item]
@@ -183,7 +182,6 @@ def lookForItem(item):
             return id
         except:
             return "null"
-
 
 # Return format example:
 # getSimilar("biscuit"):
@@ -297,9 +295,14 @@ def eachItemSoldCount(limit, id):
         cur = con.cursor()
         q = "select daily_date, "+ id + " from daily_sales order by rowid limit "+ str(limit) + ";"
         sold_count = cur.execute(q).fetchall()
-    return sold_count
+        dates = []
+        items_sold = []
+        for i in sold_count:
+            dates.append(i[0])
+            items_sold.append(i[1])
+    return {"x-axis" : dates, "y-axis" : items_sold}
 
-# print(eachItemSoldCount(90, "ITEM_01"))
+print(eachItemSoldCount(90, "ITEM_01"))
 
 def updateSalesDb(item, quantity):
     with sqlite3.connect("data.db") as con:

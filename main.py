@@ -80,7 +80,7 @@ def logout():
 
 headings = ["Item Name", "Quantity"]
 headings2 = ["Item ID", "Total"]
-autoheadings = ["Item Id" , "Item Name" , "Item Quantity" , "Item Cost"]
+autoheadings = ["Item Id" , "Item Name" , "Item Quantity", "Status"]
 
 
 @app.route('/home', methods=['GET', 'POST'])
@@ -132,9 +132,9 @@ def sales():
         return render_template("sales_portal.html")
 
 
-@app.route('/liveSales')
+@app.route('/orderConfirm')
 def liveSale():
-    return render_template('liveSales.html')
+    return render_template('orderConfirm.html' data = )
 
 
 @app.route('/liveOrders')
