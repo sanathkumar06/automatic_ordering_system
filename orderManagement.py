@@ -50,9 +50,9 @@ def addToOrderQueue(itemID, quantity):
         json.dump(data, outfile)
 
 
-# addToOrderQueue('ITEM_03', 1000)
-# addToOrderQueue('ITEM_07', 700)
-# addToOrderQueue('ITEM_27', 770)
+addToOrderQueue('ITEM_03', 1000)
+addToOrderQueue('ITEM_07', 700)
+addToOrderQueue('ITEM_27', 770)
 
 
 def removeFromOrderQueue(itemID):
