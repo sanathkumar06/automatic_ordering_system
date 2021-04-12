@@ -31,7 +31,7 @@ def getLast30Days():
         dates = cur.execute(q).fetchall()
         return dates
 
-# print(getLast30Days())
+print(getLast30Days())
 
 def getQueryLine():
     i = 1
@@ -74,15 +74,11 @@ def getItemSoldPerMonth():
         final_total += j[0]
     return final_total
 
-
-# print(getItemSoldAllTime())
-
-
 def getLast7dates():
     with sqlite3.connect("data.db") as con:
         cur = con.cursor()
         # getting last 7 dates from table for which only contain dates
-        dates_desc = cur.execute("select daily_date from daily_sales order by daily_date DESC LIMIT 7;").fetchall()
+        dates_desc = cur.execute("select daily_date from daily_sales order by rowid DESC LIMIT 7;").fetchall()
         dates_list_desc = []
         for i in dates_desc:
             dates_list_desc.append(i[0])
@@ -102,7 +98,7 @@ def getItemSoldPerWeek():
     for j in item_sold:
         final_total += j[0]
     return final_total
-# print(getItemSoldPerWeek())
+
 # print(getLast7dates())
 
 def getAllTheDates():
@@ -279,7 +275,6 @@ def get_all_items():
             stocks_list.append(i[0])
     return stocks_list
 
-
 def get_all_dates():
     dates_list = []
     with sqlite3.connect("data.db") as con:
@@ -289,7 +284,6 @@ def get_all_dates():
         for i in dates:
             dates_list.append(i[0])
     return dates_list
-
 
 def eachItemSoldCount(limit, id):
     # sold_count = []
@@ -312,14 +306,12 @@ def getLatestSales():
     # TODO prasad
     pass
 
-
 def addPredictionColumn(count):
     with sqlite3.connect("data.db") as con:
         cur = con.cursor()
         day = "day" + str(count + 3)
         var = cur.execute("alter table prediction add column '" + str(day) + "' int;")
         con.commit()
-
 
 def getItemPrediction(limit, count):
     with sqlite3.connect("data.db") as con:
@@ -340,7 +332,6 @@ def getItemPrediction(limit, count):
                 val = int(res[i][j])                
                 cur.execute("update prediction set '" + str(day) +"' = '" + str(val)+"' where stockID = '" + itemNO +"';")
                 con.commit()
-
 
 def getPlacedOrder():
     with open(pathToPlacedOrder) as f:
@@ -372,7 +363,6 @@ def intermediatePrediction(itemID, limit):
         var1 = cur.execute("select quantity from table1 where stockID = '" + str(itemID) +"';").fetchall()
         curr = var1[0][0]
         return sum(lis)
-
 
 def getPredictedSales():
     with open(pathToCache) as f:
