@@ -6,6 +6,7 @@ import Query
 import Payloads
 import _thread
 import orderManagement
+import json
 
 app = Flask(__name__)
 
@@ -80,6 +81,7 @@ def logout():
 
 headings = ["Item Name", "Quantity"]
 headings2 = ["Item ID", "Total"]
+autoheadings = ["Item Id" , "Item Name" , "Item Quantity", "Status"]
 
 
 @app.route('/home', methods=['GET', 'POST'])
@@ -89,7 +91,7 @@ def home():
 
     if request.method == "GET":
         payload = Payloads.homePagePayload();
-        return render_template('home.html', data=payload, headings=headings, headings2=headings2)
+        return render_template('home.html', data=payload, headings=headings, headings2=headings2 ,headings4= autoheadings)
     else:
         item = request.form['Search']
         response = Query.lookForItem(item)
@@ -124,21 +126,48 @@ def item(id):
 @app.route('/sales', methods=['POST', 'GET'])
 def sales():
     if (request.method == "GET"):
-        item = request.args.get("itemId")
-        quantity = request.args.get("quantity")
-        _thread.start_new_thread(orderManagement.processSale, (item, quantity))
+        itemID = request.form["itemId"]
+        quantity = request.form["quantity"]
+        _thread.start_new_thread(orderManagement.processSale, (itemID, quantity))
     else:
         return render_template("sales_portal.html")
 
+@app.route('/delivered/<string:i>')
+def delivered(i):
+    with open("Resources/placedOrders.json") as f:
+        data = json.load(f)
+    data.pop(i)
+    with open("Resources/placedOrders.json", 'w') as outfile:
+        json.dump(data, outfile)
+    return "successfully removed!"
 
-@app.route('/liveSales')
+
+@app.route('/orderConfirm')
 def liveSale():
-    return render_template('liveSales.html')
+    return render_template('orderConfirm.html')
 
 
 @app.route('/liveOrders')
 def liveOrders():
     return render_template('liveOrders.html')
+
+
+@app.route('/queue', methods=['POST', 'GET'])
+def orderQueue():
+    if (request.method == "POST"):
+        ID = request.form['itemId']
+        print("ID==============",ID)
+        quantity = request.form["itemQuantity"]
+        orderManagement.placeOrderManually(ID, quantity)
+        return redirect('/queue')
+    else:
+        return render_template('orderConfirm.html', data = Payloads.queuePayload())
+
+
+@app.route('/cancel/<string:id>')
+def cancel(ID):
+    # TODO niki
+    orderManagement.removeFromOrderQueue(ID)
 
 
 if __name__ == '__main__':

@@ -11,13 +11,13 @@ var ctx = document.getElementById('salesChart').getContext('2d');
 var myChart = new Chart(ctx, {
     type: 'line',
     data: {
-        // labels: ["06/01", "13/01", "20/01", "27/01", "06/02", "13/02", "20/02", "27/02"],
+        labels: '{{ data["prediction"]["xaxis"] }}',
            labels: dates,
         datasets: [{
             label: 'No. of items sold',
             fill: true,
             lineTension: 0,
-            // data: ['12', '19', '3', '5', '20', '3', '7', '4'],
+            data: '{{ data["prediction"]["yaxis"] }}',
             data: salesArray,
 
             borderColor: "rgba(0, 0, 0, 1)",
