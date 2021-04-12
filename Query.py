@@ -99,8 +99,6 @@ def getItemSoldPerWeek():
         final_total += j[0]
     return final_total
 
-# print(getLast7dates())
-
 def getAllTheDates():
     overall_dates = []
     with sqlite3.connect("data.db") as conn:
@@ -312,12 +310,13 @@ def getLatestSales():
 def addPredictionColumn(count):
     with sqlite3.connect("data.db") as con:
         cur = con.cursor()
-        day = "day" + str(count + 3)
+        day = "day" + str(count + 2)
         var = cur.execute("alter table prediction add column '" + str(day) + "' int;")
         con.commit()
 
-
-def getItemPrediction(limit, count):
+def getItemPrediction1():
+    with open(pathToCache) as f:
+        c = json.load(f)    
     with sqlite3.connect("data.db") as con:
         cur = con.cursor()
         var = cur.execute("select * from daily_sales order by rowid DESC limit 1;").fetchall()
@@ -326,17 +325,63 @@ def getItemPrediction(limit, count):
         load_main()
         res = weekdata(list(var[0]), limit)
         #print(res[0])
+        count = c["count"]
+        addPredictionColumn(count)
+
         for i in range(50):
             itemNO = 'ITEM_'
             if(i<10):
                 itemNO += '0'
             itemNO += str(i+1)
             for j in range(count,count+3):
-                day = 'day'+str(j+1)
+                day = 'day'+str(j)
                 val = int(res[i][j])                
                 cur.execute("update prediction set '" + str(day) +"' = '" + str(val)+"' where stockID = '" + itemNO +"';")
                 con.commit()
 
+def updateDailySalesToDB():
+    with open(pathToCache) as f:
+        c = json.load(f)
+    date = c[dbDate]
+    with sqlite3.connect("data.db") as con:
+        cur = con.cursor()
+        q = "select * from table5;"
+        var = cur.execute(q).fetchall()
+        q1 = "insert into daily_sales(date) values '"+str(date)+"';"
+        print(q1)
+        cur.execute(q1)
+        #cur.commit()
+        for i in range(1):
+            inner = "insert into daily_sales(" + str(var[i][0])+ ")" + " values (" + str(var[i][1] + ") where date='" + str(date) + "';"
+            #print(inner)
+        print(var[0])
+        print(var[0][1])
+#updateDailySalesToDB()
+
+
+def getItemPrediction(itemID):
+    with open(pathToCache) as f:
+        c = json.load(f)
+    date = c["date"]
+    count = c["count"]
+    currDate = datetime.date.today()
+    currDate = currDate.strftime("%d/%m/%Y")
+    if(currDate>date):
+        count+=1
+        c = {"count":count, "date":currDate}
+        with open(pathToCache, 'w') as outfile:
+            json.dump(c, outfile)
+        updateDailySalesToDB()
+        getItemPrediction1()
+    with sqlite3.connect("data.db") as con:
+        cur = con.cursor()
+        #count = c["count"]
+        day = "day"+str(count)
+        q = "select "+day+" from prediction where stockID =  '" + str(itemID)+ "';"
+        #print(q)
+        var = cur.execute(q).fetchall()
+        return(var[0][0])
+#getItemPrediction("ITEM_02")
 
 def getPlacedOrder():
     with open(pathToPlacedOrder) as f:
