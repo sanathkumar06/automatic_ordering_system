@@ -148,7 +148,7 @@ def delivered(i):
     data.pop(i)
     with open("Resources/placedOrders.json", 'w') as outfile:
         json.dump(data, outfile)
-    return "successfully removed!"
+    return redirect('/home')
 
 
 @app.route('/orderConfirm')
