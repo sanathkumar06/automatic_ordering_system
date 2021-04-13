@@ -173,6 +173,7 @@ color: white;
   transform: scale(.9);
 }
 
+
 </style>
 
 <body>
@@ -200,21 +201,21 @@ color: white;
 
     <div class="itemTable">
         <h1 class="headName">Stock : {{ data['ID']}}</h1>
-            <h3 id="nameId"> Name : {{ data['name']}}</h3>
-            <h3 id="nameId"> Price : $ {{ data['price']}}</h3>
-            <!-- <h3 id="nameId"> predicted-sale :  {{ data["prediction"] }}</h3> -->
+        <h3 id="nameId"> Name : {{ data['name']}}</h3>
+        <h3 id="nameId"> Price : $ {{ data['price']}}</h3>
+        <!-- <h3 id="nameId"> predicted-sale :  {{ data["prediction"] }}</h3> -->
     </div>
     <div class="graph-block">
-      <div class="date-block">
-          <input class="date-selector" type="date" id="from-date">
-          <input class="date-selector" type="date" id="to-date">
-          <button class="date-button" onclick="setRange()">Set range</button>
-          <div class="date-error">Invalid date range selected</div>
-      </div>
-      <div class="graph">
-          <canvas id="salesChart"></canvas>
-      </div>
-  </div>
+        <div class="date-block">
+            <input class="date-selector" type="date" id="from-date">
+            <input class="date-selector" type="date" id="to-date">
+            <button class="date-button" onclick="setRange()">Set range</button>
+            <div class="date-error">Invalid date range selected</div>
+        </div>
+        <div class="graph">
+            <canvas id="salesChart"></canvas>
+        </div>
+    </div>
     <div class="home-row">
         <div class="graph">
             <canvas id="salesChart"></canvas>
@@ -222,7 +223,6 @@ color: white;
     </div>
 </div>
 </div>
-
 
 
 </body>

@@ -21,9 +21,12 @@ def homePagePayload():
     payload["soldPerMonth"] = Query.getItemSoldPerMonth()
     # TODO: Nikith
     # payload["totalOrders"] = Query.getTotalOrders()
+
     payload["predictedSales"] = Query.getPredictedSales()
     payload['placedOrders'] = Query.getPlacedOrder()
     return payload
+
+
 # print(homePagePayload())
 
 def salesPortalPayload():
@@ -80,6 +83,5 @@ def queuePayload():
             payload[item] = tempDict
     print(payload)
     return payload
-
 
 # print(queuePayload())
