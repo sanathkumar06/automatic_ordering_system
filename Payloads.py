@@ -24,7 +24,7 @@ def homePagePayload():
     payload["predictedSales"] = Query.getPredictedSales()
     payload['placedOrders'] = Query.getPlacedOrder()
     return payload
-# print(homePagePayload())
+print(homePagePayload())
 
 def salesPortalPayload():
     payload = {}

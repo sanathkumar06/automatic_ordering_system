@@ -330,7 +330,7 @@ def getItemPrediction1():
 
         for i in range(50):
             itemNO = 'ITEM_'
-            if(i<10):
+            if(i<9):
                 itemNO += '0'
             itemNO += str(i+1)
             for j in range(count,count+3):
@@ -379,8 +379,8 @@ def getItemPrediction(itemID):
         c = {"count":count, "date":currDate, "dbDate":dateval}
         with open(pathToCache, 'w') as outfile:
             json.dump(c, outfile)
-        #updateDailySalesToDB()
-        #getItemPrediction1()
+        updateDailySalesToDB()
+        getItemPrediction1()
     
     with sqlite3.connect("data.db") as con:
         cur = con.cursor()
