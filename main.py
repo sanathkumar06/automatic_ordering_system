@@ -126,12 +126,12 @@ def item(id):
 
 @app.route('/sales', methods=['POST', 'GET'])
 def sales():
-    if (request.method == "GET"):
+    if (request.method == "POST"):
         itemID = request.form["itemId"]
         quantity = request.form["quantity"]
         _thread.start_new_thread(orderManagement.processSale, (itemID, quantity))
     else:
-        return render_template("sales_portal.html")
+        return render_template("salesOrdering.html")
 
 @app.route('/delivered/<string:i>')
 def delivered(i):
