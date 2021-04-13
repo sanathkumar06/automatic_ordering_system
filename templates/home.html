@@ -334,7 +334,7 @@ font-size: 17px;
             <button id="logout"> Logout</button>
         </a>
 
-        <a href="salesOrdering.html">
+        <a href="/sales">
             <button id="logout">Sales Portal</button>
         </a>
     </div>
@@ -525,48 +525,8 @@ font-size: 17px;
         </table>
     </div>
 </body>
+
 <script>
-    var ctx = document.getElementById('salesChart').getContext('2d');
-    var myChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: {{data["predictedSales"]["xaxis"] | safe}},
-            datasets: [{
-                label: 'Prediction',
-                fill: true,
-                lineTension: 0,
-                data: {{ data["predictedSales"]["yaxis"] | safe}},
-
-                borderColor: "rgba(0, 0, 255, 1)",
-                // hoverBorderColor: "rgba(0, 255, 0, 1)",
-                borderWidth: 1,
-
-                pointBackgroundColor: "rgba(255, 0, 0, 1)"
-            },
-            {
-                label: 'No. of items sold',
-                fill: true,
-                lineTension: 0,
-                data: {{ data["salesData"] | safe}},
-
-                borderColor: "rgba(0, 0, 0, 1)",
-                hoverBorderColor: "rgba(0, 255, 0, 1)",
-                borderWidth: 1,
-
-                pointBackgroundColor: "rgba(255, 0, 0, 1)"
-            }]
-        },
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }]
-            }
-        }
-    });
-
-
+    {% include "totalGraphScript.js" %}
 </script>
 </html>
