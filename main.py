@@ -137,12 +137,13 @@ def sales():
 def delivered(i):
     if (request.method == "POST"):
         itemOrdered = request.form["itemQuantity"]
-        with sqlite3.connect("data.db") as conn:
-            # update table1 set quantity = (select stockID from table1 where stockID = "ITEM_02") + 5 where stockID = "ITEM_02";
-            cur = conn.cursor()
-            q = "update table1 set quantity = (select stockID from table1 where stockID = '"+ i +"') + "+ str(itemOrdered) +"  where stockID = '"+ i +"';"
-            cur.execute(q)
-            conn.commit()
+        # with sqlite3.connect("data.db") as conn:
+        #     # update table1 set quantity = (select stockID from table1 where stockID = "ITEM_02") + 5 where stockID = "ITEM_02";
+        #     cur = conn.cursor()
+        #     q = "update table1 set quantity = (select stockID from table1 where stockID = '"+ i +"') + "+ str(itemOrdered) +"  where stockID = '"+ i +"';"
+        #     cur.execute(q)
+        #     print("updates table1")
+        #     conn.commit()
     with open("Resources/placedOrders.json") as f:
         data = json.load(f)
     data.pop(i)
@@ -167,6 +168,13 @@ def orderQueue():
         ID = request.form['itemId']
         print("ID==============", ID)
         quantity = request.form["itemQuantity"]
+        with sqlite3.connect("data.db") as conn:
+            # update table1 set quantity = (select stockID from table1 where stockID = "ITEM_02") + 5 where stockID = "ITEM_02";
+            cur = conn.cursor()
+            q = "update table1 set quantity = (select stockID from table1 where stockID = '"+ ID +"') + "+ str(quantity) +"  where stockID = '"+ ID +"';"
+            cur.execute(q)
+            print("updates table1")
+            conn.commit()
         orderManagement.placeOrderManually(ID, quantity)
         return redirect('/queue')
     else:
