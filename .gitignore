@@ -6,3 +6,5 @@ Utils/.~lock.online_retail.xlsx#
 __pycache__
  __pycache__/Query.cpython-38.pyc
 model.h5
+Resources/orderQueue.json
+Resources/placedOrders.json
