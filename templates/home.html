@@ -345,8 +345,6 @@ font-size: 17px;
             <button id="searchbutton" type="submit"><i class="fas fa-search"></i> Search</button>
         </form>
     </div>
-
-
     <div class="home-row">
         <div class="graph">
             <canvas id="salesChart"></canvas>
@@ -366,7 +364,7 @@ font-size: 17px;
         <div class="box1" style="text-align: center;">
             <div class="boxList">
                 <h3 class="box_head">Items Sold All Time :</h3>
-                <h1 class="salesNumber"><small>{{data["allTimeSales"]}}</small></h1>
+                <h1 class="salesNumber" ><small>{{data["allTimeSales"]}}</small></h1>
             </div>
             <div class="boxList">
                 <h3 class="box_head">Items Sold Per Month</h3>
@@ -400,13 +398,27 @@ font-size: 17px;
                         <td>
                             <div class="autoText">{{data["placedOrders"][i]['quantity']}}</div>
                         </td>
-                        #TODO Vamshi add link to delivery
                         <td>
                             <button class="buttons">Delivered</button>
                         </td>
                     </tr>
                     {%endfor%}
                 </table>
+              <table>
+              <tr>
+              {% for i in headings4 %}
+              <th class="headingAutoOrder">{{i}}</th>
+              {% endfor %}
+            </tr>
+              {% for i in data["placedOrders"].keys() %}
+                  <tr>
+                  <td><div class="autoText">{{i}}</div></td>
+                  <td><div class="autoText">{{data["placedOrders"][i]['name']}}</div></td>
+                  <td><div class="autoText" >{{data["placedOrders"][i]['quantity']}}</div></td>
+                  <td><a href="/delivered/{{i}}"><button class="buttons">Delivered</button></a></td>
+                </tr>
+              {%endfor%}
+            </table>
             </div>
         </div>
 
@@ -554,7 +566,6 @@ font-size: 17px;
             }
         }
     });
-
 
 
 </script>
