@@ -26,19 +26,21 @@
             font-size: 20px;
             display: flex;
             flex-direction: row;
+            /* border: solid #ffffff; */
+            border-top-style: solid;
         }
 
         .item-quantity {
             border-radius: 20px;
-            width: 100%;
+            width: 80%;
             height: 30px;
-            margin-left: 20px;
+            /* margin-left: 180px; */
             padding-left: 4px;
         }
 
         .control-buttons {
-            margin-top: 10px;
-            margin-left: 440px;
+            margin-top: 7px;
+            margin-left: 490px;
         }
         .buttons {
 
@@ -52,27 +54,65 @@
         }
 
         .buttons {
+            height: 30px;
             font-family: sans-serif;
-            font-size: 18px;
+            font-size: 14px;
+            transition: transform 0.8s;
+            background-color: #24305e;
+            color: white;
         }
 
+        .buttons:hover {
+            transform: scale(.9);
+            }
+
+        .order-control {
+            font-size: 30px;
+        }
+
+        .sepBox {
+            width: 290px;
+            margin-left: 290px;
+            justify-content: space-evenly;
+        }
+
+        .heading {
+            font-family: sans-serif;
+            font-size: 20px;
+            background-color: #24305e;
+            color: white;
+            height: 50px;
+        }
+
+        .mainBody {
+            background-color: #24305e;
+        }
     </style>
 </head>
 <body>
+    <div class="mainBody">
+    <div class="heading">
+    <h3>Confirm the Orders</h3>
+</div>
+</div>
 {% if data | length > 0%}
 {% for i in data.keys()%}
 <div class="item-block">
+    
     <!-- <div class="item-info">
         <div class="item-name">{{data[i]['name']}}</div>
         <div class="item-id">{{i}}</div>
     </div> -->
     <div class="order-control">
         <form method="post" action="/queue">
+            
             <div class="item-name">{{data[i]['name']}}
                 <div class="order-control">
+                    <div class="sepBox">
                     <input onfocus="flag = false" class='item-quantity' value="{{data[i]['quantity']}}"
                            name="itemQuantity">
                     <input type="hidden" value="{{i}}" name="itemId">
+                </div>
                 </div>
             </div>
             <div class="control-buttons">
@@ -83,7 +123,7 @@
             </div>
         </form>
         </div>
-        <div class="message-panel">Order will be placed automatically in {{data[i]['min']}} minute(s).</div>
+        <div class="message-panel"><b>Order will be placed automatically in {{data[i]['min']}} minute(s).</b></div>
     </div>
 </div>
 {%endfor%}
