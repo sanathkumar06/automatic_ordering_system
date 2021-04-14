@@ -8,3 +8,4 @@ __pycache__
 model.h5
 Resources/orderQueue.json
 Resources/placedOrders.json
+data.db
