@@ -14,7 +14,7 @@
 
     <style>
         .item-block {
-           margin-bottom: 20px;
+           /* margin-bottom: 20px; */
         }
 
         .item-info {
@@ -78,10 +78,13 @@
 
         .heading {
             font-family: sans-serif;
-            font-size: 20px;
-            background-color: #24305e;
-            color: white;
-            height: 50px;
+    font-size: 20px;
+    background: #24305e;
+    color: white;
+    height: 50px;
+    padding-top: 10px;
+    text-align: center;
+    padding-bottom: 20px;
         }
 
         .mainBody {
@@ -90,11 +93,10 @@
     </style>
 </head>
 <body>
-    <div class="mainBody">
     <div class="heading">
-    <h3>Confirm the Orders</h3>
+    <h1>Confirm the Orders</h1>
 </div>
-</div>
+
 {% if data | length > 0%}
 {% for i in data.keys()%}
 <div class="item-block">

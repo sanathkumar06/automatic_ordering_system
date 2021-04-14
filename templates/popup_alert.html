@@ -173,6 +173,9 @@ color: white;
   transform: scale(.9);
 }
 
+.graph {
+  margin-left: 450px;
+}
 
 </style>
 
@@ -185,9 +188,7 @@ color: white;
         <button id="logout"> Logout</button>
     </a>
 
-    <a href="salesOrdering.html">
-        <button id="logout">Sales Portal</button>
-    </a>
+
 </div>
 
 <div class="search">
@@ -210,7 +211,7 @@ color: white;
             <input class="date-selector" type="date" id="from-date">
             <input class="date-selector" type="date" id="to-date">
             <button class="date-button" onclick="setRange()">Set range</button>
-            <div class="date-error">Invalid date range selected</div>
+            <!-- <div class="date-error">Invalid date range selected</div> -->
         </div>
         <div class="graph">
             <canvas id="salesChart"></canvas>
