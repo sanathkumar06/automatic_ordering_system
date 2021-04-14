@@ -133,21 +133,17 @@ def sales():
     else:
         return render_template("salesOrdering.html")
 
-@app.route('/delivered/<string:i>')
-def delivered(i):
-    if (request.method == "POST"):
-        itemOrdered = request.form["itemQuantity"]
-        with sqlite3.connect("data.db") as conn:
-            # update table1 set quantity = (select stockID from table1 where stockID = "ITEM_02") + 5 where stockID = "ITEM_02";
-            cur = conn.cursor()
-            q = "update table1 set quantity = (select stockID from table1 where stockID = '"+ i +"') + "+ str(itemOrdered) +"  where stockID = '"+ i +"';"
-            cur.execute(q)
-            conn.commit()
-    with open("Resources/placedOrders.json") as f:
-        data = json.load(f)
-    data.pop(i)
-    with open("Resources/placedOrders.json", 'w') as outfile:
-        json.dump(data, outfile)
+
+@app.route('/delivered/<string:itemID>')
+def delivered(itemID):
+    quantity = orderManagement.removeFromPlacedOrders(itemID)
+    orderManagement.addToLogs("{0} units of {1} was delivered".format(quantity, itemID))
+    with sqlite3.connect("data.db") as conn:
+        # update table1 set quantity = (select stockID from table1 where stockID = "ITEM_02") + 5 where stockID = "ITEM_02";
+        cur = conn.cursor()
+        q = "update table1 set quantity = (select stockID from table1 where stockID = '"+ itemID +"') + "+ str(quantity) +"  where stockID = '"+ itemID +"';"
+        cur.execute(q)
+        conn.commit()
     return redirect('/home')
 
 
@@ -158,15 +154,15 @@ def liveSale():
 
 @app.route('/liveOrders')
 def liveOrders():
-    return render_template('liveOrders.html')
+    return render_template('liveOrders.html', data=Payloads.logPayload())
 
 
 @app.route('/queue', methods=['POST', 'GET'])
 def orderQueue():
     if (request.method == "POST"):
         ID = request.form['itemId']
-        print("ID==============", ID)
         quantity = request.form["itemQuantity"]
+        orderManagement.addToLogs("Order for {0} units of {1} placed.".format(quantity, ID))
         orderManagement.placeOrderManually(ID, quantity)
         return redirect('/queue')
     else:
@@ -175,8 +171,9 @@ def orderQueue():
 
 @app.route('/cancel/<string:id>')
 def cancel(ID):
-    # TODO niki
+    orderManagement.addToLogs("Order for item {0} canceled.".format(id))
     orderManagement.removeFromOrderQueue(ID)
+    return redirect('/queue')
 
 
 if __name__ == '__main__':

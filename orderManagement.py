@@ -9,6 +9,7 @@ import json
 now = datetime.now()
 pathToQueue = "Resources/orderQueue.json"
 pathToPlacedOrder = "Resources/placedOrders.json"
+pathToLogFile = "Resources/recentLogs.txt"
 
 
 def sendMail(itemID, quantity):
@@ -50,26 +51,47 @@ def addToOrderQueue(itemID, quantity):
         json.dump(data, outfile)
 
 
-addToOrderQueue('ITEM_03', 1000)
-addToOrderQueue('ITEM_07', 700)
-addToOrderQueue('ITEM_27', 770)
+# addToOrderQueue('ITEM_03', 1000)
+# addToOrderQueue('ITEM_07', 700)
+# addToOrderQueue('ITEM_27', 770)
+
+def addToLogs(message):
+    with open(pathToLogFile, 'r') as f:
+        data = f.readlines()
+
+    try:
+        data.pop(10)
+    except Exception:
+        pass
+
+    data.insert(0, message)
+    with open(pathToLogFile, 'w') as f:
+        f.write('\n'.join(data))
+
+# addToLogs("ESCN")
 
 
 def removeFromOrderQueue(itemID):
     with open(pathToQueue) as f:
         data = json.load(f)
-    try:
-        data.pop(itemID)
-    except Exception:
-        print(Exception)
+    data.pop(itemID)
     with open(pathToQueue, 'w') as outfile:
         json.dump(data, outfile)
+
+
+def removeFromPlacedOrders(itemID):
+    with open(pathToPlacedOrder) as f:
+        data = json.load(f)
+    info = data.pop(itemID)
+    with open(pathToPlacedOrder, 'w') as outfile:
+        json.dump(data, outfile)
+    return info['quantity']
 
 
 def updateToOrdered(itemID, info):
     with open(pathToPlacedOrder) as f:
         data = json.load(f)
-
+    print(data)
     data[itemID] = info
     with open(pathToPlacedOrder, 'w') as outfile:
         json.dump(data, outfile)
@@ -103,4 +125,5 @@ def checkAvailability(itemID):
 
 def processSale(itemId, quantity):
     Query.updateSalesDb(itemId, quantity)
+    addToLogs("{0} units of {1} sold.".format(quantity, itemId))
     checkAvailability(itemId)

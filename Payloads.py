@@ -5,6 +5,7 @@ import orderManagement
 
 now = datetime.now()
 pathToQueue = "Resources/orderQueue.json"
+pathToLogFile = "Resources/recentLogs.txt"
 timeFormat = "%H:%M:%S"
 waitTime = 60
 
@@ -48,16 +49,6 @@ def itemDataPayload(itemId):
     return payload
 
 
-def liveUpdatePayload():
-    return open('file.log', 'r').readlines()
-
-
-def liveSalesPayload():
-    # TODO: Nikith
-    # recent sales
-    pass
-
-
 def searchResultPayload(item):
     return Query.getSimilar(item.replace("_", " "))
 
@@ -81,7 +72,12 @@ def queuePayload():
         else:
             tempDict['min'] = waitTime - mins
             payload[item] = tempDict
-    print(payload)
+    # print(payload)
     return payload
 
-# print(queuePayload())
+
+def logPayload():
+    with open(pathToLogFile, 'r') as f:
+        data = f.readlines()
+
+    return data
