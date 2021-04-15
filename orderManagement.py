@@ -123,7 +123,7 @@ def checkAvailability(itemID):
         currentStock = Query.getCurrentStock(itemID)
         newPrediction = repredict(itemID)
         if newPrediction > currentStock:
-            addToOrderQueue(itemID, currentStock)
+            addToOrderQueue(itemID, newPrediction - currentStock)
 
 
 

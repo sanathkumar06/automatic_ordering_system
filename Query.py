@@ -198,6 +198,8 @@ def getSimilar(item):
 def getSalesCount():
     query_line = getQueryLine()
     dates = getLast7dates()
+    # print(dates)
+    dates = dates[:4]
     item_sold = []
     with sqlite3.connect("data.db") as conn:
         cur = conn.cursor()
@@ -205,6 +207,7 @@ def getSalesCount():
             q = "select " + query_line + " from daily_sales where daily_date = '"+ str(i) +"' ;"
             tot = cur.execute(q).fetchone()
             item_sold.append(tot[0])
+    item_sold = item_sold[::-1]
     return item_sold
 
 def getCurrentStocksCount(itemID):

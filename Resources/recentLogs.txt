@@ -1,14 +1,14 @@
-1000 units of ITEM_03 was delivered
-Order for 1000 units of ITEM_03 placed.
-1200 units of ITEM_03 was sold
-1200 units of ITEM_03 was sold
-1200 units of ITEM_03 was sold
-1200 units of ITEM_03 was sold
-1200 units of ITEM_03 was sold
-Order for 1000 units of ITEM_03 placed.
-1000 units of ITEM_03 was delivered
-
-69420 units of ITEM_03 was delivered
+0 units of ITEM_10 was delivered
+3000 units of ITEM_10 was sold
+3000 units of ITEM_15 was sold
+3361 units of ITEM_09 was delivered
+Order for 3361 units of ITEM_09 placed.
+Order for 3361 units of ITEM_09 placed.
+7000 units of ITEM_09 was sold
+770 units of ITEM_27 was delivered
+Order placed for 0 units of ITEM_10 automatically.
+Order placed for 0 units of ITEM_09 automatically.
+10 units of ITEM_09 was sold
 Order for 770 units of ITEM_27 placed.
 
 
