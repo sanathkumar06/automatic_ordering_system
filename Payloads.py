@@ -22,7 +22,6 @@ def homePagePayload():
     payload["soldPerMonth"] = Query.getItemSoldPerMonth()
     # TODO: Nikith
     # payload["totalOrders"] = Query.getTotalOrders()
-
     payload["predictedSales"] = Query.getPredictedSales()
     payload['placedOrders'] = Query.getPlacedOrder()
     return payload
@@ -44,6 +43,7 @@ def itemDataPayload(itemId):
     payload["name"] = itemInfo["name"]
     payload["price"] = itemInfo["price"]
     payload["dates"] = Query.getAllTheDates()
+    payload["available"] = Query.getCurrentStocksCount(itemId)
     payload["sales"] = Query.eachItemSoldCount(90, itemId)
     payload["prediction"] = Query.getItemPredictionFromDB(itemId)
     return payload

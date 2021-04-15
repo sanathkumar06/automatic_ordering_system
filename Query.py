@@ -207,6 +207,12 @@ def getSalesCount():
             item_sold.append(tot[0])
     return item_sold
 
+def getCurrentStocksCount(itemID):
+    with sqlite3.connect("data.db") as con:
+        cur = con.cursor()
+        cnt = cur.execute("select quantity from table1 where stockID = '"+ itemID +"';").fetchone()
+        return cnt[0];
+    
 
 def highestEarning(flag, limit):
     highDemands = {}
