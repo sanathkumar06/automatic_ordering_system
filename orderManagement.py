@@ -129,7 +129,8 @@ def checkAvailability(itemID):
 
 
 def processSale(itemId, quantity):
-    addToLogs(quantity + " units of " + itemId + " was sold")
+    addToLogs(quantity + " units of " + itemId + " was sold.")
     Query.updateSalesDb(itemId, quantity)
-    print("safd", itemId, quantity)
+    Query.updateCurrentStocks(itemId, quantity)
+    # print("safd", itemId, quantity)
     checkAvailability(itemId)

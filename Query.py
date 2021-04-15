@@ -552,3 +552,13 @@ def initialStocks():
         print(cur.execute("select * from table1").fetchall())
 
 #initialStocks()
+
+def updateCurrentStocks(item, quantity):
+    with sqlite3.connect("data.db") as con:
+        cur = con.cursor()
+        q = "select quantity from table1 where stockID = '"+item+"';"
+        var = cur.execute(q).fetchall()
+        quan = int(var[0][0]) - int(quantity)
+        q = "update table1 set quantity = {0} where stockID='{1}'".format(str(quan), item)
+        cur.execute(q)
+        con.commit()
