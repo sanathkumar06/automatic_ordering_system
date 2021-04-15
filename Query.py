@@ -251,11 +251,12 @@ def getCurrentSales(itemID):
     conn = sqlite3.connect("data.db")
     cur = conn.cursor()
     cur_sales = []
-    q = "select sold from table6 where stockID = '" + itemID + "';"
+    q = "select sold from table5 where stockID = '" + itemID + "';"
     item_sales = cur.execute(q).fetchall()
-    for i in item_sales:
-        cur_sales.append(i[0])
-    return (cur_sales)
+    #for i in item_sales:
+    #   cur_sales.append(i[0])
+    return int(item_sales[0][0])
+
 
 
 def getCurrentStock(itemID):
@@ -335,12 +336,13 @@ def getItemPrediction1():
             if(i<9):
                 itemNO += '0'
             itemNO += str(i+1)
-            for j in range(count,count+3):
-                day = 'day'+str(j)
+            for j in range(3):
+                day = 'day'+str(count)
                 val = int(res[i][j])                
                 cur.execute("update prediction set '" + str(day) +"' = '" + str(val)+"' where stockID = '" + itemNO +"';")
                 con.commit()
-
+                count+=1
+            count-=3
 
 def updateDailySalesToDB():
     with open(pathToCache) as f:
@@ -391,7 +393,7 @@ def getItemPrediction(itemID):
         q = "select "+day+" from prediction where stockID =  '" + str(itemID)+ "';"
         #print(q)
         var = cur.execute(q).fetchall()
-        return(var[0][0])
+        return(int(var[0][0]))
 #getItemPrediction("ITEM_02")
 
 def getPlacedOrder():
@@ -518,3 +520,26 @@ def initialPrediction():
                 val = int(res[j])
                 cur.execute("update prediction set '" + str(day) +"' = '" + str(val)+"' where stockID = '" + itemNO +"';")
                 con.commit()
+
+def initialStocks():
+    with sqlite3.connect("data.db") as con:
+        cur = con.cursor()
+        q = "select day5, day6, day7 from prediction;"
+        var = cur.execute(q).fetchall()
+        print(var[0])
+        print(len(var))
+        print(len(var[0]))
+        lis = []
+        for i in range(len(var)):
+            s = 0
+            for j in var[i]:
+                s += int(j)
+            itemNO = 'ITEM_'
+            if(i<9):
+                itemNO += '0'
+            itemNO += str(i+1)
+            cur.execute("update table1 set quantity = " + str(s) +" where stockID = '" + itemNO +"';")
+            con.commit()
+        print(cur.execute("select * from table1").fetchall())
+
+#initialStocks()

@@ -118,7 +118,8 @@ def placeOrderManually(itemID, quantity):
 
 def checkAvailability(itemID):
     predictionData = Query.getItemPrediction(itemID)
-    if Query.getCurrentSales(itemID) >= predictionData[itemID]:
+    if Query.getCurrentSales(itemID) >= predictionData:
+        print("orderplaced")
         currentStock = Query.getCurrentStock(itemID)
         newPrediction = repredict(itemID)
         if newPrediction > currentStock:

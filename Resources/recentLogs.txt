@@ -1,14 +1,14 @@
+1000 units of ITEM_03 was delivered
+Order for 1000 units of ITEM_03 placed.
+1200 units of ITEM_03 was sold
+1200 units of ITEM_03 was sold
+1200 units of ITEM_03 was sold
+1200 units of ITEM_03 was sold
+1200 units of ITEM_03 was sold
 Order for 1000 units of ITEM_03 placed.
 1000 units of ITEM_03 was delivered
 
 69420 units of ITEM_03 was delivered
-
-
-
-Order for 700 units of ITEM_07 placed.
-
-
-
 Order for 770 units of ITEM_27 placed.
 
 
