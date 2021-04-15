@@ -302,13 +302,11 @@ def eachItemSoldCount(limit, id):
 def updateSalesDb(item, quantity):
     with sqlite3.connect("data.db") as con:
         cur = con.cursor()
-        cur.execute("insert into table5(:item, :quan);", {"item": item, "quan": quantity})
+        currentStock = cur.execute("select sold from table5 where stockID='{0}';".format(item)).fetchall()
+        quantity = int(quantity) + int(currentStock[0][0])
+        q = "update table5 set sold = {0} where stockID='{1}'".format(str(quantity), item)
+        cur.execute(q)
         con.commit()
-
-
-def getLatestSales():
-    # TODO prasad
-    pass
 
 
 def addPredictionColumn(count):
@@ -356,7 +354,7 @@ def updateDailySalesToDB():
         con.commit()
         for i in range(len(var)):
             q = "update daily_sales set '"+str(var[i][0]+"' = " +str(var[i][1])+ " where daily_date='"+str(date)+"';")
-            print(q)
+            # print(q)
             cur.execute(q)
             con.commit()
 

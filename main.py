@@ -130,6 +130,7 @@ def sales():
         itemID = request.form["itemId"]
         quantity = request.form["quantity"]
         _thread.start_new_thread(orderManagement.processSale, (itemID, quantity))
+        return render_template("salesOrdering.html")
     else:
         return render_template("salesOrdering.html")
 
@@ -169,9 +170,9 @@ def orderQueue():
         return render_template('orderConfirm.html', data=Payloads.queuePayload())
 
 
-@app.route('/cancel/<string:id>')
+@app.route('/cancel/<string:ID>')
 def cancel(ID):
-    orderManagement.addToLogs("Order for item {0} canceled.".format(id))
+    orderManagement.addToLogs("Order for item {0} canceled.".format(ID))
     orderManagement.removeFromOrderQueue(ID)
     return redirect('/queue')
 

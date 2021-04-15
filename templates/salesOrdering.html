@@ -22,7 +22,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
 
+    </script>
 </head>
 
 <style>
@@ -119,7 +121,7 @@ body{
   outline:none;
 }
 
-#Quantity {
+.Quantity {
   border-radius: 30px;
   width: 250px;
   height: 40px;
@@ -193,9 +195,9 @@ iframe {
 <div>
     <h4 class="orderName"> ORDER YOUR ITEMS HERE </h4>
     <div class="order">
-        <form action="/salesOrdering" method="POST">
-            <input id="Quantity" type="text" placeholder="Item ID" name="ItemId">
-            <input id="Quantity" type="text" placeholder="Quantity" name="Quantity">
+        <form action="/sales" method="post">
+            <input class="Quantity" type="text" placeholder="Item ID" name="itemId">
+            <input class="Quantity" type="text" placeholder="Quantity" name="quantity">
             <button id="buy" type="submit"><i class="fas fa-shopping-cart" aria-hidden="true"></i> BUY</button>
         </form>
     </div>
@@ -203,7 +205,7 @@ iframe {
 
 <div class="home-row">
     <div class="live-sales">
-        <iframe class="frames" height=320px width=100% src="/topSales" frameborder="0"></iframe>
+        <iframe class="frames" height=320px width=100% src="/liveOrders" frameborder="0"></iframe>
     </div>
 
     <div class="live-orders">

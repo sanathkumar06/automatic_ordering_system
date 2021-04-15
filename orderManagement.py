@@ -64,9 +64,10 @@ def addToLogs(message):
     except Exception:
         pass
 
-    data.insert(0, message)
+    data.insert(0, message + "\n")
     with open(pathToLogFile, 'w') as f:
-        f.write('\n'.join(data))
+        f.write(''.join(data))
+
 
 # addToLogs("ESCN")
 
@@ -98,6 +99,7 @@ def updateToOrdered(itemID, info):
 
 
 def placeOrder(itemID, data):
+    addToLogs('Order placed for {0} units of {1} automatically.'.format(data['quantity'], itemID))
     sendMail(itemID, str(data['quantity']))
     updateToOrdered(itemID, data)
     removeFromOrderQueue(itemID)
@@ -123,7 +125,10 @@ def checkAvailability(itemID):
             addToOrderQueue(itemID, currentStock)
 
 
+
+
 def processSale(itemId, quantity):
+    addToLogs(quantity + " units of " + itemId + " was sold")
     Query.updateSalesDb(itemId, quantity)
-    addToLogs("{0} units of {1} sold.".format(quantity, itemId))
+    print("safd", itemId, quantity)
     checkAvailability(itemId)
