@@ -178,5 +178,5 @@ def cancel(ID):
 
 
 if __name__ == '__main__':
-    app.secret_key = "RosesAreRedSkyIsBlueFBIWantsToStealMyDickCanIHideItInsideYou"
+    app.secret_key = "secretKey"
     app.run(debug=True)

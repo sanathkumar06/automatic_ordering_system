@@ -393,6 +393,7 @@ def getItemPrediction(itemID):
         with open(pathToCache, 'w') as outfile:
             json.dump(c, outfile)
         updateDailySalesToDB()
+        resetTable5()
         getItemPrediction1()
     
     with sqlite3.connect("data.db") as con:
@@ -409,6 +410,20 @@ def getPlacedOrder():
     with open(pathToPlacedOrder) as f:
         data = json.load(f)
     return data
+
+def resetTable5(itemID):
+    itemID = itemID[-2:]
+    itemID = int(itemID)
+    with sqlite3.connect("data.db") as con:
+        cur = con.cursor()
+        for i in range(50):
+            itemNO = 'ITEM_'
+            if(i<9):
+                itemNO += '0'
+            itemNO += str(i+1)
+            q = "update table5 set sold = 0 where stockID = '"+itemNO+"';"
+            cur.execute(q)
+            con.commit()
 
 
 def getItemPredictionFromDB(itemID):

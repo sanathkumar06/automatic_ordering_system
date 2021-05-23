@@ -12,7 +12,7 @@
                 borderColor: "rgba(0, 0, 255, 1)",
                 borderWidth: 1,
 
-                pointBackgroundColor: "rgba(255, 0, 0, 1)"
+                pointBackgroundColor: "rgba(0, 0, 255, 1)"
             },
             {
                 label: 'No. of items sold',
@@ -27,14 +27,10 @@
             }]
         },
         options: {
-            responsive: true,
             scales: {
-                yAxes: [{
-                    ticks: {
-                        autoSkip: true,
-                        beginAtZero: true,
-                    }
-                }]
+                y: {
+                    beginAtZero: true
+                }
             }
         }
     });

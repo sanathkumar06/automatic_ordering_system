@@ -14,7 +14,7 @@ var myChart = new Chart(ctx, {
 //        labels: {{ data["prediction"]["xaxis"] | safe}},
         labels: dates,
         datasets: [{
-            label: 'No. of items sold',
+            label: 'Prediction for {{data["ID"]}}',
             fill: true,
             lineTension: 0,
 //            data: {{ data["prediction"]["yaxis"] | safe }},
@@ -25,7 +25,13 @@ var myChart = new Chart(ctx, {
             pointBackgroudColor: "rgba(255, 0, 0, 1)"
         }]
     },
-
+    options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
 });
 
 function setRange() {

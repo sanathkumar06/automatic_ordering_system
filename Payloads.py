@@ -48,6 +48,7 @@ def itemDataPayload(itemId):
     payload["prediction"] = Query.getItemPredictionFromDB(itemId)
     return payload
 
+# print(itemDataPayload("ITEM_14"))
 
 def searchResultPayload(item):
     return Query.getSimilar(item.replace("_", " "))
