@@ -52,6 +52,7 @@ def getQueryLine():
         i += 1
     return query_line
 
+
 def getItemSoldAllTime():
     query_line = getQueryLine()
     # print(query_line)
@@ -194,7 +195,7 @@ def getSimilar(item):
     IDandName = {"ID": IDs, "names": items}
     return IDandName
 
-
+# Return the sales of each ITEMID for last 4 days
 def getSalesCount():
     query_line = getQueryLine()
     dates = getLast7dates()
@@ -210,11 +211,12 @@ def getSalesCount():
     item_sold = item_sold[::-1]
     return item_sold
 
+# Return the current quantity for ITEMID
 def getCurrentStocksCount(itemID):
     with sqlite3.connect("data.db") as con:
         cur = con.cursor()
         cnt = cur.execute("select quantity from table1 where stockID = '"+ itemID +"';").fetchone()
-        return cnt[0];
+        return cnt[0]
     
 
 def highestEarning(flag, limit):
@@ -255,7 +257,7 @@ def highestEarning(flag, limit):
                 total.append(highDemands[w])
     return [items, total, limit]
 
-
+# Return current sales from Table 5 for an itemID
 def getCurrentSales(itemID):
     conn = sqlite3.connect("data.db")
     cur = conn.cursor()
@@ -267,7 +269,7 @@ def getCurrentSales(itemID):
     return int(item_sales[0][0])
 
 
-
+# Return current stock from Table 1 for an itemID
 def getCurrentStock(itemID):
     with sqlite3.connect("data.db") as con:
         cur = con.cursor()
@@ -276,7 +278,7 @@ def getCurrentStock(itemID):
         return int(curr)
 
 
-
+# Return all itemID
 def get_all_items():
     stocks_list = []
     with sqlite3.connect("data.db") as con:
@@ -287,7 +289,7 @@ def get_all_items():
             stocks_list.append(i[0])
     return stocks_list
 
-
+# function to retreive all dates
 def get_all_dates():
     dates_list = []
     with sqlite3.connect("data.db") as con:
@@ -318,7 +320,7 @@ def updateSalesDb(item, quantity):
         cur.execute(q)
         con.commit()
 
-
+# function to add new date column to Prediction table
 def addPredictionColumn(count):
     with sqlite3.connect("data.db") as con:
         cur = con.cursor()
@@ -326,6 +328,7 @@ def addPredictionColumn(count):
         var = cur.execute("alter table prediction add column '" + str(day) + "' int;")
         con.commit()
 
+# function to load the model and predict
 def getItemPrediction1():
     with open(pathToCache) as f:
         c = json.load(f)
@@ -353,6 +356,7 @@ def getItemPrediction1():
                 count+=1
             count-=3
 
+# function to update Table daily_sales
 def updateDailySalesToDB():
     with open(pathToCache) as f:
         c = json.load(f)
@@ -369,7 +373,7 @@ def updateDailySalesToDB():
             cur.execute(q)
             con.commit()
 
-
+# function to predict sales for an itemID
 def getItemPrediction(itemID):
     with open(pathToCache) as f:
         c = json.load(f)
@@ -411,6 +415,7 @@ def getPlacedOrder():
         data = json.load(f)
     return data
 
+# function to reset Table 5 after the end of the day
 def resetTable5(itemID):
     itemID = itemID[-2:]
     itemID = int(itemID)
@@ -426,6 +431,7 @@ def resetTable5(itemID):
             con.commit()
 
 
+# Return the sales prediction and date for the graph
 def getItemPredictionFromDB(itemID):
     with sqlite3.connect("data.db") as con:
         cur = con.cursor()
@@ -452,7 +458,7 @@ def getItemPredictionFromDB(itemID):
             res.append(dateval)
         return {"xaxis": res, "yaxis": lis}
 
-
+# function to repredict for any particular itemID
 def intermediatePrediction(itemID, limit):
     with open(pathToCache) as f:
         c = json.load(f)
@@ -484,7 +490,7 @@ def intermediatePrediction(itemID, limit):
         curr = var1[0][0]
         return sum(lis)
 
-
+#function to return 7 days prediction for graph
 def getPredictedSales():
     with open(pathToCache) as f:
         c = json.load(f)
@@ -524,6 +530,7 @@ def getPredictedSales():
             res.append(dateval)
         return {"xaxis": res, "yaxis": lis}
 
+# function to structure the prediction table initially
 def initialPrediction():
     with sqlite3.connect("data.db") as con:
         cur = con.cursor()
@@ -545,6 +552,7 @@ def initialPrediction():
                 cur.execute("update prediction set '" + str(day) +"' = '" + str(val)+"' where stockID = '" + itemNO +"';")
                 con.commit()
 
+# function to set the stocks in table 1 initially
 def initialStocks():
     with sqlite3.connect("data.db") as con:
         cur = con.cursor()
@@ -568,6 +576,7 @@ def initialStocks():
 
 #initialStocks()
 
+# function to update the stocks in table1 after a sale
 def updateCurrentStocks(item, quantity):
     with sqlite3.connect("data.db") as con:
         cur = con.cursor()
