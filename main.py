@@ -8,8 +8,10 @@ import _thread
 import orderManagement
 import json
 
+#initialise flask 
 app = Flask(__name__)
 
+# configuaration details to make connection with firebase database
 config = {
     "apiKey": "AIzaSyCrigjfRyiP75zMOko_WV2ZaPWfREaDtCw",
     "authDomain": "automatic-ordering-system.firebaseapp.com",
@@ -21,12 +23,13 @@ config = {
     "measurementId": "G-QSVE0X5VC2"
 }
 
+#initialising and authenticating firebase 
 firebase = pyrebase.initialize_app(config)
 auth = firebase.auth()
 
 isLoggedIn = False
 
-
+#endpoint for user login page where validation takes place 
 @app.route('/')
 @app.route('/index', methods=['GET', 'POST'])
 def index():
@@ -44,7 +47,7 @@ def index():
 
     return render_template('index.html')
 
-
+#endpoint for creating user new account 
 @app.route('/create_account', methods=['GET', 'POST'])
 def create_account():
     if request.method == 'POST':
@@ -58,7 +61,7 @@ def create_account():
             return render_template('create_account.html', umessage=unsuccessful)
     return render_template('create_account.html')
 
-
+#endpoint for creating user new password 
 @app.route('/forgot_password', methods=['GET', 'POST'])
 def forgot_password():
     if (request.method == 'POST'):
@@ -71,7 +74,7 @@ def forgot_password():
             return render_template('forgot_password.html', umessage=unsuccessful)
     return render_template('forgot_password.html')
 
-
+#endpoint for logout which redirects to login page
 @app.route('/logout')
 def logout():
     global isLoggedIn
@@ -83,7 +86,7 @@ headings = ["Item Name", "Quantity"]
 headings2 = ["Item ID", "Total"]
 autoheadings = ["Item Id", "Item Name", "Item Quantity", "Status"]
 
-
+#endpoint for home where all the necessary details to be displayed
 @app.route('/home', methods=['GET', 'POST'])
 def home():
     if (not isLoggedIn):
@@ -103,7 +106,7 @@ def home():
             redirectLink = "/item/" + response
             return redirect(redirectLink)
 
-
+#endpoint for searching an item
 @app.route('/search/<string:item>', methods=['GET', 'POST'])
 def searched_item(item):
     if (not isLoggedIn):
@@ -112,7 +115,7 @@ def searched_item(item):
     similar = Payloads.searchResultPayload(item)
     return render_template("searchResult.html", data=similar)
 
-
+#endpoint to display item details
 @app.route('/item/<string:id>', methods=['POST', 'GET'])
 def item(id):
     if (not isLoggedIn):
@@ -123,7 +126,7 @@ def item(id):
         # print(payload)
         return render_template("popup_alert.html", data=payload)
 
-
+#endpoint to display sales details
 @app.route('/sales', methods=['POST', 'GET'])
 def sales():
     if (request.method == "POST"):
@@ -134,7 +137,7 @@ def sales():
     else:
         return render_template("salesOrdering.html")
 
-
+#endpoint which updates sold quantity of items in table1
 @app.route('/delivered/<string:itemID>')
 def delivered(itemID):
     quantity = orderManagement.removeFromPlacedOrders(itemID)
@@ -147,17 +150,17 @@ def delivered(itemID):
         conn.commit()
     return redirect('/home')
 
-
+#endpoint to display ordered items
 @app.route('/orderConfirm')
 def liveSale():
     return render_template('orderConfirm.html', data=Payloads.queuePayload())
 
-
+#endpoint to display live orderedof items
 @app.route('/liveOrders')
 def liveOrders():
     return render_template('liveOrders.html', data=Payloads.logPayload())
 
-
+#endpoint to update order queue
 @app.route('/queue', methods=['POST', 'GET'])
 def orderQueue():
     if (request.method == "POST"):
@@ -169,14 +172,14 @@ def orderQueue():
     else:
         return render_template('orderConfirm.html', data=Payloads.queuePayload())
 
-
+#endpoint to cancel the order
 @app.route('/cancel/<string:ID>')
 def cancel(ID):
     orderManagement.addToLogs("Order for item {0} canceled.".format(ID))
     orderManagement.removeFromOrderQueue(ID)
     return redirect('/queue')
 
-
+#main function
 if __name__ == '__main__':
     app.secret_key = "secretKey"
     app.run(debug=True)

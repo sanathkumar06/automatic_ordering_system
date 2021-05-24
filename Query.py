@@ -24,7 +24,7 @@ with open(nameIDMapJsonPath) as f:
     nameIDMapJson = json.load(f)
 
 
-
+#function to get last 30 dates
 def getLast30Days():
     with sqlite3.connect("data.db") as conn:
         cur = conn.cursor()
@@ -35,6 +35,7 @@ def getLast30Days():
 
 # print(getLast30Days())
 
+#fuction to make query line which has aggregate function sum(each individual item) 
 def getQueryLine():
     i = 1
     query_line = ""
@@ -52,7 +53,7 @@ def getQueryLine():
         i += 1
     return query_line
 
-
+#funtion to calculate the total quantity sold from the daily_sales table
 def getItemSoldAllTime():
     query_line = getQueryLine()
     # print(query_line)
@@ -62,6 +63,7 @@ def getItemSoldAllTime():
         total = cur.execute(q).fetchone()
         return total[0]
 
+# funtion to calculate the total quantity sold in last 30 days from the daily_sales table
 def getItemSoldPerMonth():
     query_line = getQueryLine()
     dates = getLast30Days()
@@ -77,6 +79,7 @@ def getItemSoldPerMonth():
         final_total += j[0]
     return final_total
 
+# function to return recent 7 dates from the daily_sales table
 def getLast7dates():
     with sqlite3.connect("data.db") as con:
         cur = con.cursor()
@@ -87,7 +90,7 @@ def getLast7dates():
             dates_list_desc.append(i[0])
     return dates_list_desc
 
-
+# function to calculate the total quantity sold in last 7 days from the daily_sales table
 def getItemSoldPerWeek():
     query_line = getQueryLine()
     dates = getLast7dates()
@@ -103,6 +106,7 @@ def getItemSoldPerWeek():
         final_total += j[0]
     return final_total
 
+# function to return all the dates available from the daily_sales table
 def getAllTheDates():
     overall_dates = []
     with sqlite3.connect("data.db") as conn:
@@ -115,9 +119,9 @@ def getAllTheDates():
 
 dates = getLast7dates()
 
-def formated_date(d):
-    return d.replace("-", "_")
-
+# 
+# def formated_date(d):
+#     return d.replace("-", "_")
 
 # function to get the live sales
 def live_sales():
@@ -166,11 +170,11 @@ def highOnDemand(flag, limit):
                 quantity.append(dic[w])
     return {"items": items, "quantity": quantity, "limit": limit}
 
-
+# function to get the item information
 def getItemInfo(itemId):
     return productDataJson[itemId]
 
-
+# function to search an item
 def lookForItem(item):
     try:
         productDataJson[item]
@@ -186,6 +190,8 @@ def lookForItem(item):
 # Return format example:
 # getSimilar("biscuit"):
 # {'ID': ['D', '21218', '22357'], 'names': ['Discount', 'Red spotty biscuit tin', 'Kings choice biscuit tin']}
+
+# function to return the similar names for the item searched for
 def getSimilar(item):
     items = get_close_matches(item, nameIDMapJson.keys(), n=10, cutoff=0.4)
     IDs = []
@@ -218,7 +224,7 @@ def getCurrentStocksCount(itemID):
         cnt = cur.execute("select quantity from table1 where stockID = '"+ itemID +"';").fetchone()
         return cnt[0]
     
-
+#function to calculate total amount gained from that stock in which total amount gained is highest
 def highestEarning(flag, limit):
     highDemands = {}
     with sqlite3.connect("data.db") as con:
@@ -300,7 +306,7 @@ def get_all_dates():
             dates_list.append(i[0])
     return dates_list
 
-
+#function return items sold for limited dates
 def eachItemSoldCount(limit, id):
     # sold_count = []
     with sqlite3.connect("data.db") as con:
@@ -311,6 +317,7 @@ def eachItemSoldCount(limit, id):
 
 # print(eachItemSoldCount(90, "ITEM_01"))
 
+# function to update the sold table 
 def updateSalesDb(item, quantity):
     with sqlite3.connect("data.db") as con:
         cur = con.cursor()
@@ -410,6 +417,7 @@ def getItemPrediction(itemID):
         return(int(var[0][0]))
 #getItemPrediction("ITEM_02")
 
+#function returns items placed for an orders 
 def getPlacedOrder():
     with open(pathToPlacedOrder) as f:
         data = json.load(f)
