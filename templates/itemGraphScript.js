@@ -2,11 +2,6 @@
  var salesArray = {{data["prediction"]["yaxis"] | safe}};
  var arraySize = dates.length;
 
-function invalidDate() {
-    //TODO: Vamshi
-    // function to make a error message visible
-}
-
 var ctx = document.getElementById('salesChart').getContext('2d');
 var myChart = new Chart(ctx, {
     type: 'line',

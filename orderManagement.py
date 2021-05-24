@@ -22,8 +22,8 @@ def sendMail(itemID, quantity):
     msg['To'] = info['distributorMail']
     msg['Subject'] = "Order Deliviery Required"
 
-    message = "Hello Distritutor," + "\n" + "The Order of Item " + info[
-        'name'] + "Has been placed by the customer for" + " " + quantity + " " + "Quantities" + "\n" + "Request you to Dispach the Order As Soon As Possible" + "\n" + "\n" + "- Auto Ordering Company"
+    message = "Hello Distributor," + "\n" + "We want to place Order of Item " + info[
+        'name'] + ". We want " + quantity + " units of the item." + "\n" + "We request you to Dispach the Order As Soon As Possible." + "- Thanks and Regards,\nAuto Ordering Company"
     msg.attach(MIMEText(message, 'plain'))
 
     # s = smtplib.SMTP("imap.gmail.com", 993)
