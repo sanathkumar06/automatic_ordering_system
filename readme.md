@@ -24,6 +24,6 @@ ___
 pip3 install flask pyrebase sqlite3 keras pandas
 ```
 ## Contributors
-<a href = "https://github.com/sanathkumar06/automatic_ordering_system/contributors">
-  <img src = "https://contrib.rocks/image?repo = sanathkumar06/automatic_ordering_system"/>
+<a href="https://github.com/sanathkumar06/automatic_ordering_system/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=sanathkumar06/automatic_ordering_system" />
 </a>
